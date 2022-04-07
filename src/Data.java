@@ -8,11 +8,11 @@ import java.util.Scanner;
 
 class Data {
 	
-	Example[] data;
-	Double[] target;
-	int numberOfExamples;
-	Attribute[] explanatorySet;
-	ContinuousAttribute classAttribute;
+	private Example[] data;
+	private Double[] target;
+	private int numberOfExamples;
+	private Attribute[] explanatorySet;
+	private ContinuousAttribute classAttribute;
 	
 	Data(String fileName)throws FileNotFoundException{
 		
@@ -33,7 +33,7 @@ class Data {
 	    	s = line.split(" ");
 	    	if(s[0].equals("@desc")) { // aggiungo l'attributo allo spazio descrittivo
 		   		//@desc motor discrete
-		   		explanatorySet[iAttribute] = new DiscreteAttribute(s[1],iAttribute);
+		   		explanatorySet[iAttribute] = new DiscreteAttribute(s[1], iAttribute);
 		   	}
 	      	else if(s[0].equals("@target"))
 	    		classAttribute = new ContinuousAttribute(s[1], iAttribute);
@@ -154,7 +154,14 @@ class Data {
 	}
 
 	double avgClosest(Example e, int k){
+		double[] key = new double[numberOfExamples];
+		
+		for(int i = 0; i < numberOfExamples; i++){
+			key[i] = data[i].distance(e);
+		}
+
 		// TODO
+
 		return 0;
 	}
 
