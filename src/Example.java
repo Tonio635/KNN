@@ -24,9 +24,19 @@ public class Example {
         }
     }
 
+    //Da testare
     public double distance(Example e){      //Calcola e restituisce la distanza di Hamming calcolata tra l’istanza di Example passata come parametro e quella corrente
-        // TODO
-        return 0;
+        double distanza = 0;
+
+        for(int i = 0; i < example.length; i++){
+            if(example[i] instanceof String){
+                if (example[i] != e.example[i]) {
+                    distanza++;
+                }
+            }
+        }
+
+        return distanza;
     }
 
 }

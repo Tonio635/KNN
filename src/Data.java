@@ -66,8 +66,6 @@ class Data {
 
 	}
 	
-	
-	
 	/*
 	 * Partiziona data rispetto all'elemento x di key e restituisce il punto di separazione
 	 */
