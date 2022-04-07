@@ -65,6 +65,10 @@ class Data {
 	  	sc.close();
 
 	}
+
+	int getNumberOfExplanatoryAttributes(){
+		return explanatorySet.length;
+	}
 	
 	/*
 	 * Partiziona data rispetto all'elemento x di key e restituisce il punto di separazione
