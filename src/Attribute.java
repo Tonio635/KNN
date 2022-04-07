@@ -7,11 +7,11 @@ public abstract class Attribute {
         this.index = index;
     }
 
-    String getName(){       //Restituisce il valore nel membro name;
+    public String getName(){       //Restituisce il valore nel membro name;
         return name;
     }
 
-    int getIndex(){         //Restituisce il valore nel membro index;
+    public int getIndex(){         //Restituisce il valore nel membro index;
         return index;
     }
 }
