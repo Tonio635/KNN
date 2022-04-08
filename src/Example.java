@@ -1,20 +1,47 @@
+/**
+ * Modella i valori degli attributi indipendenti di un esempio
+ */
 public class Example {
-    private Object[] example;       //Array di Object che continue un valore per ciascun attributo indipendente
+    // Array di Object che continue un valore per ciascun attributo indipendente
+    private Object[] example;       
 
-    public Example(int size){       //Costruisce l’array example come array di dimensione size
+    /**
+     * Costruttore della classe
+     * Costruisce l’array example come array di dimensione size
+     * 
+     * @param size indica la dimensione dell'array
+     */
+    public Example(int size){       
         example = new Object[size];
     }
 
-    public void set(Object o, int index){       //Memorizza o nella posizione index di example
+    /**
+     * Memorizza un nuovo valore nella posizione index di example
+     * 
+     * @param o oggetto da inserire all'interno dell'array
+     * @param index indice in cui inserire l'oggetto
+     */
+    public void set(Object o, int index){
         example[index] = o;
     }
 
-    public Object get(int index){       //Restituisce in valore memorizzato nella posizione index di example
+    /**
+     * Restituisce il valore memorizzato nella posizione index di example
+     * 
+     * @param index indice su cui prelevare il valore
+     * @return valore in indice index
+     */
+    public Object get(int index){
         return example[index];
     }
 
-    //Da testare
-    public void swap(Example e){        //Scambia i valori contenuti nel campo example dell’oggetto corrente con i valori contenuti nel campo example del parametro e
+    /**
+     * Scambia i valori contenuti nel campo example dell’oggetto corrente con i valori contenuti 
+     * nel campo example del parametro e
+     * 
+     * @param e esempio su cui scambiare i valori
+     */
+    public void swap(Example e){
         Example scambia = new Example(example.length);
 
         for(int i = 0; i < example.length; i++){
@@ -24,8 +51,14 @@ public class Example {
         }
     }
 
-    //Da testare
-    public double distance(Example e){      //Calcola e restituisce la distanza di Hamming calcolata tra l’istanza di Example passata come parametro e quella corrente
+    /**
+     * Calcola e restituisce la distanza di Hamming calcolata tra l’istanza di Example 
+     * passata come parametro e quella corrente
+     * 
+     * @param e esempio su cui calcolare la distanza di Hamming
+     * @return distanza di hamming
+     */
+    public double distance(Example e){
         double distanza = 0;
 
         for(int i = 0; i < example.length; i++){
