@@ -42,12 +42,11 @@ public class Example {
      * @param e esempio su cui scambiare i valori
      */
     public void swap(Example e){
-        Example scambia = new Example(example.length);
-
+        Object temp;
         for(int i = 0; i < example.length; i++){
-            scambia.example[i] = example[i];
+            temp = example[i];
             example[i] = e.example[i];
-            e.example[i] = scambia.example[i];
+            e.example[i] = temp;
         }
     }
 
