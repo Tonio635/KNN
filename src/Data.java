@@ -172,11 +172,11 @@ class Data {
 		while(i < numberOfExamples && !stop){
 			if(key[i] != key[i - 1])
 				j++;
-			if(j < k)
+			if(j < k){
 				somma += target[i];
-			else
+				i++;
+			} else
 				stop = true;
-			i++;
 		}
 
 		return somma / i;
