@@ -132,7 +132,7 @@ class Data {
 	/*
 	 * Algoritmo quicksort per l'ordinamento di data 
 	 * usando come relazione d'ordine totale "<=" definita su key
-	 * @param A
+	 * @param key[], inf, sup
 	 */
 	private void quicksort(double key[], int inf, int sup){
 		
@@ -155,21 +155,38 @@ class Data {
 
 	double avgClosest(Example e, int k){
 		double[] key = new double[numberOfExamples];
-		
-		for(int i = 0; i < numberOfExamples; i++){
+		double somma;
+		int i, j;
+		boolean stop = false;
+
+		for(i = 0; i < numberOfExamples; i++){
 			key[i] = data[i].distance(e);
 		}
 
-		// TODO
+		quicksort(key, 0, numberOfExamples);
 
-		return 0;
+		i = 1;
+		j = 0;
+		somma = target[0];
+
+		while(i < numberOfExamples && !stop){
+			if(key[i] != key[i - 1])
+				j++;
+			if(j < k)
+				somma += target[i];
+			else
+				stop = true;
+			i++;
+		}
+
+		return somma / i;
 	}
 
 	public static void main(String args[])throws FileNotFoundException{
-		Data trainingSet = new Data("servo.dat");
+		Data trainingSet = new Data("src\\servo.dat");
 		System.out.println(trainingSet);
 
-	
+		double[] key = new double[5]; 
 	}
 
 }

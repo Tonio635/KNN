@@ -61,7 +61,7 @@ public class Example {
         double distanza = 0;
 
         for(int i = 0; i < example.length; i++){
-            if(example[i] instanceof String && e.example[i] instanceof String){
+            if(example[i] instanceof String){
                 if (example[i] != e.example[i]) {
                     distanza++;
                 }
