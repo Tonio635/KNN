@@ -62,7 +62,7 @@ public class Example {
 
         for(int i = 0; i < example.length; i++){
             if(example[i] instanceof String){
-                if (example[i] != e.example[i]) {
+                if (!example[i].equals(e.example[i])) {
                     distanza++;
                 }
             }

@@ -157,27 +157,24 @@ class Data {
 		double[] key = new double[numberOfExamples];
 		double somma;
 		int i, j;
-		boolean stop = false;
 
 		for(i = 0; i < numberOfExamples; i++){
 			key[i] = data[i].distance(e);
 		}
 
-		quicksort(key, 0, numberOfExamples);
+		quicksort(key, 0, numberOfExamples - 1);
 
-		i = 1;
+		i = 0;
 		j = 0;
-		somma = target[0];
+		somma = 0;
 
-		while(i < numberOfExamples && !stop){
-			if(key[i] != key[i - 1])
+    while (i < (numberOfExamples - 1) && j < k) {
+			somma += target[i];
+
+			if (key[i] != key[i + 1])
 				j++;
-			if(j < k){
-				somma += target[i];
-				i++;
-			} else
-				stop = true;
-		}
+			i++;
+    }
 
 		return somma / i;
 	}
