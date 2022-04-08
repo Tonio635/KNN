@@ -7,6 +7,8 @@ public class KNN {
 
     public double predict(Example e, int k){
         // TODO
-        return 0;
+        double predict;
+        predict=data.avgClosest(e,k);
+        return predict;
     }
 }
