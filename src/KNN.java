@@ -10,4 +10,8 @@ public class KNN {
         predict = data.avgClosest(e, k);
         return predict;
     }
+
+    public String toString(){
+        return data.toString();
+    }
 }

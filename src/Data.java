@@ -179,6 +179,34 @@ class Data {
 		return somma / i;
 	}
 
+	public String toString(){
+		String risultato = "";
+
+		risultato += "Numero di esempi: " + numberOfExamples + "\n";
+
+		risultato += "Esempi:\n";
+		for (int i = 0; i < numberOfExamples; i++){
+			risultato += data[i].toString();
+		}
+		risultato += "\n";
+
+		risultato += "Variabili dipendenti:\n";
+		for (int i = 0; i < numberOfExamples; i++){
+			risultato += target[i] + "\n";
+		}
+		risultato += "\n";
+
+		risultato += "Variabili indipendenti:\n";
+		for (int i = 0; i < explanatorySet.length; i++){
+			risultato += explanatorySet[i].toString();
+		}
+		risultato += "\n";
+
+		risultato += "Attributo target:\n" + classAttribute.toString();
+
+		return risultato;
+	}
+
 	public static void main(String args[])throws FileNotFoundException{
 		Data trainingSet = new Data("src\\servo.dat");
 		System.out.println(trainingSet);

@@ -14,4 +14,8 @@ public abstract class Attribute {
     public int getIndex(){         //Restituisce il valore nel membro index;
         return index;
     }
+
+    public String toString(){
+        return "Nome: " + name + " - N° attributo: " + index + "\n";
+    }
 }

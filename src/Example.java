@@ -71,4 +71,20 @@ public class Example {
         return distanza;
     }
 
+    /**
+     * Restituisce i valori in example 
+     * 
+     * @return risultato
+     */
+    public String toString(){
+        String risultato = "";
+
+        for (int i = 0; i < example.length; i++){
+            risultato += example[i] + " ";  
+        }
+
+        risultato += "\n";
+
+        return risultato;
+    }
 }
