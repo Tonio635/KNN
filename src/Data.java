@@ -168,13 +168,13 @@ class Data {
 		j = 0;
 		somma = 0;
 
-    while (i < (numberOfExamples - 1) && j < k) {
+    	while (i < (numberOfExamples - 1) && j < k) {
 			somma += target[i];
 
 			if (key[i] != key[i + 1])
 				j++;
 			i++;
-    }
+    	}
 
 		return somma / i;
 	}
