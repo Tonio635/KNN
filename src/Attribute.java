@@ -29,9 +29,10 @@ public abstract class Attribute {
 
     /**
      * Restituisce l'identificativo numerico dell'attributo
-     * @return identificativo numerico dell'attributo'
+     * 
+     * @return identificativo numerico dell'attributo
      */
-    public int getIndex(){         //Restituisce il valore nel membro index;
+    public int getIndex(){
         return index;
     }
 
