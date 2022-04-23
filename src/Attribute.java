@@ -1,20 +1,46 @@
+/**
+ * Classe astratta che rappresenta un attributo generico
+ */
 public abstract class Attribute {
-    private String name;    //Nome simbolico dell'attributo
-    private int index;      //Identificativo numerico dell'attributo
+    // Nome simbolico dell'attributo
+    private String name;
+    // Identificativo numerico dell'attributo
+    private int index;
 
-    public Attribute(String name, int index){       //È il costruttore di classe. Inizializza i valori dei membri name, index
+    /**
+     * Costruttore della classe
+     * 
+     * @param name nome simbolico dell'attributo
+     * @param index identificativo numerico dell'attributo'
+     */
+    public Attribute(String name, int index){
         this.name = name;
         this.index = index;
     }
 
-    public String getName(){       //Restituisce il valore nel membro name;
+    /**
+     * Restituisce il nome dell'attributo
+     * 
+     * @return nome dell'attributo
+     */
+    public String getName(){
         return name;
     }
 
+    /**
+     * Restituisce l'identificativo numerico dell'attributo
+     * @return identificativo numerico dell'attributo'
+     */
     public int getIndex(){         //Restituisce il valore nel membro index;
         return index;
     }
 
+    
+    /**
+     * Restituisce i valori dell'attributo
+     * 
+     * @return stringa contentente i valori dell'attributo
+     */
     public String toString(){
         return "Nome: " + name + " - N° attributo: " + index + "\n";
     }
