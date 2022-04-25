@@ -5,15 +5,30 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
-
+/**
+ * Classe che rappresenta l'intero TrainingSet modellando le variabili dipendenti 
+ * affichè si possa fare la predizione.
+ */
 class Data {
-	
+	// array di example che indicano le variabili dipedenti del TrainingSet
 	private Example[] data;
+	// array di double che indica le variabili dipendenti
 	private Double[] target;
+	// intero che indica il numero di righe del TrainingSet
 	private int numberOfExamples;
+	// array di attribute che indica le variabili indipendenti del TrainingSet
 	private Attribute[] explanatorySet;
+	// attributo di tipo ContinuousAttribute che estende la classe Attribute
 	private ContinuousAttribute classAttribute;
 	
+	/**
+	 * Costruttore della classe Data
+	 * Legge il file di testo e popola l'intero TrainingSet avvalorando
+	 * sia le variabili dipendenti che le variabili indipendenti
+	 * 
+	 * @param fileName indica il nome del file di testo da cui prendere tutti i dati
+	 * @throws FileNotFoundException lancia un eccezione se il file non dovesse essere presente
+	 */
 	Data(String fileName)throws FileNotFoundException{
 		
 		File inFile = new File (fileName);
@@ -65,7 +80,11 @@ class Data {
 	  	sc.close();
 
 	}
-
+	/**
+	 * Restituisce la lunghezza dell explanatorySet cioè le variabili indipendenti
+	 * 
+	 * @return lunghezza dell'explanatorySet
+	 */
 	int getNumberOfExplanatoryAttributes(){
 		return explanatorySet.length;
 	}
@@ -152,7 +171,19 @@ class Data {
 		}
 		
 	}
-
+	/**
+	 * Metodo che:
+	 * 1) Avvalora key con le distanze calcolate tra ciascuna istanza di Example memorizzata in data
+	 *	ed e usando il metodo distance di Example
+	 * 2) ordina data, target e key in accordo ai valori contenuti in key usando il metodo quicksort
+	 * 3) identifica gli esempi di data che sono associati alle k distanze più piccole in key
+	 * 4) calcola la media dei valori memorizzati in target in corrispondenza degli esempi associati
+	 * 	 alle k distanze più piccole in key
+	 * 
+	 * @param e indica l'array di example che vogliamo passare in input
+	 * @param k intero che indica la lunghezza della distanza da tenere in considerazione per la predizione
+	 * @return la media calcolata in base alla somma dei valori che siano più piccoli della distanza su k
+	 */
 	double avgClosest(Example e, int k){
 		double[] key = new double[numberOfExamples];
 		double somma;
@@ -179,6 +210,11 @@ class Data {
 		return somma / i;
 	}
 
+	/**
+	 * Restituisce i valori di data
+	 * 
+	 * @return stringa contentente i valori di data
+	 */
 	public String toString(){
 		String risultato = "";
 
