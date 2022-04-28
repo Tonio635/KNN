@@ -1,7 +1,7 @@
 package mining;
 import data.Data;
 import data.Example;
-
+import utility.Keyboard;
 /**
  * Modella il miner
  */
@@ -30,6 +30,26 @@ public class KNN {
         double predict;
         predict = data.avgClosest(e, k);
         return predict;
+    }
+
+    /**
+     * Predice il valore target tramite la distanza minima di Hamming e l'esempio inseriti da tastiera
+     * 
+     * @return predizione del valore target dell'esempio passato come parametro
+     */
+    public double predict(){
+        int k;
+        Example e = new Example(data.getNumberOfExplanatoryAttributes());
+
+        for (int i=0; i < data.getNumberOfExplanatoryAttributes(); i++){
+            System.out.println("Inserisci il parametro n°" + (i+1) + " dell'esempio: ");
+		    e.set(Keyboard.readString(), i);
+        }
+        
+        System.out.println("Inserisci la distanza minima di Hamming: ");
+        k = Keyboard.readInt();
+
+        return predict(e, k);
     }
 
     /**

@@ -1,4 +1,6 @@
 package data;
+
+import utility.Keyboard;
 /**
  * Modella i valori degli attributi indipendenti di un esempio
  */
@@ -43,6 +45,8 @@ public class Example {
      * @param e esempio su cui scambiare i valori
      */
     void swap(Example e){
+        /*if (example.length != e.example.length) 
+            throw new ExampleSizeException("Errore lunghezza");*/
         Object temp;
         for(int i = 0; i < example.length; i++){
             temp = example[i];

@@ -86,7 +86,7 @@ public class Data {
 	 * 
 	 * @return lunghezza dell'explanatorySet
 	 */
-	int getNumberOfExplanatoryAttributes(){
+	public int getNumberOfExplanatoryAttributes(){
 		return explanatorySet.length;
 	}
 	
