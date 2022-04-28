@@ -10,7 +10,7 @@ class MainTest {
 	 */
 	public static void main(String[] args) throws FileNotFoundException{
 		//Data trainingSet = new Data("servo.dat");
-		Data trainingSet = new Data("src/simple.dat");
+		Data trainingSet = new Data("simple.dat");
 		System.out.println(trainingSet);
 		
 		KNN knn = new KNN(trainingSet);
