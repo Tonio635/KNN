@@ -2,7 +2,7 @@ package data;
 /**
  * Classe astratta che rappresenta un attributo generico
  */
-public abstract class Attribute {
+abstract class Attribute {
     // Nome simbolico dell'attributo
     private String name;
     // Identificativo numerico dell'attributo
@@ -14,7 +14,7 @@ public abstract class Attribute {
      * @param name nome simbolico dell'attributo
      * @param index identificativo numerico dell'attributo'
      */
-    public Attribute(String name, int index){
+    Attribute(String name, int index){
         this.name = name;
         this.index = index;
     }
@@ -24,7 +24,7 @@ public abstract class Attribute {
      * 
      * @return nome dell'attributo
      */
-    public String getName(){
+    String getName(){
         return name;
     }
 
@@ -33,7 +33,7 @@ public abstract class Attribute {
      * 
      * @return identificativo numerico dell'attributo
      */
-    public int getIndex(){
+    int getIndex(){
         return index;
     }
 
