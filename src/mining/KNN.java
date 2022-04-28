@@ -1,3 +1,7 @@
+package mining;
+import data.Data;
+import data.Example;
+
 /**
  * Modella il miner
  */

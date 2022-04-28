@@ -1,5 +1,8 @@
 import java.io.FileNotFoundException;
 
+import data.*;
+import mining.*;
+
 class MainTest {
 
 	/**

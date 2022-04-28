@@ -1,3 +1,4 @@
+package data;
 /**
  * Classe astratta che rappresenta un attributo generico
  */

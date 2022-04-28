@@ -1,3 +1,4 @@
+package data;
 /**
  * Modella i valori degli attributi indipendenti di un esempio
  */
@@ -41,7 +42,7 @@ public class Example {
      * 
      * @param e esempio su cui scambiare i valori
      */
-    public void swap(Example e){
+    void swap(Example e){
         Object temp;
         for(int i = 0; i < example.length; i++){
             temp = example[i];
@@ -57,7 +58,7 @@ public class Example {
      * @param e esempio su cui calcolare la distanza di Hamming
      * @return distanza di hamming
      */
-    public double distance(Example e){
+    double distance(Example e){
         double distanza = 0;
 
         for(int i = 0; i < example.length; i++){

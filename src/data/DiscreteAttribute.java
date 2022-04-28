@@ -1,3 +1,4 @@
+package data;
 /**
  * Estende la classe Attribute e rappresenta un attributo discreto
  */

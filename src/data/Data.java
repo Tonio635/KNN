@@ -1,3 +1,4 @@
+package data;
 import org.w3c.dom.Attr;
 
 import java.io.File;
@@ -9,7 +10,7 @@ import java.util.Scanner;
  * Classe che rappresenta l'intero TrainingSet modellando le variabili dipendenti 
  * affichè si possa fare la predizione.
  */
-class Data {
+public class Data {
 	// array di example che indicano le variabili dipedenti del TrainingSet
 	private Example[] data;
 	// array di double che indica le variabili dipendenti
@@ -29,7 +30,7 @@ class Data {
 	 * @param fileName indica il nome del file di testo da cui prendere tutti i dati
 	 * @throws FileNotFoundException lancia un eccezione se il file non dovesse essere presente
 	 */
-	Data(String fileName)throws FileNotFoundException{
+	public Data(String fileName)throws FileNotFoundException{
 		
 		File inFile = new File (fileName);
 
@@ -184,7 +185,7 @@ class Data {
 	 * @param k intero che indica la lunghezza della distanza da tenere in considerazione per la predizione
 	 * @return la media calcolata in base alla somma dei valori che siano più piccoli della distanza su k
 	 */
-	double avgClosest(Example e, int k){
+	public double avgClosest(Example e, int k){
 		double[] key = new double[numberOfExamples];
 		double somma;
 		int i, j;
