@@ -10,15 +10,15 @@ import java.util.*;
  * affichè si possa fare la predizione.
  */
 public class Data {
-	// array di example che indicano le variabili indipedenti del TrainingSet
+	// array di example che indicano le variabili indipedenti del TrainingSet quindi gli esempi
 	private Example[] data;
 	// array di double che indica le variabili dipendenti
 	private Double[] target;
-	// intero che indica il numero di righe del TrainingSet
+	// intero che indica il numero di example
 	private int numberOfExamples;
 	// array di attribute che indica le variabili indipendenti del TrainingSet
 	private Attribute[] explanatorySet;
-	// attributo di tipo ContinuousAttribute che estende la classe Attribute
+	// attributo target
 	private ContinuousAttribute classAttribute;
 	
 	/**
