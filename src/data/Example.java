@@ -5,7 +5,7 @@ import utility.Keyboard;
  * Modella i valori degli attributi indipendenti di un esempio
  */
 public class Example {
-    // Array di Object che continue un valore per ciascun attributo indipendente
+    // Array di Object che contiene un valore per ciascun attributo indipendente
     private Object[] example;       
 
     /**
@@ -45,8 +45,9 @@ public class Example {
      * @param e esempio su cui scambiare i valori
      */
     void swap(Example e){
-        /*if (example.length != e.example.length) 
-            throw new ExampleSizeException("Errore lunghezza");*/
+        if (example.length != e.example.length) 
+            throw new ExampleSizeException("I due esempi non hanno lo stesso numero di variabili dipendenti!");
+
         Object temp;
         for(int i = 0; i < example.length; i++){
             temp = example[i];
@@ -63,6 +64,9 @@ public class Example {
      * @return distanza di hamming
      */
     double distance(Example e){
+        if (example.length != e.example.length) 
+            throw new ExampleSizeException("I due esempi non hanno lo stesso numero di variabili dipendenti!");
+
         double distanza = 0;
 
         for(int i = 0; i < example.length; i++){

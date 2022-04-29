@@ -190,8 +190,13 @@ public class Data {
 		double somma;
 		int i, j;
 
-		for(i = 0; i < numberOfExamples; i++){
-			key[i] = data[i].distance(e);
+		try{
+			for(i = 0; i < numberOfExamples; i++){
+				key[i] = data[i].distance(e);
+			}
+		}catch(ExampleSizeException err){
+			System.out.print(err.getMessage());
+			return 0;
 		}
 
 		quicksort(key, 0, numberOfExamples - 1);
