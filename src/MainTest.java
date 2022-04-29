@@ -20,51 +20,51 @@ public class MainTest {
 			KNN knn = new KNN(trainingSet);
 			
 			Example e = new Example(2);
-			e.set("A",0);
-			e.set("B",1);
+			e.set("A", 0);
+			e.set("B", 1);
 			
 			try{
-				System.out.println("Prediction with K=1:" + knn.predict(e, 1));
+				System.out.println("Prediction with K=1: " + knn.predict(e, 1));
 			} 
 			catch (ExampleSizeException exc) {
 				System.out.println(exc.getMessage());
 			}
 	
 			try{
-				System.out.println("Prediction with K=2:"+knn.predict(e, 2));
+				System.out.println("Prediction with K=2: " + knn.predict(e, 2));
 			} 
 			catch (ExampleSizeException exc) {
 				System.out.println(exc.getMessage());
 			}
 			
 			try{
-				System.out.println("Prediction with K=3:"+knn.predict(e, 3));
+				System.out.println("Prediction with K=3: " + knn.predict(e, 3));
 			} 
 			catch (ExampleSizeException exc) {
 				System.out.println(exc.getMessage());
 			}
 			
 			try{
-				System.out.println("Prediction with K=4:"+knn.predict(e, 4));
+				System.out.println("Prediction with K=4: " + knn.predict(e, 4));
 			} 
 			catch (ExampleSizeException exc) {
 				System.out.println(exc.getMessage());
 			}
 			
 			e = new Example(3);
-			e.set("A",0);
-			e.set("B",1);
+			e.set("A", 0);
+			e.set("B", 1);
 			e.set("C", 2);
 			try{
-				System.out.println("Prediction with K=1:" + knn.predict(e, 2));
+				System.out.println("Prediction with K=1: " + knn.predict(e, 2));
 			} 
 			catch (ExampleSizeException exc) {
 				System.out.println(exc.getMessage());
 			}
 
 			
-			// read example withKeyboard
-			System.out.println("Prediction:" + knn.predict());
+			// read example with Keyboard
+			System.out.println("Prediction: " + knn.predict());
 			
 
 			

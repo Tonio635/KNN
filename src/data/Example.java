@@ -1,6 +1,5 @@
 package data;
 
-import utility.Keyboard;
 /**
  * Modella i valori degli attributi indipendenti di un esempio
  */
