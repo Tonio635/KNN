@@ -46,7 +46,7 @@ public class Example {
      */
     void swap(Example e){
         if (example.length != e.example.length) 
-            throw new ExampleSizeException("I due esempi non hanno lo stesso numero di variabili dipendenti!");
+            throw new ExampleSizeException("I due esempi non hanno lo stesso numero di variabili indipendenti!");
 
         Object temp;
         for(int i = 0; i < example.length; i++){
@@ -65,7 +65,7 @@ public class Example {
      */
     double distance(Example e){
         if (example.length != e.example.length) 
-            throw new ExampleSizeException("I due esempi non hanno lo stesso numero di variabili dipendenti!");
+            throw new ExampleSizeException("I due esempi non hanno lo stesso numero di variabili indipendenti!");
 
         double distanza = 0;
 

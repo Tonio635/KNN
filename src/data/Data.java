@@ -1,9 +1,8 @@
 package data;
-import org.w3c.dom.Attr;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.*;
 
 
 /**
@@ -11,7 +10,7 @@ import java.util.Scanner;
  * affichè si possa fare la predizione.
  */
 public class Data {
-	// array di example che indicano le variabili dipedenti del TrainingSet
+	// array di example che indicano le variabili indipedenti del TrainingSet
 	private Example[] data;
 	// array di double che indica le variabili dipendenti
 	private Double[] target;
@@ -30,21 +29,32 @@ public class Data {
 	 * @param fileName indica il nome del file di testo da cui prendere tutti i dati
 	 * @throws FileNotFoundException lancia un eccezione se il file non dovesse essere presente
 	 */
-	public Data(String fileName)throws FileNotFoundException{
+	public Data(String fileName)throws TrainingDataException{
 		
 		File inFile = new File (fileName);
+		Scanner sc = null;
 
-		Scanner sc = new Scanner (inFile);
-	    String line = sc.nextLine();
-	    if(!line.contains("@schema"))
-	    	throw new RuntimeException("Errore nello schema");
+		try{
+			sc = new Scanner (inFile);
+		}
+		catch(FileNotFoundException e) {
+			throw new TrainingDataException("File non trovato.");
+		}
+
+		String line = sc.nextLine();
+	    if(!line.contains("@schema")){
+			sc.close();
+			throw new TrainingDataException("Errore nello schema.");
+		}
+	    	
 	    String s[] = line.split(" ");
 
 		//popolare explanatory Set 
-	  		
+	  	
 		explanatorySet = new Attribute[new Integer(s[1])];
 		short iAttribute = 0;
 	    line = sc.nextLine();
+
 	    while(!line.contains("@data")){
 	    	s = line.split(" ");
 	    	if(s[0].equals("@desc")) { // aggiungo l'attributo allo spazio descrittivo
@@ -53,34 +63,67 @@ public class Data {
 		   	}
 	      	else if(s[0].equals("@target"))
 	    		classAttribute = new ContinuousAttribute(s[1], iAttribute);
-	    		  
+			else{
+				sc.close();
+				throw new TrainingDataException("Formattazione errata del file.");
+			}
+	    	
 	      	iAttribute++;
-	      	line = sc.nextLine();
+			try{
+				line = sc.nextLine();
+			}
+			catch(NoSuchElementException e){
+				sc.close();
+				throw new TrainingDataException("Formattazione errata del file.");
+			}	
 	    }
+
+		if(classAttribute == null){
+			sc.close();
+			throw new TrainingDataException("Target non presente nel Training Set.");
+		}
 		      
 		//avvalorare numero di esempi
-	    numberOfExamples = new Integer(line.split(" ")[1]);
-	      
+	    try{
+			numberOfExamples = new Integer(line.split(" ")[1]);
+		}
+		catch(NumberFormatException e){
+			sc.close();
+			throw new TrainingDataException("Numero di esempi non valido.");
+		}
+	    
 	    //popolare data e target
 	    data = new Example[numberOfExamples];
 	    target = new Double[numberOfExamples];
 
-	    short iRow = 0;
-	    while (sc.hasNextLine()){
-	    	Example e = new Example(explanatorySet.length);
-	    	line = sc.nextLine();
-	    	// assumo che attributi siano tutti discreti
-	    	s = line.split(","); //E,E,5,4, 0.28125095
-	    	for(short jColumn = 0; jColumn < s.length - 1; jColumn++)
-	    		e.set(s[jColumn], jColumn);
-			
-	    	data[iRow] = e;
-	    	target[iRow] = new Double(s[s.length-1]);
-	    	iRow++;
-	    }
+		for(short iRow = 0; iRow < numberOfExamples; iRow++){
+			Example e = new Example(explanatorySet.length);
+			try {
+				line = sc.nextLine();
+			} catch (NoSuchElementException err) {
+				sc.close();
+				throw new TrainingDataException("Numero di esempi minore di " + numberOfExamples + ".");
+			}
+
+			// assumo che attributi siano tutti discreti
+			// ! DA RIVEDERE
+			s = line.split(","); // E,E,5,4, 0.28125095
+			for (short jColumn = 0; jColumn < s.length - 1; jColumn++)
+				e.set(s[jColumn], jColumn);
+
+			data[iRow] = e;
+			target[iRow] = new Double(s[s.length - 1]);
+		}
+		
+		if(sc.hasNextLine()){
+			sc.close();
+			throw new TrainingDataException("Numero di esempi maggiore di " + numberOfExamples + ".");
+		}
+
 	  	sc.close();
 
 	}
+
 	/**
 	 * Restituisce la lunghezza dell explanatorySet cioè le variabili indipendenti
 	 * 
@@ -190,14 +233,14 @@ public class Data {
 		double somma;
 		int i, j;
 
-		try{
-			for(i = 0; i < numberOfExamples; i++){
-				key[i] = data[i].distance(e);
-			}
-		}catch(ExampleSizeException err){
-			System.out.print(err.getMessage());
-			return 0;
+		//try{
+		for(i = 0; i < numberOfExamples; i++){
+			key[i] = data[i].distance(e);
 		}
+		//}catch(ExampleSizeException err){
+			//System.out.print(err.getMessage());
+			//return 0;
+		//}
 
 		quicksort(key, 0, numberOfExamples - 1);
 
@@ -249,8 +292,8 @@ public class Data {
 		return risultato;
 	}
 
-	public static void main(String args[])throws FileNotFoundException{
-		Data trainingSet = new Data("src\\servo.dat");
+	public static void main(String args[])throws TrainingDataException{
+		Data trainingSet = new Data("src/servo.dat");
 		System.out.println(trainingSet);
 
 		double[] key = new double[5]; 
