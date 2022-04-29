@@ -256,6 +256,11 @@ public class Data {
 			i++;
     	}
 
+		if (i == numberOfExamples - 1){
+			somma += target[i];
+			i++;
+		}
+		
 		return somma / i;
 	}
 
