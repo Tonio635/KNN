@@ -27,7 +27,8 @@ public class Data {
 	 * sia le variabili dipendenti che le variabili indipendenti
 	 * 
 	 * @param fileName indica il nome del file di testo da cui prendere tutti i dati
-	 * @throws FileNotFoundException lancia un eccezione se il file non dovesse essere presente
+	 * @throws TrainingDataException lancia un'eccezione nel caso in cui il training set dovesse
+	 * essere acquisito in maniera errata
 	 */
 	public Data(String fileName)throws TrainingDataException{
 		
