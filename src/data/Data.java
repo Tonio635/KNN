@@ -14,7 +14,7 @@ public class Data {
 	private Example[] data;
 	// array di double che indica le variabili dipendenti
 	private Double[] target;
-	// intero che indica il numero di example
+	// intero che indica il numero delle variabili dipendenti
 	private int numberOfExamples;
 	// array di attribute che indica le variabili indipendenti del TrainingSet
 	private Attribute[] explanatorySet;
