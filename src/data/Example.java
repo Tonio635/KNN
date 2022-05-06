@@ -1,11 +1,14 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
+
 /**
  * Modella i valori degli attributi indipendenti di un esempio
  */
 public class Example {
     // Array di Object che contiene un valore per ciascun attributo indipendente
-    private Object[] example;       
+    private ArrayList<Object> example;       
 
     /**
      * Costruttore della classe
@@ -14,7 +17,7 @@ public class Example {
      * @param size indica la dimensione dell'array
      */
     public Example(int size){       
-        example = new Object[size];
+        example = new ArrayList<Object>(size);
     }
 
     /**
@@ -24,7 +27,10 @@ public class Example {
      * @param index indice in cui inserire l'oggetto
      */
     public void set(Object o, int index){
-        example[index] = o;
+        while(index >= example.size())
+            example.add(null);
+
+        example.set(index, o);
     }
 
     /**
@@ -34,7 +40,7 @@ public class Example {
      * @return valore in indice index
      */
     public Object get(int index){
-        return example[index];
+        return example.get(index);
     }
 
     /**
@@ -44,14 +50,20 @@ public class Example {
      * @param e esempio su cui scambiare i valori
      */
     void swap(Example e){
-        if (example.length != e.example.length) 
+        if (example.size() != e.example.size()) 
             throw new ExampleSizeException("I due esempi non hanno lo stesso numero di variabili indipendenti!");
 
-        Object temp;
-        for(int i = 0; i < example.length; i++){
-            temp = example[i];
-            example[i] = e.example[i];
-            e.example[i] = temp;
+
+        ListIterator<Object> it = example.listIterator();
+        ListIterator<Object> it2 = e.example.listIterator();
+ 
+        while (it.hasNext() && it2.hasNext())
+        {
+            Object el1 = it.next();
+            Object el2 = it2.next();
+
+            it.set(el2);
+            it2.set(el1);
         }
     }
 
@@ -63,16 +75,22 @@ public class Example {
      * @return distanza di hamming
      */
     double distance(Example e){
-        if (example.length != e.example.length) 
+        if (example.size() != e.example.size()) 
             throw new ExampleSizeException("I due esempi non hanno lo stesso numero di variabili indipendenti!");
 
         double distanza = 0;
 
-        for(int i = 0; i < example.length; i++){
-            if(example[i] instanceof String){
-                if (!example[i].equals(e.example[i])) {
-                    distanza++;
-                }
+        ListIterator<Object> it = example.listIterator();
+        ListIterator<Object> it2 = e.example.listIterator();
+ 
+        while (it.hasNext() && it2.hasNext())
+        {
+            Object el1 = it.next();
+            Object el2 = it2.next();
+
+            if((el1 instanceof String) && (el2 instanceof String)){
+                if (el1.equals(el2)) 
+                distanza++;
             }
         }
 
@@ -87,8 +105,8 @@ public class Example {
     public String toString(){
         String risultato = "";
 
-        for (int i = 0; i < example.length; i++){
-            risultato += example[i] + " ";  
+        for (Object o : example) {
+            risultato += (String)o + " ";  
         }
 
         risultato += "\n";
