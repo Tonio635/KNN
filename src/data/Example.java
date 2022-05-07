@@ -89,8 +89,8 @@ public class Example {
             Object el2 = it2.next();
 
             if((el1 instanceof String) && (el2 instanceof String)){
-                if (el1.equals(el2)) 
-                distanza++;
+                if (!el1.equals(el2)) 
+                    distanza++;
             }
         }
 

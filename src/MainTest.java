@@ -61,12 +61,9 @@ public class MainTest {
 			catch (ExampleSizeException exc) {
 				System.out.println(exc.getMessage());
 			}
-
 			
 			// read example with Keyboard
 			System.out.println("Prediction: " + knn.predict());
-			
-
 			
 		}
 		catch(TrainingDataException exc){

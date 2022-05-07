@@ -50,9 +50,8 @@ public class Data {
 	    
 	    String s[] = line.split(" ");
 
-		//popolare explanatory Set 
-	  	
-		explanatorySet = new ArrayList<Attribute>(new Integer(s[1]));
+		//popolare explanatory Set
+		explanatorySet = new ArrayList<Attribute>();
 		short iAttribute = 0;
 	    line = sc.nextLine();
 
@@ -60,7 +59,7 @@ public class Data {
 	    	s = line.split(" ");
 	    	if(s[0].equals("@desc")) { // aggiungo l'attributo allo spazio descrittivo
 		   		//@desc motor discrete
-		   		explanatorySet.set(iAttribute,new DiscreteAttribute(s[1], iAttribute));
+		   		explanatorySet.add(new DiscreteAttribute(s[1], iAttribute));
 		   	}
 	      	else if(s[0].equals("@target"))
 	    		classAttribute = new ContinuousAttribute(s[1], iAttribute);
@@ -94,32 +93,28 @@ public class Data {
 		}
 	    
 	    //popolare data e target
-	    data = new ArrayList<Example>(numberOfExamples);
-		target = new ArrayList<Double>(numberOfExamples);
+	    data = new ArrayList<Example>();
+		target = new ArrayList<Double>();
 
-		ListIterator<Example> it = data.listIterator();
-		ListIterator<Double> it2 = target.listIterator();
-		while(it.hasNext() && it2.hasNext()){
+		for(short iRow = 0; iRow < numberOfExamples; iRow++){
 			Example e = new Example(explanatorySet.size());
+
 			try {
 				line = sc.nextLine();
 			} catch (NoSuchElementException err) {
 				sc.close();
 				throw new TrainingDataException("Numero di esempi minore di " + numberOfExamples + ".");
 			}
+
 			// assumo che attributi siano tutti discreti
 			// ! DA RIVEDERE
 			s = line.split(","); // E,E,5,4, 0.28125095
 
 			for (short jColumn = 0; jColumn < s.length - 1; jColumn++)
 				e.set(s[jColumn], jColumn);
-			int iRow = it.nextIndex();
-		
-			data.set(iRow,e);
-			iRow = it2.nextIndex();
-			target.set(iRow,new Double(s[s.length - 1]));
-			it.next();
-			it2.next();
+			
+			data.add(e);
+			target.add(new Double(s[s.length - 1]));
 		}
 		
 		if(sc.hasNextLine()){
@@ -168,7 +163,7 @@ public class Data {
 				i++;
 			}
 
-			while(key.get(i) > x) {
+			while(key.get(j) > x) {
 				j--;
 			
 			}
@@ -243,14 +238,12 @@ public class Data {
 		LinkedList<Double> key = new LinkedList<Double>();
 		double somma;
 		int i, j;
-		Iterator<Double> iter = key.iterator();
-		ListIterator<Example> iter2 = data.listIterator();
-		
+		Iterator<Double> iterKey = key.iterator();
+		//ListIterator<Example> iterData = data.listIterator();
+
 		//try{
-		while(iter2.hasNext()){
-			Double elem1 = iter.next();
-			Example elem2 = iter2.next();
-			elem1 = elem2.distance(e);
+		for(Example example : data){
+			key.add(example.distance(e));
 		}
 		//}catch(ExampleSizeException err){
 			//System.out.print(err.getMessage());
@@ -263,15 +256,20 @@ public class Data {
 		j = 0;
 		somma = 0;
 		ListIterator<Double> iter3 = target.listIterator();
-		iter = key.iterator();
-		Double elemprec = iter3.next();	
-		
-		while(iter3.hasNext() && iter.hasNext() && j < k){
-			Double elemsucc = iter3.next();
-			somma += elemprec;
+		iterKey = key.iterator();
+		Double elemprec = iterKey.next();	
+		Double elemsucc = 0.0;
 
-			if (i != numberOfExamples - 1 && elemprec != elemsucc)
-				j++;
+		while(iter3.hasNext() && j < k){
+			
+			Double elem = iter3.next();
+			somma += elem;
+
+			if (i != numberOfExamples - 1){
+				elemsucc = iterKey.next();
+				if(!elemprec.equals(elemsucc))
+					j++;
+			}
 			i++;
 			elemprec = elemsucc;
     	}
