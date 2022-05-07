@@ -143,68 +143,70 @@ public class Data {
 	/*
 	 * Partiziona data rispetto all'elemento x di key e restituisce il punto di separazione
 	 */
-	private int partition(double key[], int inf, int sup){
+	private int partition(List<Double> key, int inf, int sup) throws ExampleSizeException{
 		int i, j;
 	
 		i = inf;
 		j = sup;
 		int	med = (inf + sup) / 2;
 		
-		Double x = key[med];
+		Double x = key.get(med);
 		
-		data[inf].swap(data[med]);
+		data.get(inf).swap(data.get(med));
+
+		double temp = target.get(inf);
+		target.set(inf, target.get(med));
+		target.set(med, temp);
 		
-		double temp = target[inf];
-		target[inf] = target[med];
-		target[med] = temp;
-		
-		temp = key[inf];
-		key[inf] = key[med];
-		key[med] = temp;
+		temp = key.get(inf);
+		key.set(inf, key.get(med));
+		key.set(med, temp);
 		
 		while(true){
 
-			while(i <= sup && key[i] <= x){
+			while(i <= sup && key.get(i) <= x){
 				i++;
 			}
 
-			while(key[j] > x) {
+			while(key.get(i) > x) {
 				j--;
 			
 			}
 			
 			if(i < j) {
-				data[i].swap(data[j]);
-				temp = target[i];
-				target[i] = target[j];
-				target[j] = temp;
+				data.get(i).swap(data.get(j));
 				
-				temp = key[i];
-				key[i] = key[j];
-				key[j] = temp;
+				temp = target.get(i);
+				target.set(i, target.get(j));
+				target.set(j, temp);
+				
+				temp = key.get(i);
+				key.set(i, key.get(j));
+				key.set(j, temp);
 				
 			}
 			else break;
 		}
-		data[inf].swap(data[j]);
+		data.get(inf).swap(data.get(j));
 		
-		temp = target[inf];
-		target[inf] = target[j];
-		target[j] = temp;
+		temp = target.get(inf);
+		target.set(inf, target.get(j));
+		target.set(j, temp);
 		
-		temp = key[inf];
-		key[inf] = key[j];
-		key[j] = temp;
+		temp = key.get(inf);
+		key.set(inf, key.get(j));
+		key.set(j, temp);
 		
 		return j;
 	}
 	
-	/*
+	/**
 	 * Algoritmo quicksort per l'ordinamento di data 
 	 * usando come relazione d'ordine totale "<=" definita su key
+	 * 
 	 * @param key[], inf, sup
 	 */
-	private void quicksort(double key[], int inf, int sup){
+	private void quicksort(List<Double> key, int inf, int sup) throws ExampleSizeException{
 		
 		if(sup >= inf){
 			
@@ -222,6 +224,7 @@ public class Data {
 		}
 		
 	}
+
 	/**
 	 * Metodo che:
 	 * 1) Avvalora key con le distanze calcolate tra ciascuna istanza di Example memorizzata in data
