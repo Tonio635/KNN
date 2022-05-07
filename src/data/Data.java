@@ -11,13 +11,13 @@ import java.util.*;
  */
 public class Data {
 	// array di example che indicano le variabili indipedenti del TrainingSet quindi gli esempi
-	private Example[] data;
+	private List<Example> data;
 	// array di double che indica le variabili dipendenti
-	private Double[] target;
+	private List<Double> target;
 	// intero che indica il numero delle variabili dipendenti
 	private int numberOfExamples;
 	// array di attribute che indica le variabili indipendenti del TrainingSet
-	private Attribute[] explanatorySet;
+	private List<Attribute> explanatorySet;
 	// attributo target
 	private ContinuousAttribute classAttribute;
 	
@@ -47,12 +47,12 @@ public class Data {
 			sc.close();
 			throw new TrainingDataException("Errore nello schema.");
 		}
-	    	
+	    
 	    String s[] = line.split(" ");
 
 		//popolare explanatory Set 
 	  	
-		explanatorySet = new Attribute[new Integer(s[1])];
+		explanatorySet = new ArrayList<Attribute>(new Integer(s[1]));
 		short iAttribute = 0;
 	    line = sc.nextLine();
 
@@ -60,7 +60,7 @@ public class Data {
 	    	s = line.split(" ");
 	    	if(s[0].equals("@desc")) { // aggiungo l'attributo allo spazio descrittivo
 		   		//@desc motor discrete
-		   		explanatorySet[iAttribute] = new DiscreteAttribute(s[1], iAttribute);
+		   		explanatorySet.set(iAttribute,new DiscreteAttribute(s[1], iAttribute));
 		   	}
 	      	else if(s[0].equals("@target"))
 	    		classAttribute = new ContinuousAttribute(s[1], iAttribute);
@@ -94,26 +94,32 @@ public class Data {
 		}
 	    
 	    //popolare data e target
-	    data = new Example[numberOfExamples];
-	    target = new Double[numberOfExamples];
+	    data = new ArrayList<Example>(numberOfExamples);
+		target = new ArrayList<Double>(numberOfExamples);
 
-		for(short iRow = 0; iRow < numberOfExamples; iRow++){
-			Example e = new Example(explanatorySet.length);
+		ListIterator<Example> it = data.listIterator();
+		ListIterator<Double> it2 = target.listIterator();
+		while(it.hasNext() && it2.hasNext()){
+			Example e = new Example(explanatorySet.size());
 			try {
 				line = sc.nextLine();
 			} catch (NoSuchElementException err) {
 				sc.close();
 				throw new TrainingDataException("Numero di esempi minore di " + numberOfExamples + ".");
 			}
-
 			// assumo che attributi siano tutti discreti
 			// ! DA RIVEDERE
 			s = line.split(","); // E,E,5,4, 0.28125095
+
 			for (short jColumn = 0; jColumn < s.length - 1; jColumn++)
 				e.set(s[jColumn], jColumn);
-
-			data[iRow] = e;
-			target[iRow] = new Double(s[s.length - 1]);
+			int iRow = it.nextIndex();
+		
+			data.set(iRow,e);
+			iRow = it2.nextIndex();
+			target.set(iRow,new Double(s[s.length - 1]));
+			it.next();
+			it2.next();
 		}
 		
 		if(sc.hasNextLine()){
@@ -131,7 +137,7 @@ public class Data {
 	 * @return lunghezza dell'explanatorySet
 	 */
 	public int getNumberOfExplanatoryAttributes(){
-		return explanatorySet.length;
+		return explanatorySet.size();
 	}
 	
 	/*
@@ -230,13 +236,18 @@ public class Data {
 	 * @return la media calcolata in base alla somma dei valori che siano più piccoli della distanza su k
 	 */
 	public double avgClosest(Example e, int k){
-		double[] key = new double[numberOfExamples];
+
+		LinkedList<Double> key = new LinkedList<Double>();
 		double somma;
 		int i, j;
-
+		Iterator<Double> iter = key.iterator();
+		ListIterator<Example> iter2 = data.listIterator();
+		
 		//try{
-		for(i = 0; i < numberOfExamples; i++){
-			key[i] = data[i].distance(e);
+		while(iter2.hasNext()){
+			Double elem1 = iter.next();
+			Example elem2 = iter2.next();
+			elem1 = elem2.distance(e);
 		}
 		//}catch(ExampleSizeException err){
 			//System.out.print(err.getMessage());
@@ -248,13 +259,18 @@ public class Data {
 		i = 0;
 		j = 0;
 		somma = 0;
+		ListIterator<Double> iter3 = target.listIterator();
+		iter = key.iterator();
+		Double elemprec = iter3.next();	
+		
+		while(iter3.hasNext() && iter.hasNext() && j < k){
+			Double elemsucc = iter3.next();
+			somma += elemprec;
 
-    	while (i < numberOfExamples && j < k) {
-			somma += target[i];
-
-			if (i != numberOfExamples - 1 && key[i] != key[i + 1])
+			if (i != numberOfExamples - 1 && elemprec != elemsucc)
 				j++;
 			i++;
+			elemprec = elemsucc;
     	}
 		
 		return somma / i;
@@ -266,25 +282,26 @@ public class Data {
 	 * @return stringa contentente i valori di data
 	 */
 	public String toString(){
+		
 		String risultato = "";
 
 		risultato += "Numero di esempi: " + numberOfExamples + "\n";
 
 		risultato += "Esempi:\n";
-		for (int i = 0; i < numberOfExamples; i++){
-			risultato += data[i].toString();
+		for (Example e : data){
+			risultato += e.toString();
 		}
 		risultato += "\n";
 
 		risultato += "Variabili dipendenti:\n";
-		for (int i = 0; i < numberOfExamples; i++){
-			risultato += target[i] + "\n";
+		for(Double d : target){
+			risultato += d + "\n";
 		}
 		risultato += "\n";
 
 		risultato += "Variabili indipendenti:\n";
-		for (int i = 0; i < explanatorySet.length; i++){
-			risultato += explanatorySet[i].toString();
+		for(Attribute a : explanatorySet){
+			risultato += a.toString() + "\n";;
 		}
 		risultato += "\n";
 
