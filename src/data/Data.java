@@ -51,7 +51,7 @@ public class Data {
 	    String s[] = line.split(" ");
 
 		//popolare explanatory Set
-		explanatorySet = new ArrayList<Attribute>();
+		explanatorySet = new LinkedList<Attribute>();
 		short iAttribute = 0;
 	    line = sc.nextLine();
 
@@ -93,7 +93,7 @@ public class Data {
 		}
 	    
 	    //popolare data e target
-	    data = new ArrayList<Example>();
+	    data = new LinkedList<Example>();
 		target = new ArrayList<Double>();
 
 		for(short iRow = 0; iRow < numberOfExamples; iRow++){
