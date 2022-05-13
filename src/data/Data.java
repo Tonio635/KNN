@@ -2,6 +2,7 @@ package data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.*;
 
 import utility.Keyboard;
@@ -11,7 +12,7 @@ import utility.Keyboard;
  * Classe che rappresenta l'intero TrainingSet modellando le variabili dipendenti 
  * affichè si possa fare la predizione.
  */
-public class Data {
+public class Data implements Serializable{
 	// array di example che indicano le variabili indipedenti del TrainingSet quindi gli esempi
 	private List<Example> data;
 	// array di double che indica le variabili dipendenti
