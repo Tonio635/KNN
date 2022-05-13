@@ -1,10 +1,12 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import data.Data;
 import data.Example;
 import data.ExampleSizeException;
 import data.TrainingDataException;
 import mining.KNN;
+import utility.Keyboard;
 
 public class MainTest {
 
@@ -12,64 +14,64 @@ public class MainTest {
 	 * @param args
 	 */
 	public static void main(String[] args) throws FileNotFoundException{
-				
-		try {
-			Data trainingSet= new Data("src/simple.dat");
-			System.out.println(trainingSet);
-			
-			KNN knn = new KNN(trainingSet);
-			
-			Example e = new Example(2);
-			e.set("A", 0);
-			e.set("B", 1);
-			
-			try{
-				System.out.println("Prediction with K=1: " + knn.predict(e, 1));
-			} 
-			catch (ExampleSizeException exc) {
-				System.out.println(exc.getMessage());
-			}
-	
-			try{
-				System.out.println("Prediction with K=2: " + knn.predict(e, 2));
-			} 
-			catch (ExampleSizeException exc) {
-				System.out.println(exc.getMessage());
-			}
-			
-			try{
-				System.out.println("Prediction with K=3: " + knn.predict(e, 3));
-			} 
-			catch (ExampleSizeException exc) {
-				System.out.println(exc.getMessage());
-			}
-			
-			try{
-				System.out.println("Prediction with K=4: " + knn.predict(e, 4));
-			} 
-			catch (ExampleSizeException exc) {
-				System.out.println(exc.getMessage());
-			}
-			
-			e = new Example(3);
-			e.set("A", 0);
-			e.set("B", 1);
-			e.set("C", 2);
-			try{
-				System.out.println("Prediction with K=1: " + knn.predict(e, 2));
-			} 
-			catch (ExampleSizeException exc) {
-				System.out.println(exc.getMessage());
-			}
-			
-			// read example with Keyboard
-			System.out.println("Prediction: " + knn.predict());
-			
-		}
-		catch(TrainingDataException exc){
-			System.out.println(exc.getMessage());
-		}
 		
+		String menu="";
+		
+		do {
+			//load or train knn
+			KNN knn=null;
+			System.out.println("Caricare KNN da file.txt (1) o da file binario (2)?" );
+			int r=0;
+			do{
+				r=Keyboard.readInt();
+			}while(r!=1 && r!=2);
+			if(r==1) {
+				boolean flag=false;
+				Data trainingSet=null;
+				String file="";
+				do {			
+					try {
+						System.out.println("Nome file contenente un training set valido:");
+						file=Keyboard.readString();
+						trainingSet= new Data(file);
+						System.out.println(trainingSet);
+						flag=true;
+					}
+					catch(TrainingDataException exc){System.out.println(exc.getMessage());}
+				}
+				while(!flag);			
+				knn=new KNN(trainingSet);
+				try{knn.salva(file+".dmp");}
+				catch(IOException exc) {System.out.println(exc.getMessage());}
+			}
+			else
+			{
+				boolean flag=false;		
+				do {			
+					try {
+						System.out.println("Nome file contenente una serializzazione dell'oggetto KNN:");
+						String file=Keyboard.readString();
+						knn=KNN.carica(file);
+						flag=true;
+					}
+					catch(IOException | ClassNotFoundException exc){System.out.println(exc.getMessage());}
+				}
+				while(!flag);		
+			}
+			
+			// predict
+			String c;
+			do {
+				// read example withKeyboard
+				System.out.println(knn.predict());
+				System.out.println("Vuoi ripetere? Y/N");
+				c=Keyboard.readString();
+				
+			}while (c.toLowerCase().equals("y"));	
+					
+			System.out.println("Vuoi ripetere una nuova esecuzione con un nuovo oggetto KNN? (Y/N)");
+			menu=Keyboard.readString();
+		}
+		while(menu.toLowerCase().equals("y"));
 	}
-
 }

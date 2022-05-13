@@ -1,7 +1,5 @@
 package data;
 
-import javax.lang.model.util.ElementScanner14;
-
 /**
  * Estende la classe Attribute e rappresenta un attributo continuo
  */
@@ -32,8 +30,7 @@ class ContinuousAttribute extends Attribute{
     }
 
     double scale (Double value){
-        return (value-min)/max;
+        return (value-min)/(max-min);
     }
-
 
 }

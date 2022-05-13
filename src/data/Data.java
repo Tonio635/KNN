@@ -2,7 +2,6 @@ package data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.Serializable;
 import java.util.*;
 
 import utility.Keyboard;
@@ -12,7 +11,7 @@ import utility.Keyboard;
  * Classe che rappresenta l'intero TrainingSet modellando le variabili dipendenti 
  * affichè si possa fare la predizione.
  */
-public class Data implements Serializable{
+public class Data {
 	// array di example che indicano le variabili indipedenti del TrainingSet quindi gli esempi
 	private List<Example> data;
 	// array di double che indica le variabili dipendenti
@@ -62,7 +61,10 @@ public class Data implements Serializable{
 	    	s = line.split(" ");
 	    	if(s[0].equals("@desc")) { // aggiungo l'attributo allo spazio descrittivo
 		   		//@desc motor discrete
-		   		explanatorySet.add(new DiscreteAttribute(s[1], iAttribute));
+				if(s[2].equals("discrete"))
+		   			explanatorySet.add(new DiscreteAttribute(s[1], iAttribute));
+				else if(s[2].equals("continuous"))
+					explanatorySet.add(new ContinuousAttribute(s[1], iAttribute));
 		   	}
 	      	else if(s[0].equals("@target"))
 	    		classAttribute = new ContinuousAttribute(s[1], iAttribute);
@@ -109,12 +111,27 @@ public class Data implements Serializable{
 				throw new TrainingDataException("Numero di esempi minore di " + numberOfExamples + ".");
 			}
 
-			// assumo che attributi siano tutti discreti
 			// ! DA RIVEDERE
 			s = line.split(","); // E,E,5,4, 0.28125095
 
-			for (short jColumn = 0; jColumn < s.length - 1; jColumn++)
-				e.set(s[jColumn], jColumn);
+			Double d;
+
+			for (short jColumn = 0; jColumn < s.length - 1; jColumn++){
+				try{
+					d = Double.valueOf(s[jColumn]);
+					e.set(d, jColumn);
+
+					for(int i = 0; i < explanatorySet.size(); i++){
+						if(explanatorySet.get(i) instanceof ContinuousAttribute){
+							((ContinuousAttribute) explanatorySet.get(i)).setMin(d);
+							((ContinuousAttribute) explanatorySet.get(i)).setMax(d);
+						}
+					}
+				} catch(NumberFormatException err){
+					e.set(s[jColumn], jColumn);
+				}
+			}
+				
 			
 			data.add(e);
 			target.add(new Double(s[s.length - 1]));
@@ -223,6 +240,17 @@ public class Data implements Serializable{
 		
 	}
 
+	Example scaledExample(Example e){
+		
+		for(int i = 0; i < explanatorySet.size(); i++){
+			if(explanatorySet.get(i) instanceof ContinuousAttribute){
+				e.set(((ContinuousAttribute) explanatorySet.get(i)).scale((Double) e.get(i)), i);
+			}
+		}
+
+		return e;
+	}
+
 	/**
 	 * Metodo che:
 	 * 1) Avvalora key con le distanze calcolate tra ciascuna istanza di Example memorizzata in data
@@ -242,17 +270,20 @@ public class Data implements Serializable{
 		double somma;
 		int i, j;
 		Iterator<Double> iterKey = key.iterator();
-		//ListIterator<Example> iterData = data.listIterator();
 
-		//try{
-		for(Example example : data){
+		LinkedList<Example> elements = new LinkedList<Example>();
+		Collections.copy(data, elements);
+		
+		for(i = 0; i < elements.size(); i++){
+			elements.set(i, scaledExample(elements.get(i)));
+		}
+
+		e = scaledExample(e);
+
+		for(Example example : elements){
 			key.add(example.distance(e));
 		}
-		//}catch(ExampleSizeException err){
-			//System.out.print(err.getMessage());
-			//return 0;
-		//}
-
+		
 		quicksort(key, 0, numberOfExamples - 1);
 
 		i = 0;

@@ -103,7 +103,7 @@ public class Example implements Serializable{
      * 
      * @return risultato
      */
-    public String toString(){
+    /*public String toString(){
         String risultato = "";
 
         for (Object o : example) {
@@ -113,5 +113,5 @@ public class Example implements Serializable{
         risultato += "\n";
 
         return risultato;
-    }
+    }*/
 }
