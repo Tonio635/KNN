@@ -68,11 +68,11 @@ public class Example {
     }
 
     /**
-     * Calcola e restituisce la distanza di Hamming calcolata tra l’istanza di Example 
+     * Calcola e restituisce la distanza calcolata tra l’istanza di Example 
      * passata come parametro e quella corrente
      * 
-     * @param e esempio su cui calcolare la distanza di Hamming
-     * @return distanza di hamming
+     * @param e esempio su cui calcolare la distanza
+     * @return distanza tra i due esempi
      */
     double distance(Example e){
         if (example.size() != e.example.size()) 
@@ -83,15 +83,15 @@ public class Example {
         ListIterator<Object> it = example.listIterator();
         ListIterator<Object> it2 = e.example.listIterator();
  
-        while (it.hasNext() && it2.hasNext())
-        {
+        while (it.hasNext() && it2.hasNext()){
             Object el1 = it.next();
             Object el2 = it2.next();
 
             if((el1 instanceof String) && (el2 instanceof String)){
                 if (!el1.equals(el2)) 
                     distanza++;
-            }
+            } else if ((el1 instanceof Double) && (el2 instanceof Double))
+                distanza += Math.abs(((Double) el1).doubleValue() - ((Double) el2).doubleValue());
         }
 
         return distanza;
