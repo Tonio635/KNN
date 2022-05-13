@@ -1,11 +1,18 @@
 package mining;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+
 import data.Data;
 import data.Example;
 import utility.Keyboard;
 /**
  * Modella il miner
  */
-public class KNN {
+public class KNN implements Serializable{
     // Modella il training set
     private Data data;
 
@@ -34,6 +41,37 @@ public class KNN {
         }while (k<1);
         return data.avgClosest(e, k);
     }
+
+    /**
+     * Salva l'oggetto di classe KNN in un file binario <nomeFile>.dat
+     * 
+     * @param nomeFile in cui salvare il file (comprende l'estensione)
+     * @throws IOException
+     */
+    public void salva(String nomeFile) throws IOException {
+        FileOutputStream outFile = new FileOutputStream(nomeFile);
+        ObjectOutputStream outStream = new ObjectOutputStream(outFile);
+        outStream.writeObject(this);
+        outStream.close();
+    }
+
+    /**
+     * Carica da file un oggetto KNN e lo restituisce
+     * 
+     * @param nomeFile
+     * @return oggetto KNN caricato da file
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public static KNN carica(String nomeFile) throws IOException, ClassNotFoundException{
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(nomeFile));
+        KNN obj=(KNN)in.readObject();
+        in.close();
+
+        return obj;
+    }
+
+
 
     /**
      * Restituisce i valori del miner
