@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import utility.Keyboard;
+
 
 /**
  * Classe che rappresenta l'intero TrainingSet modellando le variabili dipendenti 
@@ -310,6 +312,29 @@ public class Data {
 
 		return risultato;
 	}
+
+	public Example readExample() {
+		Example e =new Example(getNumberOfExplanatoryAttributes());
+		int i=0;
+		for(Attribute a:explanatorySet){
+			if(a instanceof DiscreteAttribute) {
+				System.out.print("Inserisci valore discreto X["+i+"]:");
+				e.set(Keyboard.readString(),i);
+			}
+			else {
+				double x=0.0;
+				do{
+					System.out.print("Inserisci valore continuo X["+i+"]:");
+					x=Keyboard.readDouble();
+				} while(new Double(x).equals(Double.NaN));
+
+				e.set(x,i);
+			}
+			i++;
+		}
+		return e;
+	}
+		
 
 	public static void main(String args[])throws TrainingDataException{
 		Data trainingSet = new Data("src/servo.dat");
