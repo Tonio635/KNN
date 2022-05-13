@@ -2,8 +2,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import data.Data;
-import data.Example;
-import data.ExampleSizeException;
 import data.TrainingDataException;
 import mining.KNN;
 import utility.Keyboard;

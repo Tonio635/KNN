@@ -7,7 +7,7 @@ import java.util.ListIterator;
 /**
  * Modella i valori degli attributi indipendenti di un esempio
  */
-public class Example implements Serializable{
+public class Example implements Serializable, Cloneable{
     // Array di Object che contiene un valore per ciascun attributo indipendente
     private ArrayList<Object> example;       
 
@@ -96,6 +96,17 @@ public class Example implements Serializable{
         }
 
         return distanza;
+    }
+
+    public Example clone(){
+        int size = example.size();
+        Example e = new Example(size);
+
+        for(int i = 0; i < size; i++){
+            e.set(example.get(i), i);
+        }
+
+        return e;
     }
 
     /**

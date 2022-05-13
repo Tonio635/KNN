@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import utility.Keyboard;
 
@@ -273,8 +274,12 @@ public class Data implements Serializable{
 		Iterator<Double> iterKey = key.iterator();
 
 		LinkedList<Example> elements = new LinkedList<Example>();
-		Collections.copy(data, elements);
 		
+		for(Example example : data){
+			elements.add(example.clone());
+		}
+		
+
 		for(i = 0; i < elements.size(); i++){
 			elements.set(i, scaledExample(elements.get(i)));
 		}
@@ -286,6 +291,8 @@ public class Data implements Serializable{
 		}
 		
 		quicksort(key, 0, numberOfExamples - 1);
+
+		System.out.println("distances:" + key);
 
 		i = 0;
 		j = 0;
