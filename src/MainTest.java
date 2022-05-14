@@ -31,6 +31,7 @@ public class MainTest {
 					try {
 						System.out.println("Nome file contenente un training set valido:");
 						file=Keyboard.readString();
+						file = "src/" + file;
 						trainingSet= new Data(file);
 						System.out.println(trainingSet);
 						flag=true;
@@ -49,6 +50,7 @@ public class MainTest {
 					try {
 						System.out.println("Nome file contenente una serializzazione dell'oggetto KNN:");
 						String file=Keyboard.readString();
+						file = "src/" + file;
 						knn=KNN.carica(file);
 						flag=true;
 					}

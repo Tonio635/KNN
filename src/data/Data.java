@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import utility.Keyboard;
 
@@ -113,7 +112,6 @@ public class Data implements Serializable{
 				throw new TrainingDataException("Numero di esempi minore di " + numberOfExamples + ".");
 			}
 
-			// ! DA RIVEDERE
 			s = line.split(","); // E,E,5,4, 0.28125095
 
 			Double d;
@@ -123,17 +121,13 @@ public class Data implements Serializable{
 					d = Double.valueOf(s[jColumn]);
 					e.set(d, jColumn);
 
-					for(int i = 0; i < explanatorySet.size(); i++){
-						if(explanatorySet.get(i) instanceof ContinuousAttribute){
-							((ContinuousAttribute) explanatorySet.get(i)).setMin(d);
-							((ContinuousAttribute) explanatorySet.get(i)).setMax(d);
-						}
-					}
+					((ContinuousAttribute) explanatorySet.get(jColumn)).setMin(d);
+					((ContinuousAttribute) explanatorySet.get(jColumn)).setMax(d);
+					
 				} catch(NumberFormatException err){
 					e.set(s[jColumn], jColumn);
 				}
 			}
-				
 			
 			data.add(e);
 			target.add(new Double(s[s.length - 1]));
@@ -278,7 +272,6 @@ public class Data implements Serializable{
 		for(Example example : data){
 			elements.add(example.clone());
 		}
-		
 
 		for(i = 0; i < elements.size(); i++){
 			elements.set(i, scaledExample(elements.get(i)));

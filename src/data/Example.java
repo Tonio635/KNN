@@ -114,15 +114,15 @@ public class Example implements Serializable, Cloneable{
      * 
      * @return risultato
      */
-    /*public String toString(){
+    public String toString(){
         String risultato = "";
 
         for (Object o : example) {
-            risultato += (String)o + " ";  
+            risultato += o + " ";  
         }
 
         risultato += "\n";
 
         return risultato;
-    }*/
+    }
 }
