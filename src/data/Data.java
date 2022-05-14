@@ -66,6 +66,10 @@ public class Data implements Serializable{
 		   			explanatorySet.add(new DiscreteAttribute(s[1], iAttribute));
 				else if(s[2].equals("continuous"))
 					explanatorySet.add(new ContinuousAttribute(s[1], iAttribute));
+				else{
+					sc.close();
+					throw new TrainingDataException("Formattazione errata del file.");
+				}
 		   	}
 	      	else if(s[0].equals("@target"))
 	    		classAttribute = new ContinuousAttribute(s[1], iAttribute);
