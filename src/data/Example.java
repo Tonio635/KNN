@@ -98,6 +98,10 @@ public class Example implements Serializable, Cloneable{
         return distanza;
     }
 
+    /**
+     * Clona l'oggetto di tipo example
+     * @return example clonato
+     */
     public Example clone(){
         int size = example.size();
         Example e = new Example(size);

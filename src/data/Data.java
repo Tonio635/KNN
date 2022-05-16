@@ -240,7 +240,13 @@ public class Data implements Serializable{
 		
 	}
 
-	Example scaledExample(Example e){
+	/**
+	 * Scala l'esempio passato in input su tutto il training set
+	 * 
+	 * @param e esempio da scalare
+	 * @return esempio passato in input scalato su tutto il training set
+	 */
+	private Example scaledExample(Example e){
 		
 		for(int i = 0; i < explanatorySet.size(); i++){
 			if(explanatorySet.get(i) instanceof ContinuousAttribute){
@@ -273,6 +279,10 @@ public class Data implements Serializable{
 
 		LinkedList<Example> elements = new LinkedList<Example>();
 		
+		/**
+		 * Cloniamo il data per evitare che l'invocazione del metodo predict più volte
+		 * scali erroneamente i valori
+		 */
 		for(Example example : data){
 			elements.add(example.clone());
 		}

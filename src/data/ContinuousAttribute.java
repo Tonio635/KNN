@@ -19,18 +19,40 @@ class ContinuousAttribute extends Attribute{
         max = Double.MIN_VALUE;
     }
 
+    /**
+     * Imposta il minimo dell'attributo
+     * @param v valore minimo da impostare
+     */
     void setMin (Double v){
         if (v<min)
             min=v;
     }
 
+    /**
+     * Imposta il massimo dell'attributo
+     * @param v valore massimo da impostare
+     */
     void setMax (Double v){
         if (v>max)
             max=v;
     }
 
+    /**
+     * Scala il valore passato in input
+     * 
+     * @param value da scalare
+     * @return valore scalato
+     */
     double scale (Double value){
         return (value-min)/(max-min);
     }
 
+    /**
+     * Restituisce i valori dell'attributo
+     * 
+     * @return stringa contentente i valori dell'attributo
+     */
+    public String toString(){
+        return super.toString() + "Max: " + max  + " - Min: " + min + "\n";
+    }
 }
