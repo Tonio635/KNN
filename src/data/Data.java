@@ -289,8 +289,6 @@ public class Data implements Serializable{
 		
 		quicksort(key, 0, numberOfExamples - 1);
 
-		System.out.println("distances:" + key);
-
 		i = 0;
 		j = 0;
 		somma = 0;
