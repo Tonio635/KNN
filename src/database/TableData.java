@@ -26,6 +26,15 @@ public class TableData {
 		init();
 	}
 	
+	/**
+	 * Metodo che formula ed esegue una interrogazione SQL per estrarre il valore MIN o MAX della colonna
+	 * passata come parametro.
+	 * 
+	 * @param column Colonna di cui trovare il MIN o il MAX.
+	 * @param aggregate Enumerazione contenente i valori MIN e MAX.
+	 * @return Valore minimo o massimo della colonna.
+	 * @throws SQLException Eccezione per verificare che un problema nella connessione al database non mandi il programma in crash.
+	 */
 	Object getAggregateColumnValue(Column column, QUERY_TYPE aggregate) throws SQLException{
 		String query = "SELECT "+ aggregate + "(" + column + ") FROM " + table;
 
