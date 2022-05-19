@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
 import example.Example;
 
 public class TableData {
@@ -20,40 +19,50 @@ public class TableData {
 	private String table;
 	private TableSchema tSchema;
 	private List<Example> transSet;
-	private List target;
+	private List<Object> target;
 	
-	
-	public TableData(DbAccess db, TableSchema tSchema) throws SQLException,InsufficientColumnNumberException{
-		this.db=db;
-		this.tSchema=tSchema;
-		this.table=tSchema.getTableName();
-		transSet = new ArrayList();
-		target= new ArrayList();	
+	public TableData(DbAccess db, TableSchema tSchema) throws SQLException, InsufficientColumnNumberException{
+		this.db = db;
+		this.tSchema = tSchema;
+		this.table = tSchema.getTableName();
+		transSet = new ArrayList<Example>();
+		target = new ArrayList<Object>();	
 		init();
 	}
 	
+	Object getAggregateColumnValue(Column column, QUERY_TYPE aggregate) throws SQLException{
+		String query = "SELECT "+ aggregate + "(" + column + ") FROM " + table;
+
+		Statement statement;
+		statement = db.getConnection().createStatement();
+		ResultSet rs = statement.executeQuery(query);
+
+		Double value = rs.getDouble(1);
+
+		return value;
+	}
 
 	private void init() throws SQLException{		
-		String query="select ";
+		String query = "select ";
 		
-		Iterator<Column> it=tSchema.iterator();
-		for(Column c:tSchema){			
+		Iterator<Column> it = tSchema.iterator();
+		for(Column c : tSchema){			
 			query += c.getColumnName();
-			query+=",";
+			query += ",";
 		}
-		query +=tSchema.target().getColumnName();
-		query += (" FROM "+table);
+		query += tSchema.target().getColumnName();
+		query += (" FROM " + table);
 		
 		Statement statement = db.getConnection().createStatement();
 		ResultSet rs = statement.executeQuery(query);
 		while (rs.next()) {
-			Example currentTuple=new Example(tSchema.getNumberOfAttributes());
-			int i=0;
-			for(Column c:tSchema) {
+			Example currentTuple = new Example(tSchema.getNumberOfAttributes());
+			int i = 0;
+			for(Column c : tSchema) {
 				if(c.isNumber())
-					currentTuple.set(rs.getDouble(i+1),i);
+					currentTuple.set(rs.getDouble(i + 1), i);
 				else
-					currentTuple.set(rs.getString(i+1),i);
+					currentTuple.set(rs.getString(i + 1), i);
 				i++;
 			}
 			transSet.add(currentTuple);
@@ -75,8 +84,8 @@ public class TableData {
 	}
 	
 
-	public List getTargetValues(){
-		return target; 
+	public List<Object> getTargetValues(){
+		return target;
 	}
 	
 }
