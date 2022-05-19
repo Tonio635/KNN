@@ -24,8 +24,8 @@ class ContinuousAttribute extends Attribute{
      * @param v valore minimo da impostare
      */
     void setMin (Double v){
-        if (v<min)
-            min=v;
+        if (v < min)
+            min = v;
     }
 
     /**
@@ -33,8 +33,8 @@ class ContinuousAttribute extends Attribute{
      * @param v valore massimo da impostare
      */
     void setMax (Double v){
-        if (v>max)
-            max=v;
+        if (v > max)
+            max = v;
     }
 
     /**
@@ -44,7 +44,7 @@ class ContinuousAttribute extends Attribute{
      * @return valore scalato
      */
     double scale (Double value){
-        return (value-min)/(max-min);
+        return (value - min) / (max - min);
     }
 
     /**

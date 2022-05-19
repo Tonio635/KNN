@@ -99,7 +99,7 @@ public class Data implements Serializable{
 		      
 		//avvalorare numero di esempi
 	    try{
-			numberOfExamples = new Integer(line.split(" ")[1]);
+			numberOfExamples = Integer.parseInt(line.split(" ")[1]);
 		}
 		catch(NumberFormatException e){
 			sc.close();
@@ -138,7 +138,7 @@ public class Data implements Serializable{
 			}
 			
 			data.add(e);
-			target.add(new Double(s[s.length - 1]));
+			target.add(Double.valueOf(s[s.length - 1]));
 		}
 		
 		if(sc.hasNextLine()){
@@ -377,21 +377,20 @@ public class Data implements Serializable{
 	}
 
 	public Example readExample() {
-		Example e =new Example(getNumberOfExplanatoryAttributes());
-		int i=0;
-		for(Attribute a:explanatorySet){
+		Example e = new Example(getNumberOfExplanatoryAttributes());
+		int i = 0;
+		for(Attribute a : explanatorySet){
 			if(a instanceof DiscreteAttribute) {
-				System.out.print("Inserisci valore discreto X["+i+"]:");
-				e.set(Keyboard.readString(),i);
-			}
-			else {
-				double x=0.0;
+				System.out.print("Inserisci valore discreto X[" + i + "]:");
+				e.set(Keyboard.readString(), i);
+			} else {
+				double x = 0.0;
 				do{
-					System.out.print("Inserisci valore continuo X["+i+"]:");
-					x=Keyboard.readDouble();
-				} while(new Double(x).equals(Double.NaN));
+					System.out.print("Inserisci valore continuo X[" + i + "]:");
+					x = Keyboard.readDouble();
+				} while(Double.valueOf(x).equals(Double.NaN));
 
-				e.set(x,i);
+				e.set(x, i);
 			}
 			i++;
 		}
@@ -403,7 +402,7 @@ public class Data implements Serializable{
 		Data trainingSet = new Data("src/servo.dat");
 		System.out.println(trainingSet);
 
-		double[] key = new double[5]; 
+		//double[] key = new double[5]; 
 	}
 
 }

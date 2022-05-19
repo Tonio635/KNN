@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import data.Data;
 import example.Example;
 import utility.Keyboard;
+
 /**
  * Modella il miner
  */
@@ -34,11 +35,12 @@ public class KNN implements Serializable{
     public double predict ()
     {
         Example e = data.readExample();
-        int k=0;
+        int k = 0;
         do {
             System.out.print("Inserisci valore k>=1:");
-            k=Keyboard.readInt();
-        }while (k<1);
+            k = Keyboard.readInt();
+        }while (k < 1);
+
         return data.avgClosest(e, k);
     }
 
@@ -65,13 +67,11 @@ public class KNN implements Serializable{
      */
     public static KNN carica(String nomeFile) throws IOException, ClassNotFoundException{
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(nomeFile));
-        KNN obj=(KNN)in.readObject();
+        KNN obj = (KNN) in.readObject();
         in.close();
 
         return obj;
     }
-
-
 
     /**
      * Restituisce i valori del miner

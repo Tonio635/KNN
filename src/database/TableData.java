@@ -1,14 +1,10 @@
 package database;
 
-import java.sql.Connection;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import example.Example;
@@ -45,7 +41,6 @@ public class TableData {
 	private void init() throws SQLException{		
 		String query = "select ";
 		
-		Iterator<Column> it = tSchema.iterator();
 		for(Column c : tSchema){			
 			query += c.getColumnName();
 			query += ",";
@@ -85,7 +80,7 @@ public class TableData {
 	
 
 	public List<Object> getTargetValues(){
-		return target;
+		return target; 
 	}
 	
 }
