@@ -48,7 +48,7 @@ public class MainTest {
 					
 					knn = new KNN(trainingSet);
 					try{
-						knn.salva(file+".dmp");
+						knn.salva(file + ".dmp");
 					}
 					catch(IOException exc) {
 						System.out.println(exc.getMessage());
@@ -79,13 +79,13 @@ public class MainTest {
 					do {			
 						try {
 							System.out.print("Connecting to DB...");
-							DbAccess db=new DbAccess();
+							DbAccess db = new DbAccess();
 							System.out.println("done!");
 							System.out.println("Nome tabella:");
-							table=Keyboard.readString();
-							trainingSet= new Data(db,table);
+							table = Keyboard.readString();
+							trainingSet = new Data(db, table);
 							System.out.println(trainingSet);
-							flag=true;
+							flag = true;
 							db.closeConnection();
 						}
 						catch(InsufficientColumnNumberException | TrainingDataException exc1){

@@ -35,16 +35,19 @@ public class TableData {
 	 * @return Valore minimo o massimo della colonna.
 	 * @throws SQLException Eccezione per verificare che un problema nella connessione al database non mandi il programma in crash.
 	 */
-	Object getAggregateColumnValue(Column column, QUERY_TYPE aggregate) throws SQLException{
-		String query = "SELECT "+ aggregate + "(" + column + ") FROM " + table;
+	public Object getAggregateColumnValue(Column column, QUERY_TYPE aggregate) throws SQLException{
+		String query = "SELECT "+ aggregate + "(" + column.getColumnName() + ") FROM " + table + ";";
 
 		Statement statement;
 		statement = db.getConnection().createStatement();
 		ResultSet rs = statement.executeQuery(query);
+		rs.next();
+		double value = rs.getDouble(1);
 
-		Double value = rs.getDouble(1);
+		rs.close();
+		statement.close();
 
-		return value;
+		return Double.valueOf(value);
 	}
 
 	private void init() throws SQLException{		
@@ -72,21 +75,17 @@ public class TableData {
 			transSet.add(currentTuple);
 			
 			if(tSchema.target().isNumber())
-				target.add(rs.getDouble(tSchema.getNumberOfAttributes()));
+				target.add(rs.getDouble(tSchema.getNumberOfAttributes() + 1));
 			else
-				target.add(rs.getString(tSchema.getNumberOfAttributes()));
+				target.add(rs.getString(tSchema.getNumberOfAttributes() + 1));
 		}
 		rs.close();
 		statement.close();	
 	}
 	
-	
-
-	
 	public List<Example> getExamples(){
 		return transSet; 
 	}
-	
 
 	public List<Object> getTargetValues(){
 		return target; 
