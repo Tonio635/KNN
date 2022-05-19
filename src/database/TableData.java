@@ -42,12 +42,12 @@ public class TableData {
 		statement = db.getConnection().createStatement();
 		ResultSet rs = statement.executeQuery(query);
 		rs.next();
-		double value = rs.getDouble(1);
+		Double value = rs.getDouble(1);
 
 		rs.close();
 		statement.close();
 
-		return Double.valueOf(value);
+		return value;
 	}
 
 	private void init() throws SQLException{		
