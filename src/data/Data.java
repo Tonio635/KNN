@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.*;
 
+import example.Example;
+import example.ExampleSizeException;
 import utility.Keyboard;
 
 

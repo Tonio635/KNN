@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
 import data.Data;
-import data.Example;
+import example.Example;
 import utility.Keyboard;
 /**
  * Modella il miner
