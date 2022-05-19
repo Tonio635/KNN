@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.*;
 
+import database.DbAccess;
+import database.InsufficientColumnNumberException;
 import example.Example;
 import example.ExampleSizeException;
 import utility.Keyboard;
@@ -145,6 +147,20 @@ public class Data implements Serializable{
 		}
 
 	  	sc.close();
+
+	}
+
+	/**
+	 * Costruttore della classe Data
+	 * Legge i dati da database e popola l'intero TrainingSet avvalorando
+	 * sia le variabili dipendenti che le variabili indipendenti
+	 * 
+	 * @param db database di accesso
+	 * @param tableName tabella da cui leggere il training set
+	 * @throws TrainingDataException
+	 * @throws InsufficientColumnNumberException
+	 */
+	public Data(DbAccess db, String tableName)throws TrainingDataException, InsufficientColumnNumberException{
 
 	}
 
