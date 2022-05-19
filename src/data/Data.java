@@ -9,6 +9,7 @@ import java.util.*;
 import database.Column;
 import database.DbAccess;
 import database.InsufficientColumnNumberException;
+import database.QUERY_TYPE;
 import database.TableData;
 import database.TableSchema;
 import example.Example;
@@ -190,7 +191,6 @@ public class Data implements Serializable{
 
 		classAttribute = new ContinuousAttribute(tSchema.target().getColumnName(), tSchema.getNumberOfAttributes() - 1);
 
-
 		TableData tData;
 		try{
 			tData = new TableData(db, tSchema);
@@ -199,14 +199,27 @@ public class Data implements Serializable{
 		}
 
 		
-	  //popolare data e target
-	  data = tData.getExamples();
+	  	//popolare data e target
+	  	data = tData.getExamples();
 
 		numberOfExamples = data.size();
 
 		target = new ArrayList<Double>();
 		for(Object o: tData.getTargetValues()){
 			target.add((Double) o);
+		}
+
+		it = tSchema.iterator();
+		for(int j = 0; j < explanatorySet.size(); j++){
+			Column c = it.next();
+			if(explanatorySet.get(j) instanceof ContinuousAttribute){
+				try {
+					((ContinuousAttribute) explanatorySet.get(j)).setMin((Double) tData.getAggregateColumnValue(c, QUERY_TYPE.MIN));
+					((ContinuousAttribute) explanatorySet.get(j)).setMax((Double) tData.getAggregateColumnValue(c, QUERY_TYPE.MAX));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 		if(data.size() != target.size() ){
