@@ -22,13 +22,13 @@ import utility.Keyboard;
  * affichè si possa fare la predizione.
  */
 public class Data implements Serializable{
-	// array di example che indicano le variabili indipedenti del TrainingSet quindi gli esempi
+	// list di example che indicano le variabili indipedenti del TrainingSet quindi gli esempi
 	private List<Example> data;
-	// array di double che indica le variabili dipendenti
+	// list di double che indica le variabili dipendenti
 	private List<Double> target;
 	// intero che indica il numero delle variabili dipendenti
 	private int numberOfExamples;
-	// array di attribute che indica le variabili indipendenti del TrainingSet
+	// list di attribute che indica le colonne delle variabili indipendenti del TrainingSet
 	private List<Attribute> explanatorySet;
 	// attributo target
 	private ContinuousAttribute classAttribute;
@@ -114,7 +114,7 @@ public class Data implements Serializable{
 	    //popolare data e target
 	    data = new LinkedList<Example>();
 		target = new ArrayList<Double>();
-
+		//ciclo che itera per tutte le righe dell'explanatorySet.
 		for(short iRow = 0; iRow < numberOfExamples; iRow++){
 			Example e = new Example(explanatorySet.size());
 
@@ -128,7 +128,7 @@ public class Data implements Serializable{
 			s = line.split(","); // E,E,5,4, 0.28125095
 
 			Double d;
-
+			//Ciclo che serve per popolare l'example che poi verrà inserito in data dato che è una list di example
 			for (short jColumn = 0; jColumn < s.length - 1; jColumn++){
 				try{
 					d = Double.valueOf(s[jColumn]);
@@ -439,7 +439,11 @@ public class Data implements Serializable{
 
 		return risultato;
 	}
-
+	/**
+	 * metodo che serve per fare inserire all'utente l'example su cui eseguire il knn e controllare se si tratta 
+	 * di un attributo continuo o discreto.
+	 * @return e l'example che è stato avvalorato con i dati inseriti dall'utente.
+	 */
 	public Example readExample() {
 		Example e = new Example(getNumberOfExplanatoryAttributes());
 		int i = 0;
