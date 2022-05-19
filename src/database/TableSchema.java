@@ -59,7 +59,6 @@ public class TableSchema implements Iterable<Column>{
 
 	@Override
 	public Iterator<Column> iterator() {
-		// TODO Auto-generated method stub
 		return tableSchema.iterator();
 	}
 
