@@ -49,7 +49,7 @@ public class TableSchema implements Iterable<Column>{
 		return target;
 	}
 		
-	int getNumberOfAttributes() {
+	public int getNumberOfAttributes() {
 		return tableSchema.size();
 	}
 		

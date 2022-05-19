@@ -3,10 +3,14 @@ package data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.*;
 
+import database.Column;
 import database.DbAccess;
 import database.InsufficientColumnNumberException;
+import database.TableData;
+import database.TableSchema;
 import example.Example;
 import example.ExampleSizeException;
 import utility.Keyboard;
@@ -161,6 +165,53 @@ public class Data implements Serializable{
 	 * @throws InsufficientColumnNumberException
 	 */
 	public Data(DbAccess db, String tableName)throws TrainingDataException, InsufficientColumnNumberException{
+		TableSchema tSchema;
+		try{
+			tSchema = new TableSchema(tableName, db);
+		}catch(SQLException e){
+			throw new TrainingDataException("Errore nello schema:" + e.getMessage());
+		}catch(InsufficientColumnNumberException e){
+			throw new InsufficientColumnNumberException("Numero di colonne insufficienti.");
+		}
+
+		explanatorySet = new LinkedList<Attribute>();
+
+
+		Iterator<Column> it = tSchema.iterator();
+		int i = 0;
+		do{
+			Column c = it.next();
+			if(c.isNumber())
+				explanatorySet.add(new ContinuousAttribute(c.getColumnName(), i));
+			else
+				explanatorySet.add(new DiscreteAttribute(c.getColumnName(), i));
+			i++;
+		}while(it.hasNext());
+
+		classAttribute = new ContinuousAttribute(tSchema.target().getColumnName(), tSchema.getNumberOfAttributes() - 1);
+
+
+		TableData tData;
+		try{
+			tData = new TableData(db, tSchema);
+		}catch(SQLException e){
+			throw new TrainingDataException("Errore di myslq:" + e.getMessage());
+		}
+
+		
+	  //popolare data e target
+	  data = tData.getExamples();
+
+		numberOfExamples = data.size();
+
+		target = new ArrayList<Double>();
+		for(Object o: tData.getTargetValues()){
+			target.add((Double) o);
+		}
+
+		if(data.size() != target.size() ){
+			throw new TrainingDataException("Numero di esempi diverso dal numero di target");
+		}
 
 	}
 
