@@ -329,14 +329,15 @@ public class Data implements Serializable{
 	 * @return esempio passato in input scalato su tutto il training set
 	 */
 	private Example scaledExample(Example e){
-		
+		Example ex = e.clone();
+
 		for(int i = 0; i < explanatorySet.size(); i++){
 			if(explanatorySet.get(i) instanceof ContinuousAttribute){
-				e.set(((ContinuousAttribute) explanatorySet.get(i)).scale((Double) e.get(i)), i);
+				ex.set(((ContinuousAttribute) explanatorySet.get(i)).scale((Double) ex.get(i)), i);
 			}
 		}
 
-		return e;
+		return ex;
 	}
 
 	/**
@@ -359,24 +360,10 @@ public class Data implements Serializable{
 		int i, j;
 		Iterator<Double> iterKey = key.iterator();
 
-		LinkedList<Example> elements = new LinkedList<Example>();
-		
-		/**
-		 * Cloniamo il data per evitare che l'invocazione del metodo predict più volte
-		 * scali erroneamente i valori
-		 */
-		for(Example example : data){
-			elements.add(example.clone());
-		}
-
-		for(i = 0; i < elements.size(); i++){
-			elements.set(i, scaledExample(elements.get(i)));
-		}
-
 		e = scaledExample(e);
-
-		for(Example example : elements){
-			key.add(example.distance(e));
+		for(Example example : data){
+			example = scaledExample(example);
+			key.add(e.distance(example));
 		}
 		
 		quicksort(key, 0, numberOfExamples - 1);

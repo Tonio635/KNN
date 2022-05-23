@@ -41,9 +41,15 @@ public class TableData {
 		Statement statement;
 		statement = db.getConnection().createStatement();
 		ResultSet rs = statement.executeQuery(query);
-		rs.next();
-		Double value = rs.getDouble(1);
+		Object value = null;
 
+		if (rs.next()){
+			if(column.isNumber())
+				value = rs.getDouble(1);
+			else
+				value = rs.getString(1);
+		}
+		
 		rs.close();
 		statement.close();
 

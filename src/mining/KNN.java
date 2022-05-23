@@ -32,8 +32,7 @@ public class KNN implements Serializable{
      * 
      * @return predizione del valore target dell'esempio passato come parametro
      */
-    public double predict ()
-    {
+    public double predict (){
         Example e = data.readExample();
         int k = 0;
         do {
@@ -51,8 +50,7 @@ public class KNN implements Serializable{
      * @throws IOException
      */
     public void salva(String nomeFile) throws IOException {
-        FileOutputStream outFile = new FileOutputStream(nomeFile);
-        ObjectOutputStream outStream = new ObjectOutputStream(outFile);
+        ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(nomeFile));
         outStream.writeObject(this);
         outStream.close();
     }
