@@ -104,7 +104,7 @@ public class MainTest {
 					catch(IOException exc) {
 						System.out.println(exc.getMessage());
 					}	
-		   }
+		    }
 			
 			// predict
 			String c;
