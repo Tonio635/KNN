@@ -88,7 +88,7 @@ public class ServerOneClient extends Thread{
                     break;
                 }
 
-                //knn.predict(out, in);
+                knn.predict(out, in);
 
             } catch (IOException e) {
                 e.printStackTrace();
