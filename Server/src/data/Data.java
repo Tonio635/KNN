@@ -7,7 +7,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 import database.Column;
 import database.DbAccess;
@@ -179,7 +185,6 @@ public class Data implements Serializable{
 		}
 
 		explanatorySet = new LinkedList<Attribute>();
-
 
 		Iterator<Column> it = tSchema.iterator();
 		int i = 0;
