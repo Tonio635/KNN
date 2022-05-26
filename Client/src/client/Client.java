@@ -77,7 +77,7 @@ public class Client {
 								System.out.println(msg);								
 								x=Keyboard.readDouble();
 							}
-							while(new Double(x).equals(Double.NaN));
+							while(Double.valueOf(x).equals(Double.NaN));
 							out.writeObject(x);
 						}
 						
@@ -96,8 +96,6 @@ public class Client {
 				//aspetto la predizione 
 				
 				System.out.println("Prediction:"+in.readObject());
-	
-					
 		
 				System.out.println("Vuoi ripetere predizione? Y/N");
 				c=Keyboard.readString();
@@ -121,7 +119,7 @@ public class Client {
 		
 		Client c;
 		try {
-			c=new Client(args[0], new Integer(args[1]));
+			c=new Client(args[0], Integer.valueOf(args[1]));
 			
 		}  catch (IOException e) {
 			System.out.println(e.toString());
