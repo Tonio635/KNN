@@ -8,7 +8,6 @@ import java.io.ObjectInputStream;
 
 import data.Data;
 import example.Example;
-import utility.Keyboard;
 
 /**
  * Modella il miner
