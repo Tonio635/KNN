@@ -97,8 +97,10 @@ public class ServerOneClient extends Thread{
             } finally {
                 try {
                     socket.close();
+                    in.close();
+                    out.close();
                 } catch (IOException e) {
-                    System.err.println("Socket not closed");
+                    System.err.println("Errore nella chiusura del socket o degli ObjectStream");
                 }
             }
         }
