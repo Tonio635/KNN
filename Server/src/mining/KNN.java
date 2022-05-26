@@ -32,14 +32,12 @@ public class KNN implements Serializable{
      * 
      * @return predizione del valore target dell'esempio passato come parametro
      */
-    public double predict (){
-        Example e = data.readExample();
-        int k = 0;
-        do {
-            System.out.print("Inserisci valore k>=1:");
-            k = Keyboard.readInt();
-        }while (k < 1);
-
+    public double predict (ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, ClassCastException{
+    
+        Example e = data.readExample(out,in);
+        int k=0;
+        out.writeObject("Inserisci valore k>=1:");
+        k=(Integer)(in.readObject());
         return data.avgClosest(e, k);
     }
 

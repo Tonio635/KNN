@@ -2,6 +2,9 @@ package data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.*;
@@ -450,6 +453,10 @@ public class Data implements Serializable{
 			i++;
 		}
 		return e;
+	}
+
+	public Example readExample(ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, ClassCastException{
+		
 	}
 		
 
