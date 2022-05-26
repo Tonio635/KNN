@@ -13,11 +13,20 @@ import database.InsufficientColumnNumberException;
 import mining.KNN;
 import utility.Keyboard;
 
+// TODO Commento della classe
 public class ServerOneClient extends Thread{
     private Socket socket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
 
+    /**
+     * Costruttore di classe.
+     * Inizializza gli attributi socket, in e out.
+     * Avvia il thread.
+     * 
+     * @param s Socket con cui inizializzare l'attributo.
+     * @throws IOException Eccezione per il controllo dei flussi di Input/Output.
+     */
     public ServerOneClient(Socket s) throws IOException{
         socket = s;
         in = new ObjectInputStream(socket.getInputStream());
@@ -25,6 +34,10 @@ public class ServerOneClient extends Thread{
         this.start();
     }
 
+    /**
+     * Metodo che stabilisce il punto di entrata per un nuovo thread di
+     * esecuzione all’interno del programma.
+     */
     public void run(){
         while(true){
             try {
