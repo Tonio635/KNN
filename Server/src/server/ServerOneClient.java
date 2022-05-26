@@ -67,8 +67,7 @@ public class ServerOneClient extends Thread{
                             System.out.print("Connecting to DB...");
                             DbAccess db = new DbAccess();
                             System.out.println("done!");
-                            System.out.println("Nome tabella:");
-                            tableName = Keyboard.readString();
+                            System.out.println("Nome tabella: " + tableName);
                             trainingSet = new Data(db, tableName);
                             System.out.println(trainingSet);
                             db.closeConnection();
