@@ -456,7 +456,10 @@ public class Data implements Serializable{
 	}
 
 	public Example readExample(ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, ClassCastException{
-		
+		Example e = out.writeObject(in.readObject());
+		out.close();
+		in.close();
+		return e;
 	}
 		
 
