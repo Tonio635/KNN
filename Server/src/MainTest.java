@@ -7,6 +7,7 @@ import database.DatabaseConnectionException;
 import database.DbAccess;
 import database.InsufficientColumnNumberException;
 import mining.KNN;
+import server.MultiServer;
 import utility.Keyboard;
 
 public class MainTest {
@@ -16,7 +17,8 @@ public class MainTest {
 	 */
 	public static void main(String[] args) throws FileNotFoundException{
 		
-		String menu = "";
+		new MultiServer(2025);
+		/*String menu = "";
 		
 		do {
 			//load or train knn
@@ -120,5 +122,5 @@ public class MainTest {
 			menu = Keyboard.readString();
 		}
 		while(menu.toLowerCase().equals("y"));
-	}
+	*/}
 }
