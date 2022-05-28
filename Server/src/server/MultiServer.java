@@ -33,13 +33,9 @@ public class MultiServer{
       try {
         // si blocca fino a quando non c’è una connessione
         Socket socket = s.accept();
+        System.out.println("Connessione accettata: " +socket);
         // connessione accettata
-        try {
-          new ServerOneClient(socket);
-        } finally {
-          System.out.println("closing...");
-          socket.close();
-        }
+        new ServerOneClient(socket);
       } 
       finally {
         s.close();//ServerSocket

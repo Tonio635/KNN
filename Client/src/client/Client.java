@@ -108,10 +108,12 @@ public class Client {
 		
 	}
 	public static void main(String[] args){
-		
+		String address = "localhost";
+		int port = 2025;
+
 		InetAddress addr;
 		try {
-			addr = InetAddress.getByName(args[0]);
+			addr = InetAddress.getByName(address);
 		} catch (UnknownHostException e) {
 			System.out.println(e.toString());
 			return;
@@ -119,7 +121,7 @@ public class Client {
 		
 		Client c;
 		try {
-			c=new Client(args[0], Integer.valueOf(args[1]));
+			c=new Client(address, port);
 			
 		}  catch (IOException e) {
 			System.out.println(e.toString());
