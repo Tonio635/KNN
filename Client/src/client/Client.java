@@ -44,14 +44,14 @@ public class Client {
 			}while(decision <0 || decision >3);
 			
 			String risposta="";
+			out.writeObject(decision);
 			do {
-				out.writeObject(decision);
 				String tableName="";
 				System.out.println("Table name (without estensione):");
 				tableName=Keyboard.readString();
 				out.writeObject(tableName);
 				risposta=(String)in.readObject();
-			
+				
 			}while(risposta.contains("@ERROR"));
 			
 			System.out.println("KNN loaded on the server");

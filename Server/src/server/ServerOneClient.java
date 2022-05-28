@@ -41,32 +41,38 @@ public class ServerOneClient extends Thread{
     public void run(){
         while(true){
             try {
-                String decision = (String) in.readObject();
-                String tableName = (String) in.readObject();
+                Integer decision = (Integer) in.readObject();
+                String tableName = null;
                 KNN knn = null;
                 Data trainingSet = null;
 
                 switch(decision) {
-                    case "1": {
-                        try {
-                            System.out.println("Nome file contenente un training set valido:");
-                            tableName += ".dat";
-                            trainingSet = new Data(tableName);
-                            out.writeObject(trainingSet);
-                        } catch(TrainingDataException exc){
-                            System.out.println(exc.getMessage());
-                            out.writeObject("@ERROR");
-                        }							
+                    case 1: {
+                        boolean flag = false;
+                        do{
+                            try {
+                                tableName = (String) in.readObject();
+                                System.out.println("Nome file contenente un training set valido:");
+                                tableName += ".dat";
+                                trainingSet = new Data(tableName);
+                                out.writeObject(trainingSet);
+                                flag = true;
+                            } catch(TrainingDataException exc){
+                                System.out.println(exc.getMessage());
+                                out.writeObject("@ERROR");
+                            }
+                        }while(!flag);							
                         
                         knn = new KNN(trainingSet);
                         knn.salva(tableName + ".dmp");
                     }
                     break;
 
-                    case "2": {
+                    case 2: {
                         try {
                             System.out.println("Nome file contenente una serializzazione dell'oggetto KNN:");
-                            String file = Keyboard.readString();
+                            tableName = (String) in.readObject();
+                            String file = tableName + ".dmp";
                             knn = KNN.carica(file);
                         } catch (IOException | ClassNotFoundException exc) {
                             System.out.println(exc.getMessage());
@@ -75,11 +81,12 @@ public class ServerOneClient extends Thread{
                     }
                     break;
 
-                    case "3": {
+                    case 3: {
                         try {
                             System.out.print("Connecting to DB...");
                             DbAccess db = new DbAccess();
                             System.out.println("done!");
+                            tableName = (String) in.readObject();
                             System.out.println("Nome tabella: " + tableName);
                             trainingSet = new Data(db, tableName);
                             System.out.println(trainingSet);
@@ -101,7 +108,7 @@ public class ServerOneClient extends Thread{
                     break;
                 }
 
-                knn.predict(out, in);
+                //knn.predict(out, in);
 
             } catch (IOException e) {
                 e.printStackTrace();
