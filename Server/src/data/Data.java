@@ -435,7 +435,7 @@ public class Data implements Serializable{
 		return risultato;
 	}
 	/**
-	 * metodo che serve per fare inserire all'utente l'example su cui eseguire il knn e controllare se si tratta 
+	 * Metodo che serve per fare inserire all'utente l'example su cui eseguire il knn e controllare se si tratta 
 	 * di un attributo continuo o discreto.
 	 * @return e l'example che è stato avvalorato con i dati inseriti dall'utente.
 	 */
@@ -460,6 +460,16 @@ public class Data implements Serializable{
 		return e;
 	}
 
+	/**
+	 * Metodo che serve per fare inserire all'utente(tramite socket) l'example su cui eseguire il knn e controllare se si tratta 
+	 * di un attributo continuo o discreto.
+	 * @param out canale di output del socket
+	 * @param in canale di input del socket
+	 * @return e l'example che è stato avvalorato con i dati inseriti dall'utente tramite socket.
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws ClassCastException
+	 */
 	public Example readExample(ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, ClassCastException{
 		Example e = new Example(getNumberOfExplanatoryAttributes());
 		int i = 0;
@@ -478,14 +488,6 @@ public class Data implements Serializable{
 		out.writeObject("@ENDEXAMPLE");
 
 		return e;
-	}
-		
-
-	public static void main(String args[])throws TrainingDataException{
-		Data trainingSet = new Data("src/servo.dat");
-		System.out.println(trainingSet);
-
-		//double[] key = new double[5]; 
 	}
 
 }
