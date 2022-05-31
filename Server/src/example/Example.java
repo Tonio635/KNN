@@ -103,12 +103,10 @@ public class Example implements Serializable, Cloneable{
      * @return example clonato
      */
     public Example clone(){
-        int size = example.size();
-        Example e = new Example(size);
-
-        for(int i = 0; i < size; i++){
-            e.set(example.get(i), i);
-        }
+        Example e = null;
+        try {
+            e = (Example)super.clone();
+        } catch(CloneNotSupportedException ex) {}
 
         return e;
     }
