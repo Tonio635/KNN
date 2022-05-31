@@ -461,9 +461,22 @@ public class Data implements Serializable{
 	}
 
 	public Example readExample(ObjectOutputStream out, ObjectInputStream in) throws IOException, ClassNotFoundException, ClassCastException{
-		Example e = out.writeObject(in.readObject());
-		out.close();
-		in.close();
+		Example e = new Example(getNumberOfExplanatoryAttributes());
+		int i = 0;
+		for(Attribute a : explanatorySet){
+			if(a instanceof DiscreteAttribute) {
+				out.writeObject("@READSTRING");
+				out.writeObject("Inserisci valore discreto X[" + i + "]:");
+				e.set((String)(in.readObject()), i);
+			} else {
+				out.writeObject("@READFLOAT");
+				out.writeObject("Inserisci valore continuo X[" + i + "]:");
+				e.set((Double)(in.readObject()), i);
+			}
+			i++;
+		}
+		out.writeObject("@ENDEXAMPLE");
+
 		return e;
 	}
 		

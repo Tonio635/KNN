@@ -58,7 +58,6 @@ public class Client {
 			// predict
 			String c;
 			do {
-				out.writeObject(4);
 				boolean flag=true; //reading example
 				do {
 					risposta=(String)(in.readObject());
@@ -99,10 +98,12 @@ public class Client {
 		
 				System.out.println("Vuoi ripetere predizione? Y/N");
 				c=Keyboard.readString();
+				out.writeObject(c);
 				
 			}while (c.toLowerCase().equals("y"));	
 			System.out.println("Vuoi ripetere una nuova esecuzione con un nuovo oggetto KNN? (Y/N)");
 			menu=Keyboard.readString();
+			out.writeObject(menu);
 		}
 		while(menu.toLowerCase().equals("y"));
 		

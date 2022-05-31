@@ -11,7 +11,6 @@ import database.DatabaseConnectionException;
 import database.DbAccess;
 import database.InsufficientColumnNumberException;
 import mining.KNN;
-import utility.Keyboard;
 
 // TODO Commento della classe
 public class ServerOneClient extends Thread{
@@ -39,8 +38,8 @@ public class ServerOneClient extends Thread{
      * esecuzione all’interno del programma.
      */
     public void run(){
-        while(true){
-            try {
+        try {
+            while(true){
                 Integer decision = (Integer) in.readObject();
                 String tableName = null;
                 KNN knn = null;
@@ -55,7 +54,7 @@ public class ServerOneClient extends Thread{
                                 System.out.println("Nome file contenente un training set valido:");
                                 tableName += ".dat";
                                 trainingSet = new Data(tableName);
-                                out.writeObject(trainingSet);
+                                out.writeObject("@SUCCESS");
                                 flag = true;
                             } catch(TrainingDataException exc){
                                 System.out.println(exc.getMessage());
@@ -74,6 +73,7 @@ public class ServerOneClient extends Thread{
                             tableName = (String) in.readObject();
                             String file = tableName + ".dmp";
                             knn = KNN.carica(file);
+                            out.writeObject("@SUCCESS");
                         } catch (IOException | ClassNotFoundException exc) {
                             System.out.println(exc.getMessage());
                             out.writeObject("@ERROR");
@@ -91,6 +91,7 @@ public class ServerOneClient extends Thread{
                             trainingSet = new Data(db, tableName);
                             System.out.println(trainingSet);
                             db.closeConnection();
+                            out.writeObject("@SUCCESS");
                         }
                         catch(InsufficientColumnNumberException | TrainingDataException exc1){
                             System.out.println(exc1.getMessage());
@@ -108,20 +109,27 @@ public class ServerOneClient extends Thread{
                     break;
                 }
 
-                //knn.predict(out, in);
+                String str = "";
+                do{
+                    out.writeObject(knn.predict(out, in));
+                    str = (String)in.readObject();
+                }while(str.equalsIgnoreCase("y"));
 
+                str = (String)in.readObject();
+                if(!str.equalsIgnoreCase("y")) break;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                socket.close();
+                in.close();
+                out.close();
             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    socket.close();
-                    in.close();
-                    out.close();
-                } catch (IOException e) {
-                    System.err.println("Errore nella chiusura del socket o degli ObjectStream");
-                }
+                System.err.println("Errore nella chiusura del socket o degli ObjectStream");
             }
         }
     }
