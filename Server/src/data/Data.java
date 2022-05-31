@@ -461,8 +461,8 @@ public class Data implements Serializable{
 	}
 
 	/**
-	 * Metodo che serve per fare inserire all'utente(tramite socket) l'example su cui eseguire il knn e controllare se si tratta 
-	 * di un attributo continuo o discreto.
+	 * Metodo che serve per fare inserire all'utente(tramite socket) l'example su cui eseguire il knn e 
+	 * controllare se si tratta di un attributo continuo o discreto.
 	 * @param out canale di output del socket
 	 * @param in canale di input del socket
 	 * @return e l'example che è stato avvalorato con i dati inseriti dall'utente tramite socket.
