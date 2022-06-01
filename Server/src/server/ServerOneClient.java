@@ -13,7 +13,7 @@ import database.InsufficientColumnNumberException;
 import mining.KNN;
 
 // TODO Commento della classe
-public class ServerOneClient extends Thread{
+public class ServerOneClient extends Thread {
     private Socket socket;
     private ObjectInputStream in;
     private ObjectOutputStream out;
@@ -26,7 +26,7 @@ public class ServerOneClient extends Thread{
      * @param s Socket con cui inizializzare l'attributo.
      * @throws IOException Eccezione per il controllo dei flussi di Input/Output.
      */
-    public ServerOneClient(Socket s) throws IOException{
+    public ServerOneClient(Socket s) throws IOException {
         socket = s;
         in = new ObjectInputStream(socket.getInputStream());
         out = new ObjectOutputStream(socket.getOutputStream());
@@ -37,18 +37,18 @@ public class ServerOneClient extends Thread{
      * Metodo che stabilisce il punto di entrata per un nuovo thread di
      * esecuzione all’interno del programma.
      */
-    public void run(){
+    public void run() {
         try {
-            while(true){
+            while (true) {
                 Integer decision = (Integer) in.readObject();
                 String tableName = null;
                 KNN knn = null;
                 Data trainingSet = null;
 
-                switch(decision) {
+                switch (decision) {
                     case 1: {
                         boolean flag = false;
-                        do{
+                        do {
                             try {
                                 tableName = (String) in.readObject();
                                 System.out.println("Nome file contenente un training set valido:");
@@ -56,16 +56,16 @@ public class ServerOneClient extends Thread{
                                 trainingSet = new Data(tableName);
                                 out.writeObject("@SUCCESS");
                                 flag = true;
-                            } catch(TrainingDataException exc){
+                            } catch (TrainingDataException exc) {
                                 System.out.println(exc.getMessage());
                                 out.writeObject("@ERROR");
                             }
-                        }while(!flag);							
-                        
+                        } while (!flag);
+
                         knn = new KNN(trainingSet);
                         knn.salva(tableName + ".dmp");
                     }
-                    break;
+                        break;
 
                     case 2: {
                         try {
@@ -79,7 +79,7 @@ public class ServerOneClient extends Thread{
                             out.writeObject("@ERROR");
                         }
                     }
-                    break;
+                        break;
 
                     case 3: {
                         try {
@@ -92,31 +92,30 @@ public class ServerOneClient extends Thread{
                             System.out.println(trainingSet);
                             db.closeConnection();
                             out.writeObject("@SUCCESS");
-                        }
-                        catch(InsufficientColumnNumberException | TrainingDataException exc1){
+                        } catch (InsufficientColumnNumberException | TrainingDataException exc1) {
                             System.out.println(exc1.getMessage());
                             out.writeObject("@ERROR");
-                        }
-                        catch(DatabaseConnectionException exc2){
+                        } catch (DatabaseConnectionException exc2) {
                             System.out.println(exc2.getMessage());
                             out.writeObject("@ERROR");
-                        }			
-                        
+                        }
+
                         knn = new KNN(trainingSet);
 
                         knn.salva(tableName + "DB.dmp");
                     }
-                    break;
+                        break;
                 }
 
                 String str = "";
-                do{
+                do {
                     out.writeObject(knn.predict(out, in));
-                    str = (String)in.readObject();
-                }while(str.equalsIgnoreCase("y"));
+                    str = (String) in.readObject();
+                } while (str.equalsIgnoreCase("y"));
 
-                str = (String)in.readObject();
-                if(!str.equalsIgnoreCase("y")) break;
+                str = (String) in.readObject();
+                if (!str.equalsIgnoreCase("y"))
+                    break;
             }
 
         } catch (IOException e) {

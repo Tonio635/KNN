@@ -1,15 +1,16 @@
 package data;
 
 /**
- * Eccezione che controlla che il TrainingSet sia stato acquisito in maniera corretta
+ * Eccezione che controlla che il TrainingSet sia stato acquisito in maniera
+ * corretta
  */
-public class TrainingDataException extends Exception{
-    
-    public TrainingDataException(){
+public class TrainingDataException extends Exception {
+
+    public TrainingDataException() {
 
     }
 
-    public TrainingDataException(String message){
+    public TrainingDataException(String message) {
         super(message);
     }
 }
