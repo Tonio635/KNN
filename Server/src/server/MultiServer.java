@@ -22,19 +22,23 @@ public class MultiServer {
   /**
    * Istanzia un oggetto istanza della classe ServerSocket che pone in attesa di
    * richiesta di connessioni da parte del client. Ad ogni nuova richiesta
-   * connessione
-   * si istanzia ServerOneClient.
+   * connessione si istanzia ServerOneClient.
    */
   private void run() {
     try {
       ServerSocket s = new ServerSocket(PORT);
       System.out.println("Started: " + s);
       try {
-        // si blocca fino a quando non c’è una connessione
-        Socket socket = s.accept();
-        System.out.println("Connessione accettata: " + socket);
-        // connessione accettata
-        new ServerOneClient(socket);
+        while (true) {
+          Socket socket = s.accept();
+          System.out.println("Connessione accettata: " + socket);
+
+          try {
+            new ServerOneClient(socket);
+          } catch (IOException e) {
+            socket.close();
+          }
+        }
       } finally {
         s.close(); // ServerSocket
       }
