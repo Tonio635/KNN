@@ -11,13 +11,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import database.Column;
 import database.DbAccess;
@@ -26,7 +23,6 @@ import database.QUERY_TYPE;
 import database.TableData;
 import database.TableSchema;
 import example.Example;
-import example.ExampleSizeException;
 import utility.Keyboard;
 
 /**
@@ -308,8 +304,6 @@ public class Data implements Serializable {
 		.stream()
 		.limit(k)												// Filtra le prime K liste della treemap
 		.flatMap(List::stream)
-		.collect(Collectors.toList())		// Unisce in un'unica lista le liste filtrate
-		.stream()
 		.mapToDouble(p->p)
 		.average()
 		.getAsDouble();
