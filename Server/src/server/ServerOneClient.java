@@ -65,46 +65,54 @@ public class ServerOneClient extends Thread {
                         knn = new KNN(trainingSet);
                         knn.salva(tableName + ".dmp");
                     }
-                        break;
+                    break;
 
                     case 2: {
-                        try {
-                            System.out.println("Nome file contenente una serializzazione dell'oggetto KNN:");
-                            tableName = (String) in.readObject();
-                            String file = tableName + ".dmp";
-                            knn = KNN.carica(file);
-                            out.writeObject("@SUCCESS");
-                        } catch (IOException | ClassNotFoundException exc) {
-                            System.out.println(exc.getMessage());
-                            out.writeObject("@ERROR");
-                        }
+                        boolean flag = false;
+                        do {
+                            try {
+                                System.out.println("Nome file contenente una serializzazione dell'oggetto KNN:");
+                                tableName = (String) in.readObject();
+                                String file = tableName + ".dmp";
+                                knn = KNN.carica(file);
+                                out.writeObject("@SUCCESS");
+                                flag = true;
+                            } catch (IOException | ClassNotFoundException exc) {
+                                System.out.println(exc.getMessage());
+                                out.writeObject("@ERROR");
+                            }
+                        } while (!flag);
                     }
-                        break;
+                    break;
 
                     case 3: {
-                        try {
-                            System.out.print("Connecting to DB...");
-                            DbAccess db = new DbAccess();
-                            System.out.println("done!");
-                            tableName = (String) in.readObject();
-                            System.out.println("Nome tabella: " + tableName);
-                            trainingSet = new Data(db, tableName);
-                            System.out.println(trainingSet);
-                            db.closeConnection();
-                            out.writeObject("@SUCCESS");
-                        } catch (InsufficientColumnNumberException | TrainingDataException exc1) {
-                            System.out.println(exc1.getMessage());
-                            out.writeObject("@ERROR");
-                        } catch (DatabaseConnectionException exc2) {
-                            System.out.println(exc2.getMessage());
-                            out.writeObject("@ERROR");
-                        }
+                        boolean flag = false;
+                        do{
+                            try {
+                                System.out.print("Connecting to DB...");
+                                DbAccess db = new DbAccess();
+                                System.out.println("done!");
+                                tableName = (String) in.readObject();
+                                System.out.println("Nome tabella: " + tableName);
+                                trainingSet = new Data(db, tableName);
+                                System.out.println(trainingSet);
+                                db.closeConnection();
+                                out.writeObject("@SUCCESS");
+                                flag = true;
+                            } catch (InsufficientColumnNumberException | TrainingDataException exc1) {
+                                System.out.println(exc1.getMessage());
+                                out.writeObject("@ERROR");
+                            } catch (DatabaseConnectionException exc2) {
+                                System.out.println(exc2.getMessage());
+                                out.writeObject("@ERROR");
+                            }
+                        } while(!flag);
 
                         knn = new KNN(trainingSet);
 
                         knn.salva(tableName + "DB.dmp");
                     }
-                        break;
+                    break;
                 }
 
                 String str = "";
