@@ -111,17 +111,15 @@ public class Client {
 		String address = "localhost";
 		int port = 2025;
 
-		InetAddress addr;
 		try {
-			addr = InetAddress.getByName(address);
+			InetAddress.getByName(address);
 		} catch (UnknownHostException e) {
 			System.out.println(e.toString());
 			return;
 		}
 
-		Client c;
 		try {
-			c = new Client(address, port);
+			new Client(address, port);
 
 		} catch (IOException e) {
 			System.out.println(e.toString());
