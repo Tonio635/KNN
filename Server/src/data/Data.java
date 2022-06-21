@@ -12,8 +12,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import database.Column;
 import database.DbAccess;
@@ -246,92 +250,6 @@ public class Data implements Serializable {
 		return explanatorySet.size();
 	}
 
-	/*
-	 * Partiziona data rispetto all'elemento x di key e restituisce il punto di
-	 * separazione
-	 */
-	private int partition(List<Double> key, int inf, int sup) throws ExampleSizeException {
-		int i, j;
-
-		i = inf;
-		j = sup;
-		int med = (inf + sup) / 2;
-
-		Double x = key.get(med);
-
-		data.get(inf).swap(data.get(med));
-
-		double temp = target.get(inf);
-		target.set(inf, target.get(med));
-		target.set(med, temp);
-
-		temp = key.get(inf);
-		key.set(inf, key.get(med));
-		key.set(med, temp);
-
-		while (true) {
-
-			while (i <= sup && key.get(i) <= x) {
-				i++;
-			}
-
-			while (key.get(j) > x) {
-				j--;
-
-			}
-
-			if (i < j) {
-				data.get(i).swap(data.get(j));
-
-				temp = target.get(i);
-				target.set(i, target.get(j));
-				target.set(j, temp);
-
-				temp = key.get(i);
-				key.set(i, key.get(j));
-				key.set(j, temp);
-
-			} else
-				break;
-		}
-		data.get(inf).swap(data.get(j));
-
-		temp = target.get(inf);
-		target.set(inf, target.get(j));
-		target.set(j, temp);
-
-		temp = key.get(inf);
-		key.set(inf, key.get(j));
-		key.set(j, temp);
-
-		return j;
-	}
-
-	/**
-	 * Algoritmo quicksort per l'ordinamento di data
-	 * usando come relazione d'ordine totale "<=" definita su key
-	 * 
-	 * @param key[], inf, sup
-	 */
-	private void quicksort(List<Double> key, int inf, int sup) throws ExampleSizeException {
-
-		if (sup >= inf) {
-
-			int pos;
-			pos = partition(key, inf, sup);
-
-			if ((pos - inf) < (sup - pos + 1)) {
-				quicksort(key, inf, pos - 1);
-				quicksort(key, pos + 1, sup);
-			} else {
-				quicksort(key, pos + 1, sup);
-				quicksort(key, inf, pos - 1);
-			}
-
-		}
-
-	}
-
 	/**
 	 * Scala l'esempio passato in input su tutto il training set
 	 * 
@@ -370,43 +288,31 @@ public class Data implements Serializable {
 	 *         piccoli della distanza su k
 	 */
 	public double avgClosest(Example e, int k) {
-
-		LinkedList<Double> key = new LinkedList<Double>();
-		double somma;
-		int i, j;
-		Iterator<Double> iterKey = key.iterator();
+		// Crea una mappa ordinata raggruppando i target in base alla distanza 
+		Map<Double, ArrayList<Double>> map = new TreeMap<Double, ArrayList<Double>>();
+		Iterator<Double> iter = target.iterator();
 
 		e = scaledExample(e);
 		for (Example example : data) {
 			example = scaledExample(example);
-			key.add(e.distance(example));
+			Double dist = e.distance(example);
+			
+			if(!map.containsKey(dist))
+				map.put(dist, new ArrayList<Double>());	
+
+			map.get(dist).add(iter.next());
 		}
 
-		quicksort(key, 0, numberOfExamples - 1);
-
-		i = 0;
-		j = 0;
-		somma = 0;
-		ListIterator<Double> iter3 = target.listIterator();
-		iterKey = key.iterator();
-		Double elemprec = iterKey.next();
-		Double elemsucc = 0.0;
-
-		while (iter3.hasNext() && j < k) {
-
-			Double elem = iter3.next();
-			somma += elem;
-
-			if (i != numberOfExamples - 1) {
-				elemsucc = iterKey.next();
-				if (!elemprec.equals(elemsucc))
-					j++;
-			}
-			i++;
-			elemprec = elemsucc;
-		}
-
-		return somma / i;
+		return map
+		.values()
+		.stream()
+		.limit(k)												// Filtra le prime K liste della treemap
+		.flatMap(List::stream)
+		.collect(Collectors.toList())		// Unisce in un'unica lista le liste filtrate
+		.stream()
+		.mapToDouble(p->p)
+		.average()
+		.getAsDouble();
 	}
 
 	/**
