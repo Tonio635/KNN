@@ -11,6 +11,6 @@ public class Main {
 	 * @param args argomenti passati da terminale (non vengono gestiti)
 	 */
 	public static void main(String[] args) {
-		new MultiServer(2025);
+		MultiServer.istanceMultiserver();
 	}
 }
