@@ -11,14 +11,15 @@ import data.Data;
 import example.Example;
 
 /**
- * Modella il miner
+ * Classe che modella il miner
  */
 public class KNN implements Serializable {
-    // Modella il training set
+	
+    /** Attributo di classe Data, contiene l'intero training set. */
     private Data data;
 
     /**
-     * Costruttore della classe
+     * Costruttore della classe KNN
      * Avvalora il training set
      * 
      * @param trainingSet indica il training set con cui avvalorare l'attributo
@@ -28,8 +29,9 @@ public class KNN implements Serializable {
     }
 
     /**
-     * Predice il valore target tramite la distanza minima di Hamming e l'esempio
-     * inseriti da tastiera
+     * Predice il valore target utilizzando l'algoritmo del KNN, ovvero:
+     * – Si applica la distanza di Hamming alle variabili discrete 
+     * – Si applica il minmax scaler alle variabile continue
      * 
      * @return predizione del valore target dell'esempio passato come parametro
      */
@@ -37,9 +39,9 @@ public class KNN implements Serializable {
             throws IOException, ClassNotFoundException, ClassCastException {
 
         Example e = data.readExample(out, in);
-        int k = 0;
-        out.writeObject("Inserisci valore k>=1:");
-        k = (Integer) (in.readObject());
+        out.writeObject("Inserisci il valore k >= 1: ");
+        int k = (Integer) (in.readObject());
+
         return data.avgClosest(e, k);
     }
 
@@ -65,9 +67,8 @@ public class KNN implements Serializable {
      * @throws IOException            Eccezione per il controllo dei flussi di
      *                                Input/Output.
      * @throws ClassNotFoundException Eccezione chiamata quando si cerca di caricare
-     *                                una classe
-     *                                attraverso il suo nome ma non vengono trovate
-     *                                definizioni di classe con quel nome.
+     *                                una classe attraverso il suo nome ma non vengono 
+     *                                trovate definizioni di classe con quel nome.
      */
     public static KNN carica(String nomeFile) throws IOException, ClassNotFoundException {
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(nomeFile));
