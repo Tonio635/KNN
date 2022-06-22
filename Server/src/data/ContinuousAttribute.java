@@ -18,8 +18,8 @@ final class ContinuousAttribute extends Attribute {
      */
     ContinuousAttribute(String name, int index) {
         super(name, index);
-        min = Double.MAX_VALUE;
-        max = Double.MIN_VALUE;
+        min = Double.MAX_VALUE;                    // indica il valore minimo dell'attributo
+        max = Double.MIN_VALUE;                    // indica il valore massimo dell'attributo
     }
 
     /**
