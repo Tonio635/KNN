@@ -65,7 +65,7 @@ public class TableData {
 		}
 
 		// Variabili target
-		query += tSchema.target().getColumnName();
+		query += tSchema.getTarget().getColumnName();
 		query += " FROM " + table;
 
 		Statement statement = db.getConnection().createStatement();
@@ -82,7 +82,7 @@ public class TableData {
 			}
 			transSet.add(currentTuple);
 
-			if (tSchema.target().isNumber())
+			if (tSchema.getTarget().isNumber())
 				target.add(rs.getDouble(tSchema.getNumberOfAttributes() + 1));
 			else
 				target.add(rs.getString(tSchema.getNumberOfAttributes() + 1));

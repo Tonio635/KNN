@@ -197,7 +197,7 @@ public class Data implements Serializable {
 			i++;
 		} while (it.hasNext());
 
-		classAttribute = new ContinuousAttribute(tSchema.target().getColumnName(), tSchema.getNumberOfAttributes() - 1);
+		classAttribute = new ContinuousAttribute(tSchema.getTarget().getColumnName(), tSchema.getNumberOfAttributes() - 1);
 
 		TableData tData;
 		try {
