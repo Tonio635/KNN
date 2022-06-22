@@ -299,14 +299,11 @@ public class Data implements Serializable {
 			map.get(dist).add(iter.next());
 		}
 
-		return map
-		.values()
+		return map.values()
 		.stream()
-		.limit(k)												// Filtra le prime K liste della treemap
-		.flatMap(List::stream)
-		.mapToDouble(p->p)
-		.average()
-		.getAsDouble();
+		.limit(k)																						// Filtra le prime K liste della treemap
+		.flatMapToDouble(l -> l.stream().mapToDouble(d->d)) // Appiattisce le liste in un'unica lista
+		.average().getAsDouble();														// Esegue la media dei valori
 	}
 
 	/**
