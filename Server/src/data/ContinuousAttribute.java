@@ -3,7 +3,7 @@ package data;
 /**
  * Estende la classe Attribute e rappresenta un attributo continuo
  */
-class ContinuousAttribute extends Attribute {
+final class ContinuousAttribute extends Attribute {
     private double min;
     private double max;
 

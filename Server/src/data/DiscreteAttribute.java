@@ -3,7 +3,7 @@ package data;
 /**
  * Estende la classe Attribute e rappresenta un attributo discreto.
  */
-class DiscreteAttribute extends Attribute {
+final class DiscreteAttribute extends Attribute {
 
     /**
      * Costruttore della classe.
