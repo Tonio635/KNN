@@ -1,6 +1,6 @@
 package database;
 /*
- * Eccezione che verifica se è possibile connettersi al Database oppure no. 
+ * Eccezione controllata che verifica se è possibile connettersi al Database oppure no. 
  * Viene sollevata nei casi in cui:
  * 1) è errato il nome del database 
  * 2) è errato il nome utente
