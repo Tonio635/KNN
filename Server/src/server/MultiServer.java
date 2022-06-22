@@ -23,7 +23,7 @@ public class MultiServer {
    * Metodo che serve per istanziare un nuovo Server, specificando
    * la porta in modo tale da rendere Singleton la classe Server.
    */
-  public static void istanceMultiserver(){
+  public static void instanceMultiServer(){
     new MultiServer(2025);
   }
 
