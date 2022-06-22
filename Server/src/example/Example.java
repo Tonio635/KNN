@@ -7,7 +7,7 @@ import java.util.ListIterator;
 /**
  * Modella i valori degli attributi indipendenti di un esempio
  */
-public class Example implements Serializable, Cloneable {
+public class Example implements Serializable{
     // Array di Object che contiene un valore per ciascun attributo indipendente
     private ArrayList<Object> example;
 
@@ -42,29 +42,6 @@ public class Example implements Serializable, Cloneable {
      */
     public Object get(int index) {
         return example.get(index);
-    }
-
-    /**
-     * Scambia i valori contenuti nel campo example dell’oggetto corrente con i
-     * valori contenuti
-     * nel campo example del parametro e
-     * 
-     * @param e esempio su cui scambiare i valori
-     */
-    public void swap(Example e) {
-        if (example.size() != e.example.size())
-            throw new ExampleSizeException("I due esempi non hanno lo stesso numero di variabili indipendenti!");
-
-        ListIterator<Object> it = example.listIterator();
-        ListIterator<Object> it2 = e.example.listIterator();
-
-        while (it.hasNext() && it2.hasNext()) {
-            Object el1 = it.next();
-            Object el2 = it2.next();
-
-            it.set(el2);
-            it2.set(el1);
-        }
     }
 
     /**
@@ -103,12 +80,12 @@ public class Example implements Serializable, Cloneable {
      * @return example clonato
      */
     public Example clone() {
-        Example e = null;
-        try {
-            e = (Example) super.clone();
-        } catch (CloneNotSupportedException ex) {
-        }
+        int size = example.size();
+        Example e = new Example(size);
 
+        for(int i = 0; i < size; i++){
+            e.set(example.get(i), i);
+        }
         return e;
     }
 
