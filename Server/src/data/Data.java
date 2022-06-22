@@ -253,7 +253,7 @@ public class Data implements Serializable {
 	 * @return esempio passato in input scalato su tutto il training set
 	 */
 	private Example scaledExample(Example e) {
-		Example ex = e.clone();
+		Example ex = (Example) e.clone();
 
 		for (int i = 0; i < explanatorySet.size(); i++) {
 			if (explanatorySet.get(i) instanceof ContinuousAttribute) {
