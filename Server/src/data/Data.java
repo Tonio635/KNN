@@ -210,7 +210,7 @@ public class Data implements Serializable {
 
 		numberOfExamples = data.size();
 
-		target = new ArrayList<Double>();
+		target = new LinkedList<Double>();
 		for (Object o : tData.getTargetValues()) {
 			target.add((Double) o);
 		}
