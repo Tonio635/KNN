@@ -8,7 +8,8 @@ import java.net.*;
  */
 public class MultiServer {
   private int PORT;
-
+  private static MultiServer singleton = null;      //Attributo che ci serve per rendere la classe singleton
+  
   /**
    * Costruttore di classe, inizializza la porta ed invoca run()
    * 
@@ -22,9 +23,12 @@ public class MultiServer {
    /**
    * Metodo che serve per istanziare un nuovo Server, specificando
    * la porta in modo tale da rendere Singleton la classe Server.
+   * Istanzio un nuovo server solo 1 volta, quelle successive non potrò più farlo.
    */
-  public static void instanceMultiServer(){
-    new MultiServer(2025);
+  public static MultiServer instanceMultiServer(){
+    if(singleton == null)
+      singleton = new MultiServer(2025);
+    return singleton;
   }
 
   /**
