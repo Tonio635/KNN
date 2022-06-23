@@ -194,24 +194,4 @@ public class Keyboard {
 		}
 		return value;
 	}
-
-	/** Ritorna il carattere letto dallo standard di input
-	 * @return value
-	 */
-	public static char readChar() {
-		String token = getNextToken(false);
-		char value;
-		try {
-			if (token.length() > 1) {
-				current_token = token.substring(1, token.length());
-			} else
-				current_token = null;
-			value = token.charAt(0);
-		} catch (Exception exception) {
-			error("Error reading char data, MIN_VALUE value returned.");
-			value = Character.MIN_VALUE;
-		}
-
-		return value;
-	}
 }
