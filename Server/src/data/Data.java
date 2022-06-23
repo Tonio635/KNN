@@ -27,8 +27,7 @@ import utility.Keyboard;
 
 /**
  * Classe che rappresenta l'intero TrainingSet modellando le variabili
- * dipendenti
- * affichè si possa fare la predizione.
+ * dipendenti affichè si possa fare la predizione.
  */
 public class Data implements Serializable {
 	// list di example che indicano le variabili indipedenti del TrainingSet quindi
@@ -265,19 +264,15 @@ public class Data implements Serializable {
 	}
 
 	/**
-	 * Metodo che:
-	 * 1) Avvalora key con le distanze calcolate tra ciascuna istanza di Example
-	 * memorizzata in data
-	 * ed e usando il metodo distance di Example
-	 * 2) ordina data, target e key in accordo ai valori contenuti in key usando il
-	 * metodo quicksort
-	 * 3) identifica gli esempi di data che sono associati alle k distanze più
-	 * piccole in key
-	 * 4) calcola la media dei valori memorizzati in target in corrispondenza degli
-	 * esempi associati
-	 * alle k distanze più piccole in key
+	 * Metodo che serve per calcolare la media in base alla somma dei valori minori
+	 * di un certo intero. Si utilizza la programmazione funzionale per popolare un
+	 * TreeMap (in modo tale da avere tutte le distanze già ordinate) e per ogni 
+	 * distanza che è una key, si aggiunge una lista di valori che rappresentano
+	 * gli example presi da data e scalati.
+	 * La programmazione funzionale viene utilizzata per prendere le prime k distanze
+	 * e unire le liste di vei valori corrispondenti alle chiavi e farne la media.
 	 * 
-	 * @param e indica l'array di example che vogliamo passare in input
+	 * @param e indica la lista di example che vogliamo passare in input
 	 * @param k intero che indica la lunghezza della distanza da tenere in
 	 *          considerazione per la predizione
 	 * @return la media calcolata in base alla somma dei valori che siano più
@@ -301,13 +296,13 @@ public class Data implements Serializable {
 
 		return map.values()
 		.stream()
-		.limit(k)																						// Filtra le prime K liste della treemap
-		.flatMapToDouble(l -> l.stream().mapToDouble(d->d)) // Appiattisce le liste in un'unica lista
+		.limit(k)																		// Filtra le prime K liste della treemap
+		.flatMapToDouble(l -> l.stream().mapToDouble(d->d)) 							// Appiattisce le liste in un'unica lista
 		.average().getAsDouble();														// Esegue la media dei valori
 	}
 
 	/**
-	 * Restituisce i valori di data
+	 * Restituisce i valori di data in una stringa
 	 * 
 	 * @return stringa contentente i valori di data
 	 */
