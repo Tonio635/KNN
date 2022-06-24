@@ -12,7 +12,11 @@ import database.DbAccess;
 import database.InsufficientColumnNumberException;
 import mining.KNN;
 
-// TODO Commento della classe
+/**
+ * Classe che estende la classe Thread e che serve ad avviarne uno nuovo.
+ * Gestisce, inoltre, la comunicazione con il client attraverso oggetti di
+ * input e output stream.
+ */
 public class ServerOneClient extends Thread {
     private Socket socket;
     private ObjectInputStream in;
@@ -51,8 +55,8 @@ public class ServerOneClient extends Thread {
                         do {
                             try {
                                 tableName = (String) in.readObject();
-                                System.out.println("Nome file contenente un training set valido:");
                                 tableName += ".dat";
+                                System.out.println("Nome file contenente un training set valido: " + tableName);
                                 trainingSet = new Data(tableName);
                                 out.writeObject("@SUCCESS");
                                 flag = true;
@@ -71,9 +75,9 @@ public class ServerOneClient extends Thread {
                         boolean flag = false;
                         do {
                             try {
-                                System.out.println("Nome file contenente una serializzazione dell'oggetto KNN:");
                                 tableName = (String) in.readObject();
                                 String file = tableName + ".dmp";
+                                System.out.println("Nome file contenente una serializzazione dell'oggetto KNN:" + tableName);
                                 knn = KNN.carica(file);
                                 out.writeObject("@SUCCESS");
                                 flag = true;
@@ -89,9 +93,9 @@ public class ServerOneClient extends Thread {
                         boolean flag = false;
                         do{
                             try {
-                                System.out.print("Connecting to DB...");
+                                System.out.print("Connessione al database...");
                                 DbAccess db = new DbAccess();
-                                System.out.println("done!");
+                                System.out.println("Fatto!");
                                 tableName = (String) in.readObject();
                                 System.out.println("Nome tabella: " + tableName);
                                 trainingSet = new Data(db, tableName);
@@ -132,6 +136,7 @@ public class ServerOneClient extends Thread {
             e.printStackTrace();
         } finally {
             try {
+                System.out.println("Disconnessione client: " + socket);
                 socket.close();
                 in.close();
                 out.close();

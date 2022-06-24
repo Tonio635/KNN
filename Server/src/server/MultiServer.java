@@ -43,11 +43,12 @@ public class MultiServer {
       try {
         while (true) {
           Socket socket = s.accept();
-          System.out.println("Connessione accettata: " + socket);
+          System.out.println("Connessione client: " + socket);
 
           try {
             new ServerOneClient(socket);
           } catch (IOException e) {
+            System.out.println("Errore nell'istanziazione del socket: " + socket);
             socket.close();  // chiude la socket se va male l'istanziazione
           }
         }
