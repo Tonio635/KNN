@@ -10,7 +10,7 @@ package utility;
 import java.io.*;
 import java.util.*;
 
-/*
+/**
  * Classe di utility che serve per leggere gli input da tastiera
  */
 public class Keyboard {

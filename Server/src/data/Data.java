@@ -27,31 +27,38 @@ import utility.Keyboard;
 
 /**
  * Classe che rappresenta l'intero TrainingSet modellando le variabili
- * dipendenti affichè si possa fare la predizione.
+ * dipendenti affiché si possa fare la predizione.
  */
 public class Data implements Serializable {
-	// list di example che indicano le variabili indipedenti del TrainingSet quindi
-	// gli esempi
+	/**
+	 * List di example che indicano le variabili indipedenti del TrainingSet quindi
+	 * gli esempi.
+	 */
 	private List<Example> data;
-	// list di double che indica le variabili dipendenti
+
+	/** List di double che indica le variabili dipendenti. */
 	private List<Double> target;
-	// intero che indica il numero delle variabili dipendenti
+
+	/** Intero che indica il numero delle variabili dipendenti. */
 	private int numberOfExamples;
-	// list di attribute che indica le colonne delle variabili indipendenti del
-	// TrainingSet
+
+	/**
+	 * List di attribute che indica le colonne delle variabili indipendenti del
+	 * TrainingSet.
+	 */
 	private List<Attribute> explanatorySet;
-	// attributo target
+
+	/** Attributo target. */
 	private ContinuousAttribute classAttribute;
 
 	/**
-	 * Costruttore della classe Data
+	 * Costruttore della classe Data.
 	 * Legge il file di testo e popola l'intero TrainingSet avvalorando
-	 * sia le variabili dipendenti che le variabili indipendenti
+	 * sia le variabili dipendenti che le variabili indipendenti.
 	 * 
-	 * @param fileName indica il nome del file di testo da cui prendere tutti i dati
-	 * @throws TrainingDataException lancia un'eccezione nel caso in cui il training
-	 *                               set dovesse
-	 *                               essere acquisito in maniera errata
+	 * @param fileName Indica il nome del file di testo da cui prendere tutti i dati
+	 * @throws TrainingDataException Lancia un'eccezione nel caso in cui il training
+	 *                               set dovesse essere acquisito in maniera errata.
 	 */
 	public Data(String fileName) throws TrainingDataException {
 
@@ -168,10 +175,18 @@ public class Data implements Serializable {
 	 * Legge i dati da database e popola l'intero TrainingSet avvalorando
 	 * sia le variabili dipendenti che le variabili indipendenti
 	 * 
-	 * @param db        database di accesso
-	 * @param tableName tabella da cui leggere il training set
-	 * @throws TrainingDataException
-	 * @throws InsufficientColumnNumberException
+	 * @param db        Database di accesso.
+	 * @param tableName Tabella da cui leggere il training set.
+	 * @throws TrainingDataException             Eccezione controllata sollevata nel
+	 *                                           caso in cui il training set non
+	 *                                           dovesse essere acquisito in maniera
+	 *                                           corretta.
+	 * @throws InsufficientColumnNumberException Eccezione controllata sollevata nel
+	 *                                           caso in cui non si riesca a
+	 *                                           caricare la colonna dei target dal
+	 *                                           database o nel caso in cui la
+	 *                                           tabella del database sia senza
+	 *                                           colonne.
 	 */
 	public Data(DbAccess db, String tableName) throws TrainingDataException, InsufficientColumnNumberException {
 		TableSchema tSchema;
@@ -196,7 +211,8 @@ public class Data implements Serializable {
 			i++;
 		} while (it.hasNext());
 
-		classAttribute = new ContinuousAttribute(tSchema.getTarget().getColumnName(), tSchema.getNumberOfAttributes() - 1);
+		classAttribute = new ContinuousAttribute(tSchema.getTarget().getColumnName(),
+				tSchema.getNumberOfAttributes() - 1);
 
 		TableData tData;
 		try {
@@ -266,10 +282,11 @@ public class Data implements Serializable {
 	/**
 	 * Metodo che serve per calcolare la media in base alla somma dei valori minori
 	 * di un certo intero. Si utilizza la programmazione funzionale per popolare un
-	 * TreeMap (in modo tale da avere tutte le distanze già ordinate) e per ogni 
+	 * TreeMap (in modo tale da avere tutte le distanze già ordinate) e per ogni
 	 * distanza che è una key, si aggiunge una lista di valori che rappresentano
 	 * gli example presi da data e scalati.
-	 * La programmazione funzionale viene utilizzata per prendere le prime k distanze
+	 * La programmazione funzionale viene utilizzata per prendere le prime k
+	 * distanze
 	 * e unire le liste di vei valori corrispondenti alle chiavi e farne la media.
 	 * 
 	 * @param e indica la lista di example che vogliamo passare in input
@@ -279,7 +296,7 @@ public class Data implements Serializable {
 	 *         piccoli della distanza su k
 	 */
 	public double avgClosest(Example e, int k) {
-		// Crea una mappa ordinata raggruppando i target in base alla distanza 
+		// Crea una mappa ordinata raggruppando i target in base alla distanza
 		Map<Double, ArrayList<Double>> map = new TreeMap<Double, ArrayList<Double>>();
 		Iterator<Double> iter = target.iterator();
 
@@ -287,18 +304,18 @@ public class Data implements Serializable {
 		for (Example example : data) {
 			example = scaledExample(example);
 			Double dist = e.distance(example);
-			
-			if(!map.containsKey(dist))
-				map.put(dist, new ArrayList<Double>());	
+
+			if (!map.containsKey(dist))
+				map.put(dist, new ArrayList<Double>());
 
 			map.get(dist).add(iter.next());
 		}
 
 		return map.values()
-		.stream()
-		.limit(k)																		// Filtra le prime K liste della treemap
-		.flatMapToDouble(l -> l.stream().mapToDouble(d->d)) 							// Appiattisce le liste in un'unica lista
-		.average().getAsDouble();														// Esegue la media dei valori
+				.stream()
+				.limit(k) // Filtra le prime K liste della treemap
+				.flatMapToDouble(l -> l.stream().mapToDouble(d -> d)) // Appiattisce le liste in un'unica lista
+				.average().getAsDouble(); // Esegue la media dei valori
 	}
 
 	/**
@@ -365,17 +382,26 @@ public class Data implements Serializable {
 	}
 
 	/**
-	 * Metodo che serve per fare inserire all'utente(tramite socket) l'example su
-	 * cui eseguire il knn e
-	 * controllare se si tratta di un attributo continuo o discreto.
+	 * Metodo che serve per l'acquisizione da parte dell'utente (tramite socket)
+	 * dell'example su
+	 * cui eseguire la predizione, controllando anche per ogni attributo se continuo
+	 * o discreto.
 	 * 
-	 * @param out canale di output del socket
-	 * @param in  canale di input del socket
-	 * @return e l'example che è stato avvalorato con i dati inseriti dall'utente
+	 * @param out Canale di output del socket.
+	 * @param in  Canale di input del socket.
+	 * @return Oggetto di tipo Example che è stato avvalorato con i dati inseriti
+	 *         dall'utente
 	 *         tramite socket.
-	 * @throws IOException
-	 * @throws ClassNotFoundException
-	 * @throws ClassCastException
+	 * @throws IOException            Eccezione per il controllo dei flussi di
+	 *                                Input/Output.
+	 * @throws ClassNotFoundException Eccezione usata per controllare il caso in cui
+	 *                                si dovesse provare a risalire una classe
+	 *                                tramite stringa ma questa classe non dovesse
+	 *                                essere trovata.
+	 * @throws ClassCastException     Eccezione usata per controllare il caso in cui
+	 *                                si dovesse usare
+	 *                                il cast tra classi in cui non vale il
+	 *                                principio di sostituibilità.
 	 */
 	public Example readExample(ObjectOutputStream out, ObjectInputStream in)
 			throws IOException, ClassNotFoundException, ClassCastException {

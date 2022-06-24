@@ -8,7 +8,7 @@ import java.util.ListIterator;
  * Modella i valori degli attributi indipendenti di un esempio
  */
 public class Example implements Serializable, Cloneable {
-    // Array di Object che contiene un valore per ciascun attributo indipendente
+    /** Array di Object che contiene un valore per ciascun attributo indipendente */
     private ArrayList<Object> example;
 
     /**

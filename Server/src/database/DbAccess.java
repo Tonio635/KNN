@@ -35,7 +35,9 @@ public class DbAccess {
 	/**
 	 * Inizializza una connessione al DB
 	 * 
-	 * @throws DatabaseConnectionException
+	 * @throws DatabaseConnectionException Eccezione controllata sollevata nel caso
+	 *                                     in cui non dovesse riuscire la
+	 *                                     connessione al database.
 	 */
 	public DbAccess() throws DatabaseConnectionException {
 		String connectionString = DBMS + "://" + SERVER + ":" + PORT + "/" + DATABASE

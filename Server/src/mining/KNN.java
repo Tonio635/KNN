@@ -14,7 +14,7 @@ import example.Example;
  * Classe che modella il miner
  */
 public class KNN implements Serializable {
-	
+
     /** Attributo di classe Data, contiene l'intero training set. */
     private Data data;
 
@@ -30,10 +30,22 @@ public class KNN implements Serializable {
 
     /**
      * Predice il valore target utilizzando l'algoritmo del KNN, ovvero:
-     * – Si applica la distanza di Hamming alle variabili discrete 
+     * – Si applica la distanza di Hamming alle variabili discrete
      * – Si applica il minmax scaler alle variabile continue
      * 
-     * @return predizione del valore target dell'esempio passato come parametro
+     * @param out Oggetto di output stream utilizzato per mandare dati al client.
+     * @param in  Oggetto di input stream utilizzato per ricevere dati dal client.
+     * @return Predizione del valore target dell'esempio passato come parametro.
+     * @throws IOException            Eccezione per il controllo dei flussi di
+     *                                Input/Output.
+     * @throws ClassNotFoundException Eccezione usata per controllare il caso in cui
+     *                                si dovesse provare a risalire una classe
+     *                                tramite stringa ma questa classe non dovesse
+     *                                essere trovata.
+     * @throws ClassCastException     Eccezione usata per controllare il caso in cui
+     *                                si dovesse usare
+     *                                il cast tra classi in cui non vale il
+     *                                principio di sostituibilità.
      */
     public double predict(ObjectOutputStream out, ObjectInputStream in)
             throws IOException, ClassNotFoundException, ClassCastException {
@@ -46,7 +58,7 @@ public class KNN implements Serializable {
     }
 
     /**
-     * Salva l'oggetto di classe KNN in un file binario <nomeFile>.dat
+     * Salva l'oggetto di classe KNN in un file binario {@literal <nomeFile>}.dat
      * 
      * @param nomeFile Nome del file in cui salvare il la classe (comprende
      *                 l'estensione).
@@ -67,7 +79,8 @@ public class KNN implements Serializable {
      * @throws IOException            Eccezione per il controllo dei flussi di
      *                                Input/Output.
      * @throws ClassNotFoundException Eccezione chiamata quando si cerca di caricare
-     *                                una classe attraverso il suo nome ma non vengono 
+     *                                una classe attraverso il suo nome ma non
+     *                                vengono
      *                                trovate definizioni di classe con quel nome.
      */
     public static KNN carica(String nomeFile) throws IOException, ClassNotFoundException {
