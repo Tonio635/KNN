@@ -54,7 +54,7 @@ class ServerOneClient extends Thread {
                         boolean flag = false;
                         do {
                             try {
-                                tableName = (String) in.readObject();
+                                tableName = "training_set/" + (String) in.readObject();
                                 tableName += ".dat";
                                 System.out.println("Nome file contenente un training set valido: " + tableName);
                                 trainingSet = new Data(tableName);
@@ -75,7 +75,7 @@ class ServerOneClient extends Thread {
                         boolean flag = false;
                         do {
                             try {
-                                tableName = (String) in.readObject();
+                                tableName = "training_set/" + (String) in.readObject();
                                 String file = tableName + ".dmp";
                                 System.out.println("Nome file contenente una serializzazione dell'oggetto KNN:" + tableName);
                                 knn = KNN.carica(file);
