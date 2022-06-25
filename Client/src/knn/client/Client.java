@@ -55,7 +55,7 @@ public class Client {
 	 * @throws ClassNotFoundException Eccezione se non è stata trovata la classe
 	 */
 	private void stampaBenvenuto() throws IOException, ClassNotFoundException {
-		FileInputStream file = new FileInputStream("src/utility/welcome.dat");
+		FileInputStream file = new FileInputStream("src/knn/utility/welcome.dat");
 		ObjectInputStream in = new ObjectInputStream(file);
 		String welcomeString = (String) in.readObject();
 
