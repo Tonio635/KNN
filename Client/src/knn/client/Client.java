@@ -1,4 +1,4 @@
-package client;
+package knn.client;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import utility.Keyboard;
+import knn.utility.Keyboard;
 
 /**
  * Classe Client che si collega al server tramite socket.

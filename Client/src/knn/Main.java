@@ -1,6 +1,7 @@
-import client.Client;
-
+package knn;
 import java.io.IOException;
+
+import knn.client.Client;
 
 /**
  * Classe main del Client.
