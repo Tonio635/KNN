@@ -76,7 +76,7 @@ class ServerOneClient extends Thread {
                         do {
                             try {
                                 tableName = "training_set/" + (String) in.readObject();
-                                String file = tableName + ".dmp";
+                                String file = tableName + ".dat.dmp";
                                 System.out.println("Nome file contenente una serializzazione dell'oggetto KNN:" + tableName);
                                 knn = KNN.carica(file);
                                 out.writeObject("@SUCCESS");

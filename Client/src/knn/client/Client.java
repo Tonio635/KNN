@@ -27,7 +27,7 @@ public class Client {
 	/**
 	 * Crea un nuovo oggetto client che si connette al server, se tutto è andato a
 	 * buon fine.
-	 * Nel caso contrario lancia un eccezione ed impedisce di connettersi.
+	 * Nel caso contrario lancia un'eccezione ed impedisce di connettersi.
 	 * 
 	 * @param address indirizzo del server
 	 * @param port    porta del server
@@ -93,7 +93,7 @@ public class Client {
 
 	/**
 	 * Carica il modello KNN sul server, facendo scegliere all'utente le diverse
-	 * modalità(testuale, binario e da database).
+	 * modalità (testuale, binario e da database).
 	 * 
 	 * @throws IOException            Eccezione di input e output
 	 * @throws ClassNotFoundException Eccezione se non è stata trovata la classe
