@@ -55,9 +55,8 @@ class ServerOneClient extends Thread {
                         do {
                             try {
                                 tableName = "training_set/" + (String) in.readObject();
-                                tableName += ".dat";
-                                System.out.println("Nome file contenente un training set valido: " + tableName);
-                                trainingSet = new Data(tableName);
+                                System.out.println("Nome file contenente un training set valido: " + tableName + ".dat");
+                                trainingSet = new Data(tableName + ".dat");
                                 out.writeObject("@SUCCESS");
                                 flag = true;
                             } catch (TrainingDataException exc) {
@@ -76,7 +75,7 @@ class ServerOneClient extends Thread {
                         do {
                             try {
                                 tableName = "training_set/" + (String) in.readObject();
-                                String file = tableName + ".dat.dmp";
+                                String file = tableName + ".dmp";
                                 System.out.println("Nome file contenente una serializzazione dell'oggetto KNN:" + tableName);
                                 knn = KNN.carica(file);
                                 out.writeObject("@SUCCESS");
@@ -114,7 +113,7 @@ class ServerOneClient extends Thread {
 
                         knn = new KNN(trainingSet);
 
-                        knn.salva(tableName + "DB.dmp");
+                        knn.salva("training_set/" + tableName + "DB.dmp");
                     }
                     break;
                 }
