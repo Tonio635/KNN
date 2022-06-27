@@ -39,12 +39,12 @@ Lo script sql eseguirà le seguenti operazioni:
 
 Per poter utilizzare l'applicazione è **necessario** prima avviare il server.
 
-Avviare quindi il server direttamente avviando il file `server.sh` oppure se si preferisce tramite il file __jar__, attraverso il comando da eseguire nella cartella *Server*:
+Avviare quindi il server direttamente avviando il file `server.sh` da terminale *git bash* tramite il comando `sh server.sh` oppure, in alternativa, direttamente tramite il file __jar__, attraverso il comando da eseguire nella cartella *Server*:
 > __`java -jar Server.jar`__
 
 <br />
 
-Allo stesso modo, avviare i/il client direttamente avviando il file `client.sh` oppure se si preferisce tramite il file __jar__, attraverso il comando da eseguire nella cartella *Client*:
+Allo stesso modo, avviare i/il client direttamente avviando il file `client.sh` da terminale *git bash* tramite il comando `sh client.sh` oppure, in alternativa, direttamente tramite il file __jar__, attraverso il comando da eseguire nella cartella *Client*:
 > __`java -jar Client.jar`__
 
 <br />
