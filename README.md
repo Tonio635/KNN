@@ -36,6 +36,8 @@ Lo script sql eseguirà le seguenti operazioni:
 
 ## 2.2 Installazione applicazione
 ---
+Requisiti: **git bash**
+
 
 Per poter utilizzare l'applicazione è **necessario** prima avviare il server.
 
@@ -49,7 +51,9 @@ Allo stesso modo, avviare i/il client direttamente avviando il file `client.sh` 
 
 <br />
 
-**NB:** E' possibile avere aperto un unico **Server** alla volta, infatti il sistema impedirà di aprirne più di uno contemporaneamente. E' invece possibile avviare più **Client** contemporaneamente.
+**NB:** E' possibile avere aperto un unico **Server** alla volta, infatti il sistema impedirà di aprirne più di uno contemporaneamente. Per questo motivo fare attenzione quando si prova a chiudere il terminale del server: usare la combinazione __CTRL+C__ invece di chiudere direttamente il terminale perchè altrimenti il processo java rimarrà ancora in esecuzione(in quel caso bisogna terminare il processo dal task manager)! 
+
+E' invece possibile avviare più **Client** contemporaneamente.
 
 ## **3. Diagrammi delle classi**
 
