@@ -423,4 +423,35 @@ public class Data implements Serializable {
 		return e;
 	}
 
+	public LinkedList<LinkedList<LinkedList<Object>>> concatenaElementi(){
+
+		LinkedList<Object> coordinata = new LinkedList<Object>();
+		LinkedList<LinkedList<Object>> coppieCord = new LinkedList<LinkedList<Object>>();
+		LinkedList<LinkedList<LinkedList<Object>>> coppieOutput = new LinkedList<LinkedList<LinkedList<Object>>>();
+
+		int i = 0;
+		for (Example example : data) {
+			example = scaledExample(example);
+
+			coordinata.add(example);
+			coordinata.add(target.get(i));
+			coppieCord.add(coordinata);
+			i++;
+		}
+		coppieOutput.add(coppieCord);
+
+		coppieCord = new LinkedList<LinkedList<Object>>();
+		coordinata = new LinkedList<Object>();
+
+		for (Attribute a : explanatorySet) {
+			coordinata.add(a);
+			coordinata.add(a.getClass().getSimpleName());
+			coppieCord.add(coordinata);
+		}
+
+		
+		coppieOutput.add(coppieCord);
+
+		return coppieOutput;
+	}
 }
