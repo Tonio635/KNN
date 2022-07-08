@@ -344,7 +344,6 @@ public class Data implements Serializable {
 		risultato += "Variabili indipendenti:\n";
 		for (Attribute a : explanatorySet) {
 			risultato += a.toString() + "\n";
-			;
 		}
 		risultato += "\n";
 
