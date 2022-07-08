@@ -24,6 +24,10 @@
 <script src="chart.min.js"></script>
 <script src="grafico.js"></script>
 
+<script th:inline="javascript">
+    var id = [(${id})];
+</script>
+
 <script>
     function clickButton(txt) {
         $("#test").html("Gay chi legge");
@@ -33,6 +37,7 @@
             contentType: "application/json; charset=utf-8",
             url: "http://localhost:8080/getModello",
             data: JSON.stringify({
+                id: id,
                 formato: 1,
                 nome: txt
             }),
