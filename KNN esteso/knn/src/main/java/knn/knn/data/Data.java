@@ -16,6 +16,9 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.TreeMap;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import knn.knn.database.Column;
 import knn.knn.database.DbAccess;
 import knn.knn.database.InsufficientColumnNumberException;
@@ -423,35 +426,46 @@ public class Data implements Serializable {
 		return e;
 	}
 
-	public LinkedList<LinkedList<LinkedList<Object>>> concatenaElementi(){
+	/**
+	 * Restituisce l'oggetto data formattato in JSON nel seguente formato:
+	 * [ [ [x1,y1], [x2,y2], ...], [ [colonna1, type1], [colonna2, type2], ...] ]
+	 * 
+	 * @return oggetto data formattato in JSON
+	 * @throws JsonProcessingException eccezione controllata nel caso in cui la
+	 *                                 conversione in JSON dovesse dare problemi
+	 */
+	public String getJSONString() throws JsonProcessingException {
 
-		LinkedList<Object> coordinata = new LinkedList<Object>();
-		LinkedList<LinkedList<Object>> coppieCord = new LinkedList<LinkedList<Object>>();
-		LinkedList<LinkedList<LinkedList<Object>>> coppieOutput = new LinkedList<LinkedList<LinkedList<Object>>>();
-
+		Example e = new Example(getNumberOfExplanatoryAttributes());
 		int i = 0;
+		for (Attribute a : explanatorySet) {
+			e.set(a instanceof DiscreteAttribute ? "0" : 0, i++);
+		}
+
+		LinkedList<Double[]> coordinate = new LinkedList<Double[]>();
+		i = 0;
 		for (Example example : data) {
 			example = scaledExample(example);
 
-			coordinata.add(example);
-			coordinata.add(target.get(i));
-			coppieCord.add(coordinata);
-			i++;
+			Double[] coppia = { e.distance(example), target.get(i++) };
+			coordinate.add(coppia);
 		}
-		coppieOutput.add(coppieCord);
 
-		coppieCord = new LinkedList<LinkedList<Object>>();
-		coordinata = new LinkedList<Object>();
-
+		LinkedList<Object[]> formatoData = new LinkedList<Object[]>();
 		for (Attribute a : explanatorySet) {
-			coordinata.add(a);
-			coordinata.add(a.getClass().getSimpleName());
-			coppieCord.add(coordinata);
+			Integer type = a instanceof DiscreteAttribute ? 1 : 0;
+			Object[] coppia = { a.getName(), type };
+
+			formatoData.add(coppia);
 		}
 
-		
-		coppieOutput.add(coppieCord);
+		LinkedList<Object> listaOutput = new LinkedList<Object>();
 
-		return coppieOutput;
+		listaOutput.add(coordinate);
+		listaOutput.add(formatoData);
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		return mapper.writeValueAsString(listaOutput);
 	}
 }

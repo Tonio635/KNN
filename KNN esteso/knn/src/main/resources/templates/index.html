@@ -27,24 +27,27 @@
 <script>
     function clickButton(txt) {
         $("#test").html("Gay chi legge");
-    
+
         $.ajax({
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        url: "http://localhost:8080/domenico",
-        data: JSON.stringify({formato: 1, nome: txt }),
-        dataType: 'json',
-        cache: false,
-        timeout: 600000,
-        success: function (data) {
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "http://localhost:8080/getModello",
+            data: JSON.stringify({
+                formato: 1,
+                nome: txt
+            }),
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            success: function(data) {
 
-            console.log(data);
-        },
-        error: function (e) {
+                console.log(data);
+            },
+            error: function(e) {
 
-            console.log(e);
-        }
-    });
+                console.log(e);
+            }
+        });
     }
 </script>
 

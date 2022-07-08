@@ -2,6 +2,9 @@ package knn.knn.mining;
 
 import java.io.IOException;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
@@ -89,6 +92,17 @@ public class KNN implements Serializable {
         in.close();
 
         return obj;
+    }
+
+    /**
+     * Restituisce i valori del miner in JSON
+     * 
+     * @return stringa contentente i valori del miner in JSON
+	 * @throws JsonProcessingException eccezione controllata nel caso in cui la
+	 *                                 conversione in JSON dovesse dare problemi
+     */
+    public String getJSONString() throws JsonProcessingException {
+        return data.getJSONString();
     }
 
     /**
