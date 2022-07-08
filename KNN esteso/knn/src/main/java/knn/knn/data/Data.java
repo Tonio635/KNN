@@ -439,9 +439,10 @@ public class Data implements Serializable {
 		Example e = new Example(getNumberOfExplanatoryAttributes());
 		int i = 0;
 		for (Attribute a : explanatorySet) {
-			e.set(a instanceof DiscreteAttribute ? "0" : 0, i++);
+			e.set(a instanceof DiscreteAttribute ? "0" : 0.0, i++);
 		}
 
+		e = scaledExample(e);
 		LinkedList<Double[]> coordinate = new LinkedList<Double[]>();
 		i = 0;
 		for (Example example : data) {
