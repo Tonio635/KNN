@@ -14,7 +14,7 @@ import knn.knn.server.Server;
 @Service("mainKNNService")
 public class KNNService implements IKNNService {
 
-    public String getModello(Integer id, Integer formato, String nome) throws TrainingDataException, ClassNotFoundException,
+    public String getModello(Long id, Integer formato, String nome) throws TrainingDataException, ClassNotFoundException,
             IOException, InsufficientColumnNumberException, DatabaseConnectionException {
         
         KNN k = null;
@@ -38,7 +38,7 @@ public class KNNService implements IKNNService {
             break;
         }
 
-		Server.addKNN(id, null);
+		Server.addKNN(new Long(id), k);
 
         return k.getJSONString();
     }

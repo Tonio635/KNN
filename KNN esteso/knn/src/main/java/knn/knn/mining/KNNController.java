@@ -29,7 +29,7 @@ public class KNNController {
         String jsonResult = "";
 
         try {
-            jsonResult = ks.getModello((Integer) post.get("id"), (Integer) post.get("formato"), (String) post.get("nome"));
+            jsonResult = ks.getModello((Long)post.get("id"), (Integer) post.get("formato"), (String) post.get("nome"));
         } catch (Exception e) {
             ObjectMapper mapper = new ObjectMapper();
             return new ResponseEntity<String>(mapper.writeValueAsString(e.getMessage()), HttpStatus.NOT_FOUND);

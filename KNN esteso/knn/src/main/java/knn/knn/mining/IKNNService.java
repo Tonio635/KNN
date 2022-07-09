@@ -10,6 +10,6 @@ import knn.knn.database.InsufficientColumnNumberException;
 
 public interface IKNNService {
 
-    public String getModello(Integer id, Integer formato,String nome) throws JsonProcessingException,TrainingDataException,ClassNotFoundException, IOException,InsufficientColumnNumberException, DatabaseConnectionException;
+    public String getModello(Long id, Integer formato,String nome) throws JsonProcessingException,TrainingDataException,ClassNotFoundException, IOException,InsufficientColumnNumberException, DatabaseConnectionException;
 
 }
