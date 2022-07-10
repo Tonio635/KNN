@@ -45,6 +45,29 @@ public class Example implements Serializable, Cloneable {
     }
 
     /**
+     * Scambia i valori contenuti nel campo example dell’oggetto corrente con i
+     * valori contenuti
+     * nel campo example del parametro e
+     * 
+     * @param e esempio su cui scambiare i valori
+     */
+    public void swap(Example e) {
+        if (example.size() != e.example.size())
+            throw new ExampleSizeException("I due esempi non hanno lo stesso numero di variabili indipendenti!");
+
+        ListIterator<Object> it = example.listIterator();
+        ListIterator<Object> it2 = e.example.listIterator();
+
+        while (it.hasNext() && it2.hasNext()) {
+            Object el1 = it.next();
+            Object el2 = it2.next();
+
+            it.set(el2);
+            it2.set(el1);
+        }
+    }
+    
+    /**
      * Calcola e restituisce la distanza calcolata tra l’istanza di Example
      * passata come parametro e quella corrente
      * 

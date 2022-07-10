@@ -45,7 +45,34 @@
             cache: false,
             timeout: 600000,
             success: function(data) {
+                popola([], data[0]);
+                console.log(data);
+            },
+            error: function(e) {
 
+                console.log(e);
+            }
+        });
+    }
+
+    function clickButton2(txt) {
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "http://localhost:8080/getPredizione",
+            data: JSON.stringify({
+                id: id,
+                example: JSON.stringify({
+                    example: ["A", 2.00]
+                }),
+                k: 2
+            }),
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            success: function(data) {
+                popola(data[1], data[2], data[0]);
                 console.log(data);
             },
             error: function(e) {

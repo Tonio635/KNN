@@ -38,19 +38,19 @@ public class KNNController {
         return new ResponseEntity<String>(jsonResult, HttpStatus.OK);
     }
 
-    /*@PostMapping(path = "/getPredizione")
+    @PostMapping(path = "/getPredizione")
     public ResponseEntity<String> getPredizione(@RequestBody Map<String, Object> post) throws JsonProcessingException {
 
         String jsonResult = "";
+        ObjectMapper mapper = new ObjectMapper();
 
         try {
-            jsonResult = ks.getModello((Integer) post.get("formato"), (String) post.get("nome"));
+            jsonResult = ks.getPredizione((Long)post.get("id"), (String)post.get("example"), (Integer) post.get("k"));
         } catch (Exception e) {
-            ObjectMapper mapper = new ObjectMapper();
             return new ResponseEntity<String>(mapper.writeValueAsString(e.getMessage()), HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<String>(jsonResult, HttpStatus.OK);
-    }*/
+    }
 
 }

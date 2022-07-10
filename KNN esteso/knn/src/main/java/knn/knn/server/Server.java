@@ -24,10 +24,21 @@ public class Server {
 	/**
 	 * Aggiunge il modello KNN al client
 	 * 
-	 * @param id
+	 * @param id del client
+	 * @param k modello knn da salvare
 	 */
 	public static void addKNN(Long id, KNN k) {
 		clientModels.put(id, k);
+	}
+
+	/**
+	 * Restituisce il modello KNN salvato del client
+	 * in base all'id
+	 * 
+	 * @param id del client
+	 */
+	public static KNN getKNN(Long id) {
+		return clientModels.get(id);
 	}
 
 	/**
@@ -66,7 +77,7 @@ public class Server {
 	class ClearClientModels extends Thread {
 
 		/** Range di tempo(in millisecondi) ogni quanto vengono ripuliti i knn vecchi. */
-		private static final long time = 3600;
+		private static final long time = 3600 * 1000;
 
 		/**
 		 * Costruttore di ClearClientModels, fa partire un nuovo thread in background.
