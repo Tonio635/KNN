@@ -8,31 +8,37 @@ function popola(arrayColorato = [], arrayNonColorato = [], example = []) {
     if (bubbleChart !== null)
         bubbleChart.destroy();
 
-    let arrayColors = [];
-    let array = [];
+    let datasets = [];
 
     if (example.length > 0) {
-        arrayColors.push("#0000ff");
-        array.push(({ "x": example[0], "y": example[1], "r": r }));
+        datasets.push({
+            label: "Esempio",
+            data: [{ "x": example[0], "y": example[1], "r": r }],
+            backgroundColor: "#0000ff"
+        })
     }
 
-    array.push(arrayColorato.map(e => ({ "x": e[0], "y": e[1], "r": r })));
-    for (let i = 0; i < arrayColorato.length; i++) {
-        arrayColors.push("#FF0000");
-    }
-    array.push(arrayNonColorato.map(e => ({ "x": e[0], "y": e[1], "r": r })));
-    for (let i = 0; i < arrayNonColorato.length; i++) {
-        arrayColors.push("#61b254");
+    if (arrayColorato.length > 0) {
+        arrayColorato = arrayColorato.map(e => ({ "x": e[0], "y": e[1], "r": r }));
+        datasets.push({
+            label: "K Esempi più vicini",
+            data: arrayColorato,
+            backgroundColor: "#FF0000"
+        })
     }
 
-    array = array.flat();
+
+    if (arrayNonColorato.length > 0) {
+        arrayNonColorato = arrayNonColorato.map(e => ({ "x": e[0], "y": e[1], "r": r }));
+        datasets.push({
+            label: "Training set",
+            data: arrayNonColorato,
+            backgroundColor: "#61b254"
+        })
+    }
 
     var popData = {
-        datasets: [{
-            label: ['Popolazione'],
-            data: array,
-            backgroundColor: arrayColors
-        }]
+        datasets: datasets
     };
 
     bubbleChart = new Chart(popCanvas, {
