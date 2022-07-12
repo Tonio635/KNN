@@ -60,3 +60,32 @@ E' invece possibile avviare più **Client** contemporaneamente.
 ---
 
 ## **4. Manuale Utente**
+---
+All'apertura dell'applicazione client, l'utente dovrà scegliere con quale modalità caricare il training set come da figura:
+
+![Home](img/home.png)
+
+Se si sceglie l'opzione **1)** o **2)**, l'applicazione chiederà il nome del file. Inserire il file da caricare nella cartella __Server/training_set__ e quindi scrivere il nome del file **senza** l'estensione: verrà presa in automatico dal Server(__.dat__ per i file testuali, __.dmp__ per i file binari).
+
+![File](img/file.png)
+
+Se si sceglie l'opzione **3)** l'applicazione chiederà il nome della tabella, quindi inserire il nome della tabella corretta.
+
+![Database](img/database.png)
+
+Una volta caricato correttamente il training set, verrà stampato il messaggio **"Modello KNN caricato con successo!"**.
+
+A questo punto, l'applicazione chiederà di inserire l'esempio da predire facendo attenzione al tipo di dato (discreto o continuo) ed infine il valore di k:
+
+![Esempio](img/example.png)
+
+Il server risponderà quindi con la predizione corretta:
+
+![Predizione](img/predizione.png)
+
+Se si vuole continuare ad eseguire predizioni sul modello caricato, scrivere **Y**, altrimenti **N**.
+Se si preme **N**, verrà chiesto se caricare un nuovo modello (rispondere quindi allo stesso modo con **Y** o **N**).
+
+Se si risponde con **N** anche a questa seconda domanda, l'applicazione si chiuderà.
+
+![Chiusura](img/close.png)
