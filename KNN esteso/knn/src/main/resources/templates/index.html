@@ -1,86 +1,253 @@
 <!DOCTYPE html>
 <html lang="it">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNN esteso</title>
-</head>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css"
+            integrity="sha512-8vr9VoQNQkkCCHGX4BSjg63nI5CI4B+nZ8SF2xy4FMOIyH/2MT0r55V276ypsBFAgmLIGXKtRhbbJueVyYZXjA=="
+            crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-<body>
-    <div id="test">
-        Ciao
-    </div>
-    <button onclick="clickButton()">
-        Cliccami
-    </button>
-    <div style="width: 70%;">
-        <canvas id="bubble-chart"></canvas>
-    </div>
-</body>
+        <title>KNN esteso</title>
+    </head>
 
-<script src="jquery.min.js"></script>
-<script src="chart.min.js"></script>
-<script src="grafico.js"></script>
+    <body onload="$(document).scrollTop(0);">
+        <div class="home">
+            <header class="topnav">
+                <ul class="header__menu">
+                    <li><a class="menu-item contactnav" href="javascript:void(0)">CONTACT US</a></li>
+                    <li><a class="menu-item aboutnav" href="javascript:void(0)">ABOUT</a></li>
+                    <li><a class="menu-item howtousenav" href="javascript:void(0)">HOW TO USE</a></li>
+                    <li><a class="menu-item knnnav" href="javascript:void(0)">KNN</a></li>
+                    <li><a class="menu-item active homenav" href="javascript:void(0)">HOME</a></li>
+                </ul>
+            </header>
 
-<script th:inline="javascript">
-    var id = [(${id})];
-</script>
+            <div id="home">
+                <div id="modulo">
+                    <div class="title">
+                        <p>Algoritmo di predizione KNN</p>
+                    </div>
+                    <form id="first_module" action="#" method="post">
+                        <p id="validate"></p>
+                        <label for="load_method">Tecnica di caricamento training set:</label><br>
+                        <select name="load_method" id="load_method">
+                            <option value="novalue">Select</option>
+                            <option value="file">File</option>
+                            <option value="serialized_file">File serializzato</option>
+                            <option value="database">Database</option>
+                        </select>
 
-<script>
-    function clickButton(txt) {
-        $("#test").html("Gay chi legge");
+                        <div id="file" style="display: none">
+                            <label for="file_name">Inserire il nome del file da caricare (senza estensione)</label><br>
+                            <input type="text" name="file_name" id="file_name" autocomplete="off"
+                                placeholder="Nome del file">
+                        </div>
 
-        $.ajax({
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            url: "http://localhost:8080/getModello",
-            data: JSON.stringify({
-                id: id,
-                formato: 1,
-                nome: txt
-            }),
-            dataType: 'json',
-            cache: false,
-            timeout: 600000,
-            success: function(data) {
-                popola([], data[0]);
-                console.log(data);
-            },
-            error: function(e) {
+                        <div id="serialized_file" style="display: none">
+                            <label for="serialized_file_name">Inserire il nome del file binario da caricare (senza
+                                estensione)</label><br>
+                            <input type="text" name="serialized_file_name" id="serialized_file_name" autocomplete="off"
+                                placeholder="Nome del file">
+                        </div>
 
-                console.log(e);
-            }
-        });
-    }
+                        <div id="database" style="display: none">
+                            <label for="table_name">Inserire il nome della tabella da caricare</label><br>
+                            <input type="text" name="table_name" id="table_name" autocomplete="off"
+                                placeholder="Nome della tabella">
+                        </div>
 
-    function clickButton2(k) {
+                        <br>
 
-        $.ajax({
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            url: "http://localhost:8080/getPredizione",
-            data: JSON.stringify({
-                id: id,
-                example: JSON.stringify({
-                    example: ["A", 2.00]
-                }),
-                k: k
-            }),
-            dataType: 'json',
-            cache: false,
-            timeout: 600000,
-            success: function(data) {
-                popola(data[1], data[2], data[0]);
-                console.log(data);
-            },
-            error: function(e) {
+                        <button id="start" class="form-button" type="submit"
+                            onclick="return checkFirstModule();">Procedi</button>
+                    </form>
+                </div>
 
-                console.log(e);
-            }
-        });
-    }
-</script>
+                <div id="modal" class="modal">
+                    <div class="modal-content">
+                        <div class="title">
+                            <p>Inserimento esempio <span class="close">&times;</span></p>
+                        </div>
+                        <div class="content">
+                            <form id="second_form" action="#" method="post"></form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="graph" style="display: none;">
+            <canvas id="bubble-chart"></canvas>
+        </div>
+
+        <div id="knn">
+            <div class="first-section">
+                <p class="title hideme">Di cosa si tratta</p>
+                <hr style="background: white;">
+                <p class="subtitle hideme">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam justo urna, tempus
+                    non faucibus ac, condimentum a nisi. Sed
+                    a tortor vitae mauris ullamcorper iaculis. Nulla ut leo vitae eros vestibulum interdum a et eros. Donec
+                    posuere, diam et
+                    rhoncus scelerisque, purus orci eleifend diam, sed pellentesque magna dolor et eros. Integer quis
+                    aliquet nisl. Nunc
+                    fringilla, massa nec sollicitudin tincidunt, quam ligula vulputate turpis, at congue risus sem bibendum
+                    magna. Mauris
+                    eleifend nunc eget erat mattis, ac lobortis mi imperdiet. Sed lacinia dui eu mauris aliquet aliquam. In
+                    hac habitasse
+                    platea dictumst. Donec sit amet cursus neque. Integer quis pharetra magna. Maecenas luctus est elit, sed
+                    imperdiet lorem ullamcorper ac.
+                    Sed et dolor quis quam fermentum lacinia a eget quam. Maecenas molestie ut ipsum vel vulputate.
+                    Vestibulum id metus
+                    egestas, pharetra justo eu, venenatis mi. Morbi quis pharetra purus.
+                    Nam mattis tempor erat, sit amet condimentum enim tempus quis. Morbi accumsan in turpis quis aliquam.
+                    Donec varius dolor
+                    velit, nec pharetra lacus suscipit eget. Duis pharetra ex in sapien interdum malesuada. Vestibulum
+                    mollis, massa et
+                    posuere lobortis, risus lacus dapibus enim, sed lacinia sapien mauris eu tortor. Cras feugiat, est in
+                    congue varius,
+                    ante ipsum blandit turpis, eget pellentesque libero dolor ut metus. Nulla viverra eget leo et rutrum.
+                    Duis in consequat
+                    leo. Phasellus a ipsum eu est commodo tempor. Pellentesque pharetra risus vitae tellus interdum lacinia.
+                    Cras ligula
+                    arcu, ornare id euismod nec, tristique non nisl. Praesent neque tortor, ultrices imperdiet sapien sed,
+                    sollicitudin
+                    ultricies dolor.</p>
+            </div>
+        </div>
+
+        <div id="howtouse">
+            <div class="first-section">
+                <p class="title hideme">Come utilizzarlo</p>
+                <hr style="background: black;">
+                <p class="subtitle hideme">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam justo urna, tempus
+                    non
+                    faucibus ac, condimentum a nisi. Sed
+                    a tortor vitae mauris ullamcorper iaculis. Nulla ut leo vitae eros vestibulum interdum a et eros. Donec
+                    posuere, diam et
+                    rhoncus scelerisque, purus orci eleifend diam, sed pellentesque magna dolor et eros. Integer quis
+                    aliquet
+                    nisl. Nunc
+                    fringilla, massa nec sollicitudin tincidunt, quam ligula vulputate turpis, at congue risus sem bibendum
+                    magna. Mauris
+                    eleifend nunc eget erat mattis, ac lobortis mi imperdiet. Sed lacinia dui eu mauris aliquet aliquam. In
+                    hac
+                    habitasse
+                    platea dictumst. Donec sit amet cursus neque. Integer quis pharetra magna. Maecenas luctus est elit, sed
+                    imperdiet lorem ullamcorper ac.
+                    Sed et dolor quis quam fermentum lacinia a eget quam. Maecenas molestie ut ipsum vel vulputate.
+                    Vestibulum
+                    id metus
+                    egestas, pharetra justo eu, venenatis mi. Morbi quis pharetra purus.
+                    Nam mattis tempor erat, sit amet condimentum enim tempus quis. Morbi accumsan in turpis quis aliquam.
+                    Donec
+                    varius dolor
+                    velit, nec pharetra lacus suscipit eget. Duis pharetra ex in sapien interdum malesuada. Vestibulum
+                    mollis,
+                    massa et
+                    posuere lobortis, risus lacus dapibus enim, sed lacinia sapien mauris eu tortor. Cras feugiat, est in
+                    congue
+                    varius,
+                    ante ipsum blandit turpis, eget pellentesque libero dolor ut metus. Nulla viverra eget leo et rutrum.
+                    Duis
+                    in consequat
+                    leo. Phasellus a ipsum eu est commodo tempor. Pellentesque pharetra risus vitae tellus interdum lacinia.
+                    Cras ligula
+                    arcu, ornare id euismod nec, tristique non nisl. Praesent neque tortor, ultrices imperdiet sapien sed,
+                    sollicitudin
+                    ultricies dolor.</p>
+            </div>
+        </div>
+
+        <div id="about">
+            <div class="first-section">
+                <p class="title hideme">Chi siamo</p>
+                <hr style="background: black;">
+                <p class="subtitle hideme">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam justo urna, tempus
+                    non
+                    faucibus ac, condimentum a nisi. Sed
+                    a tortor vitae mauris ullamcorper iaculis. Nulla ut leo vitae eros vestibulum interdum a et eros. Donec
+                    posuere, diam et
+                    rhoncus scelerisque, purus orci eleifend diam, sed pellentesque magna dolor et eros. Integer quis
+                    aliquet
+                    nisl. Nunc
+                    fringilla, massa nec sollicitudin tincidunt, quam ligula vulputate turpis, at congue risus sem bibendum
+                    magna. Mauris
+                    eleifend nunc eget erat mattis, ac lobortis mi imperdiet. Sed lacinia dui eu mauris aliquet aliquam. In
+                    hac
+                    habitasse
+                    platea dictumst.</p>
+            </div>
+
+            <div class="container-us">
+                <div class="github">
+                    <div class="card">
+                        <div class="imgBx">
+                            <img src="https://avatars.githubusercontent.com/u/82759402?v=4">
+                        </div>
+                        <div class="contentBx">
+                            <h3>bralani</h3>
+                            <a href="https://github.com/bralani" class="recapito">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="imgBx">
+                            <img src="https://avatars.githubusercontent.com/u/69091134?v=4">
+                        </div>
+                        <div class="contentBx">
+                            <h3>Tonio635</h3>
+                            <a href="https://github.com/Tonio635" class="recapito">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="imgBx">
+                            <img src="https://avatars.githubusercontent.com/u/82759768?v=4">
+                        </div>
+                        <div class="contentBx">
+                            <h3>D0men1c0</h3>
+                            <a href="https://github.com/D0men1c0" class="recapito">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id=footer>
+            <div class="container-contacts">
+                <h2 class="contacts-title">Contatti</h2>
+                <hr>
+                <div class="footer-contacts">
+                    <ul class="contacts">
+                        <li><a href="javascript:void(0)"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="javascript:void(0)"><i class="fab fa-telegram-plane"></i></a></li>
+                        <li><a href="javascript:void(0)"><i class="fab fa-discord"></i></a></li>
+                        <li><a href="javascript:void(0)"><i class="fa fa-server" aria-hidden="true"></i></a></li>
+                        <li><a href="javascript:void(0)"><i class="fab fa-teamspeak"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="copyright">
+            <p class="copyright-text">Copyright 2022 © - Tutti i diritti riservati. Built by <span
+                    class="creator-text">Tonio, Matteo e Domenico</span>.</p>
+        </div>
+
+        <script th:inline="javascript">
+            var id = [(${ id })];
+        </script>
+
+        <script src="jquery.min.js"></script>
+        <script src="chart.min.js"></script>
+        <script src="grafico.js"></script>
+        <script src="index.js"></script>
+
+
+    </body>
 
 </html>
