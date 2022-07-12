@@ -13,27 +13,25 @@ window.onclick = function (event) {
     }
 }
 
-function createSecondForm() {
-    let variables = [["motr", "discrete"], ["moto", "discrete"], ["motor", "discrete"], ["screw", "discrete"], ["pgain", "continuous"], ["vgain", "continuous"], ["gay", "continuous"]];
+function createSecondForm(result) {
     let form = "";
 
-    for (let i = 0; i < variables.length; i++) {
-        let type = variables[i][1] === "discrete" ? "text" : "number";
-        form += "<label for='" + variables[i][0] + "'>Inserire la variabile " + variables[i][0] + "</label><br>";
-        form += "<input type='" + type + "' name='" + variables[i][0] + "' id='" + variables[i][0] + "' autocomplete='off' placeholder='Valore attributo' required></input>";
-        form += "<br>";
+    for (let i = 0; i < result.length; i++) {
+        let type = result[i][1] === 1 ? "text" : "number";
+        let type_text = result[i][1] === 1 ? "discreta" : "continua";
+        form +=  `<label for='${result[i][0]}'>Inserire la variabile ${type_text} ${result[i][0]}</label><br>
+        <input type='${type}' name='${result[i][0]}' id='${result[i][0]}' autocomplete='off' placeholder='Valore variabile ${type_text}' required></input>
+        <br>`;
     }
 
-    form += "<label for='k'>Inserire la distanza da tenere in considerazione per la predizione</label><br>";
-    form += "<input type='number' name='k' id='k' autocomplete='off' placeholder='Valore k' required></input><br>";
-
-    form += "<button class='form-button'>Avvia predizione</button>";
+    form += `<label for='k'>Inserire la distanza da tenere in considerazione per la predizione</label><br>
+    <input type='number' name='k' id='k' autocomplete='off' placeholder='Valore k' required></input><br>
+    <button class='form-button'>Avvia predizione</button>`;
 
     document.getElementById("second_form").innerHTML = form;
 }
 
-
-function checkFirstModule() {
+async function checkFirstModule() {
     let select = document.getElementById('load_method');
 
     if (select.value === 'novalue') {
@@ -48,6 +46,8 @@ function checkFirstModule() {
         document.getElementById('validate').innerHTML = '*Campo obbligatorio';
         method.style.borderColor = 'red';
         return false;
+    } else if(select.value == "1"){
+        var path = method.value;
     }
 
     method = document.getElementById('serialized_file_name');
@@ -56,6 +56,8 @@ function checkFirstModule() {
         document.getElementById('validate').innerHTML = '*Campo obbligatorio';
         method.style.borderColor = 'red';
         return false;
+    } else if (select.value == "2") {
+        var path = method.value;
     }
 
     method = document.getElementById('table_name');
@@ -64,11 +66,15 @@ function checkFirstModule() {
         document.getElementById('validate').innerHTML = '*Campo obbligatorio';
         method.style.borderColor = 'red';
         return false;
+    } else if (select.value == "3") {
+        var path = method.value;
     }
+
+    var result = await caricaModello(path, parseInt(select.value));
 
     modal.style.display = "block";
 
-    createSecondForm();
+    createSecondForm(result);
 
     return true;
 }
@@ -78,19 +84,22 @@ $(document).ready(function () {
     $('#load_method').on('change', function () {
         let decision = $(this).val();
 
-        $("#file").hide()
-        $("#serialized_file").hide()
-        $("#database").hide()
+        $("#file").hide();
+        $("#file_name").val("");
+        $("#serialized_file").hide();
+        $("#serialized_file_name").val("");
+        $("#database").hide();
+        $("#table_name").val("");
 
         switch (decision) {
-            case "file":
-                $("#file").show()
+            case "1":
+                $("#file").show();
                 break;
-            case "serialized_file":
-                $("#serialized_file").show()
+            case "2":
+                $("#serialized_file").show();
                 break;
-            case "database":
-                $("#database").show()
+            case "3":
+                $("#database").show();
                 break;
         }
     });
@@ -142,8 +151,9 @@ $(document).ready(function () {
 
 });
 
-function clickButton(txt) {
-    $("#test").html("Gay chi legge");
+async function caricaModello(pathFile, formato) {
+
+    var result = null;
 
     $.ajax({
         type: "POST",
@@ -151,21 +161,23 @@ function clickButton(txt) {
         url: "http://localhost:8080/getModello",
         data: JSON.stringify({
             id: id,
-            formato: 1,
-            nome: txt
+            formato: formato,
+            nome: pathFile
         }),
         dataType: 'json',
         cache: false,
         timeout: 600000,
+        async: false,
         success: function (data) {
             popola([], data[0]);
-            console.log(data);
+            result = data[1];
         },
         error: function (e) {
-
             console.log(e);
         }
     });
+
+    return result;
 }
 
 function clickButton2(k) {

@@ -7,12 +7,8 @@
         <meta http-equiv="pragma" content="no-cache" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css" type="text/css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css"
-            integrity="sha512-8vr9VoQNQkkCCHGX4BSjg63nI5CI4B+nZ8SF2xy4FMOIyH/2MT0r55V276ypsBFAgmLIGXKtRhbbJueVyYZXjA=="
-            crossorigin="anonymous" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
             integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
         <title>KNN esteso</title>
     </head>
 
@@ -38,9 +34,9 @@
                         <label for="load_method">Tecnica di caricamento training set:</label><br>
                         <select name="load_method" id="load_method">
                             <option value="novalue">Select</option>
-                            <option value="file">File</option>
-                            <option value="serialized_file">File serializzato</option>
-                            <option value="database">Database</option>
+                            <option value="1">File</option>
+                            <option value="2">File serializzato</option>
+                            <option value="3">Database</option>
                         </select>
 
                         <div id="file" style="display: none">
@@ -65,7 +61,7 @@
                         <br>
 
                         <button id="start" class="form-button" type="submit"
-                            onclick="return checkFirstModule();">Procedi</button>
+                            onclick="return checkFirstModule();">Carica modello</button>
                     </form>
                 </div>
 
@@ -75,15 +71,15 @@
                             <p>Inserimento esempio <span class="close">&times;</span></p>
                         </div>
                         <div class="content">
+                            <div id="graph">
+                                <canvas id="bubble-chart"></canvas>
+                            </div>
+
                             <form id="second_form" action="#" method="post"></form>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div id="graph" style="display: none;">
-            <canvas id="bubble-chart"></canvas>
         </div>
 
         <div id="knn">
