@@ -40,14 +40,13 @@
                         </select>
 
                         <div id="file" style="display: none">
-                            <label for="file_name">Inserire il nome del file da caricare (senza estensione)</label><br>
+                            <label for="file_name">Inserire l'intero percorso del file da caricare</label><br>
                             <input type="text" name="file_name" id="file_name" autocomplete="off"
                                 placeholder="Nome del file">
                         </div>
 
                         <div id="serialized_file" style="display: none">
-                            <label for="serialized_file_name">Inserire il nome del file binario da caricare (senza
-                                estensione)</label><br>
+                            <label for="serialized_file_name">Inserire l'intero percorso del file binario da caricare</label><br>
                             <input type="text" name="serialized_file_name" id="serialized_file_name" autocomplete="off"
                                 placeholder="Nome del file">
                         </div>
@@ -60,7 +59,7 @@
 
                         <br>
 
-                        <button id="start" class="form-button" type="submit"
+                        <button id="start" class="form-button"
                             onclick="return checkFirstModule();">Carica modello</button>
                     </form>
                 </div>
@@ -75,7 +74,7 @@
                                 <canvas id="bubble-chart"></canvas>
                             </div>
 
-                            <form id="second_form" action="#" method="post"></form>
+                            <div id="second_form"></div>
                         </div>
                     </div>
                 </div>

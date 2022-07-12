@@ -24,7 +24,7 @@ function createSecondForm(result) {
         <br>`;
     }
 
-    form += `<label for='k'>Inserire la distanza da tenere in considerazione per la predizione</label><br>
+    form += `<label for='k'>Inserire la distanza</label><br>
     <input type='number' name='k' id='k' autocomplete='off' placeholder='Valore k' required></input><br>
     <button class='form-button'>Avvia predizione</button>`;
 

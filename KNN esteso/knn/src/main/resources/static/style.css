@@ -203,14 +203,14 @@ Home
     position: relative;
     background-color: cornflowerblue;
     color: white;
-    margin: auto;
+    margin: -80px auto auto auto;
     padding-right: 20px;
     border: 1px solid #888;
-    width: 70%;
-    height: 75%;
+    width: 90%;
+    height: 95%;
     overflow-y: auto;
     overflow-x: hidden;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
@@ -222,10 +222,17 @@ Home
     background-color: white;
     margin: auto;
     padding-left: 10px;
+    height: 86%;
     padding-right: 8px;
-    padding-bottom: 20px;
     border: 1px solid #888;
     width: 100%;
+}
+
+#second_form {
+    float: right;
+    overflow-y: auto;
+    width: 30%;
+    height: 100%;
 }
 
 @-webkit-keyframes animatetop {
@@ -271,8 +278,9 @@ Graph
 --------------------------*/
 
 #graph {
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.90);
+    float: left;
+    width: 70%;
+    margin-top: 60px;
 }
 
 /*--------------------------
