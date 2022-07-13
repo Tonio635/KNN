@@ -276,9 +276,22 @@ Graph
 #graph {
     float: left;
     width: 70%;
-    margin-top: 60px;
+    margin-top: 20px;
 }
 
+#result {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#explain_graph {
+    font-size: 16px;
+    margin: 4%;
+}
+
+.k {
+    color: green;
+}
 /*--------------------------
 KNN
 --------------------------*/
