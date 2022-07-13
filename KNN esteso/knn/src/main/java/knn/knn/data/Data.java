@@ -487,6 +487,8 @@ public class Data implements Serializable {
 		Map<Double, ArrayList<Object[]>> map = new TreeMap<Double, ArrayList<Object[]>>();
 		Iterator<Double> iter = target.iterator();
 
+		double avg = avgClosest(e, k);
+
 		e = scaledExample(e);
 		int j = 0;
 		for (Example example : data) {
@@ -500,24 +502,17 @@ public class Data implements Serializable {
 			iter.next();
 		}
 
-		Example ex = new Example(getNumberOfExplanatoryAttributes());
-		int i = 0;
-		for (Attribute a : explanatorySet) {
-			ex.set(a instanceof DiscreteAttribute ? "0" : 0.0, i++);
-		}
-		ex = scaledExample(ex);
-
 		LinkedList<List<Object>> listaColorata = new LinkedList<List<Object>>();
 		LinkedList<List<Object>> listaNonColorata = new LinkedList<List<Object>>();
 
-		i = 0;
+		int i = 0;
 		for(Map.Entry<Double, ArrayList<Object[]>> entry : map.entrySet()) {
 
 			LinkedList<Object> l = new LinkedList<Object>();
 
 			for(Object[] examp: entry.getValue())
 			{
-				l.add(coppia(ex.distance((Example)examp[0]), examp[1]));
+				l.add(coppia(e.distance((Example)examp[0]), examp[1]));
 			}
 
 			if (i < k) {
@@ -531,7 +526,7 @@ public class Data implements Serializable {
 
 		LinkedList<Object> listaOutput = new LinkedList<Object>();
 
-		listaOutput.add(coppia(ex.distance(e), avgClosest(e, k)));
+		listaOutput.add(coppia(e.distance(e), avg));
 		listaOutput.add(listaColorata.stream().flatMap(List::stream).collect(Collectors.toList()));
 		listaOutput.add(listaNonColorata.stream().flatMap(List::stream).collect(Collectors.toList()));
 		
