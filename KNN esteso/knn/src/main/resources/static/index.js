@@ -4,12 +4,14 @@ var span = document.getElementsByClassName("close")[0];
 // Quando l'utente clicca la x, si chiude la finestra
 span.onclick = function () {
     modal.style.display = "none";
+    document.getElementById("result").innerHTML = "";
 }
 
 // Quando l'utente clicca fuori dalla finestra, questa si chiude
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
+        document.getElementById("result").innerHTML = "";
     }
 }
 
@@ -173,7 +175,7 @@ async function caricaModello(pathFile, formato) {
             result = data[1];
         },
         error: function (e) {
-            window.location = "http://localhost:8080/404";
+            //window.location = "http://localhost:8080/404";
             console.log(e);
         }
     });
@@ -193,7 +195,7 @@ function changeGraph(k) {
             return false;
         }
         if(data[i].getAttribute("type") == "number") {
-            example.push(parseInt(data[i].value));
+            example.push(parseFloat(data[i].value));
         } else {
             example.push(data[i].value);
         }
@@ -222,10 +224,11 @@ function changeGraph(k) {
         timeout: 600000,
         success: function (data) {
             popola(data[1], data[2], data[0]);
+            document.getElementById("result").innerHTML = "Il risultato della predizione è <span class='k'>" + data[0][1] + "</span>";
             console.log(data);
         },
         error: function (e) {
-            window.location = "http://localhost:8080/404";
+            //window.location = "http://localhost:8080/404";
             console.log(e);
         }
     });
