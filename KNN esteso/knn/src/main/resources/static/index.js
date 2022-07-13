@@ -14,19 +14,19 @@ window.onclick = function (event) {
 }
 
 function createSecondForm(result) {
-    let form = "";
+    let form = "<p id='validate_example'></p>";
 
     for (let i = 0; i < result.length; i++) {
         let type = result[i][1] === 1 ? "text" : "number";
         let type_text = result[i][1] === 1 ? "discreta" : "continua";
         form +=  `<label for='${result[i][0]}'>Inserire la variabile ${type_text} ${result[i][0]}</label><br>
-        <input type='${type}' name='${result[i][0]}' id='${result[i][0]}' autocomplete='off' placeholder='Valore variabile ${type_text}' required></input>
+        <input type='${type}' name='${result[i][0]}' id='${result[i][0]}' autocomplete='off' placeholder='Valore variabile ${type_text}'></input>
         <br>`;
     }
 
     form += `<label for='k'>Inserire la distanza</label><br>
-    <input type='number' name='k' id='k' autocomplete='off' placeholder='Valore k' required></input><br>
-    <button class='form-button'>Avvia predizione</button>`;
+    <input type='number' name='k' id='k' autocomplete='off' placeholder='Valore k'></input><br>
+    <button class='form-button' onclick="changeGraph(document.getElementById('k').value);">Avvia predizione</button>`;
 
     document.getElementById("second_form").innerHTML = form;
 }
@@ -104,7 +104,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#first_module').on('submit', function (e) {
+    $('#second_module').on('submit', function (e) {
         e.preventDefault();
     });
 
@@ -173,6 +173,7 @@ async function caricaModello(pathFile, formato) {
             result = data[1];
         },
         error: function (e) {
+            window.location = "http://localhost:8080/404";
             console.log(e);
         }
     });
@@ -180,7 +181,30 @@ async function caricaModello(pathFile, formato) {
     return result;
 }
 
-function clickButton2(k) {
+function changeGraph(k) {
+
+    var data = document.getElementsByTagName("input");
+    var example = [];
+    
+    for(var i = 3; i < data.length - 1; i++) {
+        if(!data[i].value) {
+            document.getElementById('validate_example').innerHTML = '*Campo obbligatorio';
+            data[i].style.borderColor = 'red';
+            return false;
+        }
+        if(data[i].getAttribute("type") == "number") {
+            example.push(parseInt(data[i].value));
+        } else {
+            example.push(data[i].value);
+        }
+        
+    }
+
+    if(!document.getElementById("k").value) {
+        document.getElementById('validate_example').innerHTML = '*Campo obbligatorio';
+        document.getElementById("k").style.borderColor = 'red';
+        return false;
+    }
 
     $.ajax({
         type: "POST",
@@ -189,9 +213,9 @@ function clickButton2(k) {
         data: JSON.stringify({
             id: id,
             example: JSON.stringify({
-                example: ["A", 2.00]
+                example: example
             }),
-            k: k
+            k: parseInt(k)
         }),
         dataType: 'json',
         cache: false,
@@ -201,7 +225,7 @@ function clickButton2(k) {
             console.log(data);
         },
         error: function (e) {
-
+            window.location = "http://localhost:8080/404";
             console.log(e);
         }
     });
