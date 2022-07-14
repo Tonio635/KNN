@@ -17,8 +17,6 @@ import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import javax.websocket.OnClose;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -474,14 +472,14 @@ public class Data implements Serializable {
 	}
 
 	/**
-     * Restituisce i valori della predizione del miner in JSON
-     * 
+	 * Restituisce i valori della predizione del miner in JSON
+	 * 
 	 * @param e indica l'esempio sulla quale eseguire la predizione
 	 * @param k intero che indica di eseguire la media sui k esempi più vicini
-     * @return stringa contentente i valori del miner con la predizione in JSON
+	 * @return stringa contentente i valori del miner con la predizione in JSON
 	 * @throws JsonProcessingException eccezione controllata nel caso in cui la
 	 *                                 conversione in JSON dovesse dare problemi
-     */
+	 */
 	public String getJSONPredizione(Example e, int k) throws JsonProcessingException {
 
 		Map<Double, ArrayList<Object[]>> map = new TreeMap<Double, ArrayList<Object[]>>();
@@ -506,13 +504,12 @@ public class Data implements Serializable {
 		LinkedList<List<Object>> listaNonColorata = new LinkedList<List<Object>>();
 
 		int i = 0;
-		for(Map.Entry<Double, ArrayList<Object[]>> entry : map.entrySet()) {
+		for (Map.Entry<Double, ArrayList<Object[]>> entry : map.entrySet()) {
 
 			LinkedList<Object> l = new LinkedList<Object>();
 
-			for(Object[] examp: entry.getValue())
-			{
-				l.add(coppia(e.distance((Example)examp[0]), examp[1]));
+			for (Object[] examp : entry.getValue()) {
+				l.add(coppia(e.distance((Example) examp[0]), examp[1]));
 			}
 
 			if (i < k) {
@@ -529,7 +526,7 @@ public class Data implements Serializable {
 		listaOutput.add(coppia(e.distance(e), avg));
 		listaOutput.add(listaColorata.stream().flatMap(List::stream).collect(Collectors.toList()));
 		listaOutput.add(listaNonColorata.stream().flatMap(List::stream).collect(Collectors.toList()));
-		
+
 		ObjectMapper mapper = new ObjectMapper();
 
 		return mapper.writeValueAsString(listaOutput);
@@ -538,12 +535,11 @@ public class Data implements Serializable {
 	/**
 	 * Restituisce un oggetto array che contiene due valori
 	 * 
-	 * @param first primo valore
+	 * @param first  primo valore
 	 * @param second secondo valore
 	 * @return array di oggetti che contiene due valori
 	 */
-	private Object[] coppia(Object first, Object second)
-	{
+	private Object[] coppia(Object first, Object second) {
 		Object[] coppia = { first, second };
 
 		return coppia;

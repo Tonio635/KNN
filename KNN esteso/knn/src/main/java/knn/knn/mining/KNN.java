@@ -98,21 +98,21 @@ public class KNN implements Serializable {
      * Restituisce i valori del miner in JSON
      * 
      * @return stringa contentente i valori del miner in JSON
-	 * @throws JsonProcessingException eccezione controllata nel caso in cui la
-	 *                                 conversione in JSON dovesse dare problemi
+     * @throws JsonProcessingException eccezione controllata nel caso in cui la
+     *                                 conversione in JSON dovesse dare problemi
      */
     public String getJSONString() throws JsonProcessingException {
         return data.getJSONString();
     }
-    
+
     /**
      * Restituisce i valori della predizione del miner in JSON
      * 
-	 * @param e indica l'esempio sulla quale eseguire la predizione
-	 * @param k intero che indica di eseguire la media sui k esempi più vicini
+     * @param e indica l'esempio sulla quale eseguire la predizione
+     * @param k intero che indica di eseguire la media sui k esempi più vicini
      * @return stringa contentente i valori del miner con la predizione in JSON
-	 * @throws JsonProcessingException eccezione controllata nel caso in cui la
-	 *                                 conversione in JSON dovesse dare problemi
+     * @throws JsonProcessingException eccezione controllata nel caso in cui la
+     *                                 conversione in JSON dovesse dare problemi
      */
     public String getJSONPredizione(Example e, int k) throws JsonProcessingException {
         return data.getJSONPredizione(e, k);

@@ -2,7 +2,6 @@ package knn.knn.mining;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import org.springframework.stereotype.Service;
@@ -45,7 +44,7 @@ public class KNNService implements IKNNService {
                 break;
         }
 
-        Server.addKNN(new Long(id), k);
+        Server.addKNN(Long.valueOf(id), k);
 
         return k.getJSONString();
     }
@@ -53,11 +52,11 @@ public class KNNService implements IKNNService {
     /**
      * Restituisce i valori della predizione del miner in JSON
      * 
-	 * @param e indica l'esempio sulla quale eseguire la predizione
-	 * @param k intero che indica di eseguire la media sui k esempi più vicini
+     * @param e indica l'esempio sulla quale eseguire la predizione
+     * @param k intero che indica di eseguire la media sui k esempi più vicini
      * @return stringa contentente i valori del miner con la predizione in JSON
-	 * @throws JsonProcessingException eccezione controllata nel caso in cui la
-	 *                                 conversione in JSON dovesse dare problemi
+     * @throws JsonProcessingException eccezione controllata nel caso in cui la
+     *                                 conversione in JSON dovesse dare problemi
      */
     public String getPredizione(Long id, String e, Integer k) throws Exception {
 
@@ -70,15 +69,15 @@ public class KNNService implements IKNNService {
         ObjectMapper mapper = new ObjectMapper();
         HashMap<Object, Object> obj = mapper.readValue(e, HashMap.class);
 
-        ArrayList<Object> l = (ArrayList<Object>)obj.values().toArray()[0];
+        ArrayList<Object> l = (ArrayList<Object>) obj.values().toArray()[0];
         Example ex = new Example(l.size());
 
         int i = 0;
-        for(Object o: l) {
+        for (Object o : l) {
             if (o instanceof String)
                 ex.set(o, i++);
             else
-                ex.set(new Double((Integer)o), i++);
+                ex.set(Double.valueOf((Integer) o), i++);
         }
 
         return modello.getJSONPredizione(ex, k);

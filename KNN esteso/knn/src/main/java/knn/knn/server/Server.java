@@ -51,7 +51,7 @@ public class Server {
 		Long newID;
 
 		do {
-			newID = new Long(System.currentTimeMillis());
+			newID = Long.valueOf(System.currentTimeMillis());
 		} while (clientModels.containsKey(newID));
 
 		addKNN(newID, null);
@@ -96,7 +96,7 @@ public class Server {
 
 					List<Long> l = clientModels.keySet().
 					stream().
-					filter(p -> (p + time) < new Long(System.currentTimeMillis()))
+					filter(p -> (p + time) < Long.valueOf(System.currentTimeMillis()))
 					.mapToLong(p -> p)
 					.boxed()
 					.toList();

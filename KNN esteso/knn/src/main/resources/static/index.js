@@ -21,7 +21,7 @@ function createSecondForm(result) {
     for (let i = 0; i < result.length; i++) {
         let type = result[i][1] === 1 ? "text" : "number";
         let type_text = result[i][1] === 1 ? "discreta" : "continua";
-        form +=  `<label for='${result[i][0]}'>Inserire la variabile ${type_text} ${result[i][0]}</label><br>
+        form += `<label for='${result[i][0]}'>Inserire la variabile ${type_text} ${result[i][0]}</label><br>
         <input type='${type}' name='${result[i][0]}' id='${result[i][0]}' autocomplete='off' placeholder='Valore variabile ${type_text}'></input>
         <br>`;
     }
@@ -48,7 +48,7 @@ async function checkFirstModule() {
         document.getElementById('validate').innerHTML = '*Campo obbligatorio';
         method.style.borderColor = 'red';
         return false;
-    } else if(select.value == "1"){
+    } else if (select.value == "1") {
         var path = method.value;
     }
 
@@ -187,22 +187,22 @@ function changeGraph(k) {
 
     var data = document.getElementsByTagName("input");
     var example = [];
-    
-    for(var i = 3; i < data.length - 1; i++) {
-        if(!data[i].value) {
+
+    for (var i = 3; i < data.length - 1; i++) {
+        if (!data[i].value) {
             document.getElementById('validate_example').innerHTML = '*Campo obbligatorio';
             data[i].style.borderColor = 'red';
             return false;
         }
-        if(data[i].getAttribute("type") == "number") {
+        if (data[i].getAttribute("type") == "number") {
             example.push(parseFloat(data[i].value));
         } else {
             example.push(data[i].value);
         }
-        
+
     }
 
-    if(!document.getElementById("k").value) {
+    if (!document.getElementById("k").value) {
         document.getElementById('validate_example').innerHTML = '*Campo obbligatorio';
         document.getElementById("k").style.borderColor = 'red';
         return false;
