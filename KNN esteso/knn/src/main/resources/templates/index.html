@@ -46,7 +46,8 @@
                         </div>
 
                         <div id="serialized_file" style="display: none">
-                            <label for="serialized_file_name">Inserire l'intero percorso del file binario da caricare</label><br>
+                            <label for="serialized_file_name">Inserire l'intero percorso del file binario da
+                                caricare</label><br>
                             <input type="text" name="serialized_file_name" id="serialized_file_name" autocomplete="off"
                                 placeholder="Nome del file">
                         </div>
@@ -59,8 +60,7 @@
 
                         <br>
 
-                        <button id="start" class="form-button"
-                            onclick="return checkFirstModule();">Carica modello</button>
+                        <button id="start" class="form-button" onclick="return checkFirstModule();">Carica modello</button>
                     </div>
                 </div>
 
@@ -74,12 +74,13 @@
                                 <div id="result"></div>
                                 <canvas id="bubble-chart"></canvas>
                                 <div id="explain_graph">
-                                    <p>L'asse X rappresenta la distanza dalla query, l'asse Y rappresenta il target degli esempi</p>
+                                    <p>L'asse X rappresenta la distanza dalla query, l'asse Y rappresenta il target degli
+                                        esempi</p>
                                 </div>
                             </div>
 
                             <div id="second_form"></div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -90,7 +91,37 @@
             <div class="first-section">
                 <p class="title hideme">Di cosa si tratta</p>
                 <hr style="background: white;">
-                <p class="subtitle hideme">Che schifo.</p>
+                <p class="subtitle hideme">Questa applicazione web sfrutta l'algoritmo di regressione KNN del data mining,
+                    finalizzato alla predizione del valore di un attributo numerico associato a un esempio sulla base di
+                    valori osservati per altri attributi dell’esempio medesimo.<br><br>
+                    Quindi, dato un training set (X, Y), un esempio X denominato query per il quale il valore Y sia
+                    sconosciuto e un intero k > 0, viene predetto il valore sconosciuto di Y associato ad X identificando i
+                    k
+                    esempi del training set più vicini ad X e restituendo la media dei valori Y nei k vicini
+                    selezionati.<br>
+                    L'algoritmo riceve in input una collezione di esempi di apprendimento (training set) dove ciascun
+                    esempio
+                    è formato da una tupla di valori per un prefissato insieme di attributi (variabili indipendenti)
+                    X = {X<sub>1</sub>, X<sub>2</sub>, ..., X<sub>n</sub>}
+                    e un attributo di classe numerico (variabile dipendente/target).<br>L’attributo X<sub>i</sub>
+                    è descritto come continuo o discreto a seconda che i sui valori siano numerici o nominali.
+                    L’attributo di classe Y è numerico e ha valori nell’insieme dei numeri reali.<br><br>
+                    Per distinguere gli esempi più vicini bisogna trovare la loro distanza dalla query.
+                    Per trovare la distanza dalla query bisogna comportarsi in modi diversi a seconda del tipo di dato
+                    dell'attributo.<br> Se questo è discreto, è sufficiente trovare la distanza di hamming tra l'attributo
+                    corrispondente della query e dell'esempio esaminato in quel momento;<br>Se questo è continuo, invece,
+                    è necessario trovare la differenza in valore assoluto dei valori numerici, dopo aver scalato l'attributo
+                    in maniera tale da farlo rientrare nel range [0, 1].<br>
+                    Per fare ciò si ricorre alla tecnica del min-max scaler: si trova il massimo e il minimo tra tutti i
+                    valori
+                    dell'attributo presenti nel training set e il nuovo valore è definito dall'espressione:
+                    newValue = (value - min) / (max - min).<br>
+                    Per trovare la distanza totale, infine, è sufficiente sommare le distanze trovate con i vari
+                    attributi.<br><br>
+                    Il valore target della query sarà definito dalla media dei target dei k esempi più vicini.
+                    Nel caso in cui dovessero esserci più esempi alla stessa distanza dalla query,
+                    è necessario considerare nel calcolo della media tutti gli esempi coinvolti.
+                </p>
             </div>
         </div>
 
@@ -98,7 +129,20 @@
             <div class="first-section">
                 <p class="title hideme">Come utilizzarlo</p>
                 <hr style="background: black;">
-                <p class="subtitle hideme">Non farlo.</p>
+                <p class="subtitle hideme">Per cominciare ad utilizzare l'applicazione, è necessario prima di tutto
+                    scegliere la modalità di caricamento del training set (file, file serializzato o database).<br>
+                    Dopo la selezione è necessario inserire il percorso assoluto relativo al file che si vuole caricare
+                    oppure
+                    inserire il nome della tabella nel database contenente i dati richiesti.<br>
+                    A questo punto si aprirà un modal: a sinistra comparirà un grafico con il training set disposto in
+                    ordine a
+                    seconda dalla distanza da un esempio contenente solo valori nulli;<br>
+                    A destra sarà invece possibile inserire gli attributi della query per cui si vuole predire il valore
+                    target.<br>
+                    Dopo aver avviato la predizione, sul grafico comparirà l'esempio che descrive la query
+                    e tutto il training set si disporrà in ordine di distanza da esso,
+                    mostrando sopra il grafico il risultato della predizione.
+                </p>
             </div>
         </div>
 
@@ -106,7 +150,13 @@
             <div class="first-section">
                 <p class="title hideme">Chi siamo</p>
                 <hr style="background: black;">
-                <p class="subtitle hideme">Siamo tre sfigati.</p>
+                <p class="subtitle hideme">Siamo tre ragazzi che hanno stretto amicizia nell'ambiente universitario e che
+                    si sono trovati bene fin da subito lavorando assieme. Dopo aver in passato partecipato insieme ad altri
+                    progetti
+                    ed esserci dato manforte durante la preparazione di numerosi esami, abbiamo deciso di lavorare
+                    insieme anche a questo progetto con l'obbiettivo di effettuare una realizzazione completa e ben fatta.<br>
+                    Di seguito i nostri profili GitHub:
+                </p>
             </div>
 
             <div class="container-us">

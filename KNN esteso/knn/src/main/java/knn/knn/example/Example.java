@@ -2,6 +2,7 @@ package knn.knn.example;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ListIterator;
  */
 public class Example implements Serializable, Cloneable {
     /** Array di Object che contiene un valore per ciascun attributo indipendente */
-    private ArrayList<Object> example;
+    private List<Object> example;
 
     /**
      * Costruttore della classe
