@@ -2,13 +2,13 @@ var modal = document.getElementById("modal");
 var span = document.getElementsByClassName("close")[0];
 
 // Quando l'utente clicca la x, si chiude la finestra
-span.onclick = function () {
+span.onclick = function() {
     modal.style.display = "none";
     document.getElementById("result").innerHTML = "";
 }
 
 // Quando l'utente clicca fuori dalla finestra, questa si chiude
-window.onclick = function (event) {
+window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
         document.getElementById("result").innerHTML = "";
@@ -74,6 +74,8 @@ async function checkFirstModule() {
 
     var result = await caricaModello(path, parseInt(select.value));
 
+    if (result == null) return false;
+
     modal.style.display = "block";
 
     createSecondForm(result);
@@ -81,9 +83,9 @@ async function checkFirstModule() {
     return true;
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
 
-    $('#load_method').on('change', function () {
+    $('#load_method').on('change', function() {
         let decision = $(this).val();
 
         $("#file").hide();
@@ -106,14 +108,14 @@ $(document).ready(function () {
         }
     });
 
-    $('#second_module').on('submit', function (e) {
+    $('#second_module').on('submit', function(e) {
         e.preventDefault();
     });
 
-    $(window).scroll(function () {
+    $(window).scroll(function() {
 
         /* Controlla la locazione di ogni elemento desiderato. */
-        $('.hideme').each(function () {
+        $('.hideme').each(function() {
 
             let bottom_of_object = $(this).offset().top + $(this).outerHeight();
             let bottom_of_window = $(window).scrollTop() + $(window).height();
@@ -131,23 +133,23 @@ $(document).ready(function () {
      * Navbar
      */
 
-    $('a.homenav').click(function () {
+    $('a.homenav').click(function() {
         $(window).scrollTop(0);
     });
 
-    $('a.knnnav').click(function () {
+    $('a.knnnav').click(function() {
         $(window).scrollTop($('#knn').position().top);
     });
 
-    $('a.aboutnav').click(function () {
+    $('a.aboutnav').click(function() {
         $(window).scrollTop($('#about').position().top);
     });
 
-    $('a.howtousenav').click(function () {
+    $('a.howtousenav').click(function() {
         $(window).scrollTop($('#howtouse').position().top);
     });
 
-    $('a.contactnav').click(function () {
+    $('a.contactnav').click(function() {
         $(window).scrollTop($('#footer').position().top);
     });
 
@@ -170,13 +172,17 @@ async function caricaModello(pathFile, formato) {
         cache: false,
         timeout: 600000,
         async: false,
-        success: function (data) {
+        success: function(data) {
             popola([], data[0]);
             result = data[1];
         },
-        error: function (e) {
-            //window.location = "http://localhost:8080/404";
-            console.log(e);
+        error: function(e) {
+            Swal.fire({
+                title: 'Errore!',
+                text: e.responseJSON,
+                icon: 'error'
+            })
+
         }
     });
 
@@ -222,14 +228,16 @@ function changeGraph(k) {
         dataType: 'json',
         cache: false,
         timeout: 600000,
-        success: function (data) {
+        success: function(data) {
             popola(data[1], data[2], data[0]);
             document.getElementById("result").innerHTML = "Il risultato della predizione è <span class='k'>" + data[0][1] + "</span>";
-            console.log(data);
         },
-        error: function (e) {
-            //window.location = "http://localhost:8080/404";
-            console.log(e);
+        error: function(e) {
+            Swal.fire({
+                title: 'Errore!',
+                text: e.responseJSON,
+                icon: 'error'
+            })
         }
     });
 }
