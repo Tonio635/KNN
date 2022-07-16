@@ -16,13 +16,35 @@
 ---
 
 ## **1. Introduzione del progetto**
-> KNN Miner ecc ecc SCRIVERE QUA!
+<div style="text-align: justify"> <b>KNN Miner</b> sfrutta l'algoritmo di regressione <b>KNN</b> del <i>data mining</i>,
+finalizzato alla predizione del valore di un attributo numerico associato a un esempio sulla base di
+valori osservati per altri attributi dell’esempio medesimo.<br><br>
+Quindi, dato un training set <b>(X, Y)</b>, un esempio X denominato <i>query</i> per il quale il valore Y sia
+sconosciuto e un intero k > 0, viene predetto il valore sconosciuto di Y associato ad X identificando i
+k esempi del training set più vicini ad X e restituendo la media dei valori Y nei k vicini selezionati.<br>
+L'algoritmo riceve in input una collezione di esempi di apprendimento (training set) dove ciascun
+esempio è formato da una tupla di valori per un prefissato insieme di attributi (variabili indipendenti)
+<b>X = {X<sub>1</sub>, X<sub>2</sub>, ..., X<sub>n</sub>}</b>
+e un attributo di classe numerico (variabile dipendente/target).<br>L’attributo X<sub>i</sub>
+è descritto come continuo o discreto a seconda che i sui valori siano numerici o nominali.
+L’attributo di classe Y è numerico e ha valori nell’insieme dei numeri reali.<br><br>
+Per distinguere gli esempi più vicini bisogna trovare la loro <u>distanza</u> dalla query.
+Per far ciò bisogna comportarsi in modi diversi a seconda del tipo di dato dell'attributo.<br> Se questo è discreto, è sufficiente trovare la distanza di hamming tra l'attributo corrispondente della query e dell'esempio esaminato in quel momento;<br>se questo è continuo, invece, è necessario trovare la differenza in valore assoluto dei valori numerici, dopo aver scalato l'attributo in maniera tale da farlo rientrare nel range <i>[0, 1]</i>.<br>
+Per fare ciò si ricorre alla tecnica del <b>min-max scaler</b>: si trova il massimo e il minimo tra tutti i
+valori dell'attributo presenti nel training set e il nuovo valore è definito dall'espressione:
+<b>newValue = (value - min) / (max - min).</b> Per trovare la distanza totale, infine, è sufficiente sommare le distanze trovate con i vari
+attributi.<br><br>
+Il valore target della query sarà definito dalla media dei target dei k esempi più vicini.
+Nel caso in cui dovessero esserci più esempi alla stessa distanza dalla query,
+è necessario considerare nel calcolo della media tutti gli esempi coinvolti.</div>
 
 ---
 
 ## **2. Guida di installazione**
 ## 2.1 Installazione MYSQL
 ---
+La libreria esterna per connettersi da *java* su *mysql* utilizzata è la **mysql-connector-java-8.0.17.jar**.
+
 - Autenticarsi da terminale su *mysql* con l'utente __root__;
 - Spostarsi nella directory corrente tramite comando `cd directory` (o qualunque altra directory, l'importante è che ci sia il file **setup.sql**);
 - Eseguire il seguente comando: 
