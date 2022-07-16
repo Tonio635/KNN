@@ -35,7 +35,12 @@ public class KNNService implements IKNNService {
 
             // File binario
             case 2:
-                k = KNN.carica(nome);
+                try {
+                    k = KNN.carica(nome);
+                } catch (IOException | ClassNotFoundException e) {
+                    throw new TrainingDataException("File non trovato.");
+                }
+
                 break;
 
             // Database

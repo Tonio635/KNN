@@ -14,7 +14,7 @@ public class TrainingDataException extends Exception {
 	 * 
 	 * @param msg Messaggio passato al momento del sollevamento dell'eccezione.
 	 */
-    TrainingDataException(String message) {
+    public TrainingDataException(String message) {
         super(message);
     }
 }
