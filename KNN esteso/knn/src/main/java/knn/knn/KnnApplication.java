@@ -1,14 +1,15 @@
 package knn.knn;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import knn.knn.server.Server;
 
 /**
  * Classe di partenza del Server.
  */
 @SpringBootApplication
+@EnableAutoConfiguration
 public class KnnApplication{
 
 	/**
