@@ -30,6 +30,7 @@ html {
     transition: 1.5s ease-in-out;
 }
 
+
 /*--------------------------
 Navbar
 --------------------------*/
@@ -79,6 +80,7 @@ Navbar
     transition: color 0.5s;
 }
 
+
 /*--------------------------
 Modulo
 --------------------------*/
@@ -127,14 +129,18 @@ input[type=number]:focus {
     transition: 0.5s;
 }
 
+
 /* Chrome, Safari, Edge, Opera */
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
+
 /* Firefox */
+
 input[type=number] {
     -moz-appearance: textfield;
 }
@@ -161,10 +167,12 @@ select {
     transition: all 375ms ease-in-out;
 }
 
-#validate, #validate_example {
+#validate,
+#validate_example {
     color: red;
     font-size: 16px;
 }
+
 
 /*--------------------------
 Home
@@ -178,7 +186,7 @@ Home
 }
 
 .home {
-    height: 100%;
+    height: 800px;
     background: rgba(0, 0, 0, 0.6);
 }
 
@@ -236,7 +244,6 @@ Home
         top: -300px;
         opacity: 0;
     }
-
     to {
         top: 0;
         opacity: 1;
@@ -248,7 +255,6 @@ Home
         top: -300px;
         opacity: 0
     }
-
     to {
         top: 0;
         opacity: 1
@@ -268,6 +274,7 @@ Home
     text-decoration: none;
     cursor: pointer;
 }
+
 
 /*--------------------------
 Graph
@@ -292,6 +299,8 @@ Graph
 .k {
     color: green;
 }
+
+
 /*--------------------------
 KNN
 --------------------------*/
@@ -327,6 +336,7 @@ p.subtitle {
     text-align: center
 }
 
+
 /*--------------------------
 How to use
 --------------------------*/
@@ -335,6 +345,7 @@ How to use
     color: rgb(100, 100, 100);
     background-color: rgba(255, 255, 255, 0.90);
 }
+
 
 /*--------------------------
 About
@@ -457,6 +468,7 @@ About
     opacity: 1;
 }
 
+
 /*--------------------------
 Footer
 --------------------------*/
@@ -558,9 +570,11 @@ ul.contacts li:hover::before {
     color: rgb(100, 100, 100);
 }
 
+
 /*--------------------------
 404
 --------------------------*/
+
 a.back-home {
     font-size: 30px;
     background-color: cornflowerblue;
