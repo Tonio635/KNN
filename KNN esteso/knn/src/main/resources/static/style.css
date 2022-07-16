@@ -511,8 +511,7 @@ ul.contacts li a {
     text-decoration: none;
 }
 
-.footer-contacts ul.contacts li a .fab,
-.footer-contacts ul.contacts li a .fa {
+.footer-contacts ul.contacts li a .fas{
     font-size: 40px;
     color: black;
 }
