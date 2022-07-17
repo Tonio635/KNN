@@ -22,6 +22,7 @@
 ## **2. Guida di installazione**
 ## 2.1 Installazione MYSQL
 ---
+La libreria per connettersi a mysql è inclusa nei package di spring. Le modalità di connessione al DB sono equivalenti a quelle del progetto base, ovvero:
 
 - Autenticarsi da terminale su *mysql* con l'utente __root__;
 - Spostarsi nella directory corrente tramite comando `cd directory` (o qualunque altra directory, l'importante è che ci sia il file **setup.sql**);
@@ -38,6 +39,22 @@ Lo script sql eseguirà le seguenti operazioni:
 ---
 Requisiti: **git bash**
 
+
+Per poter utilizzare l'applicazione è **necessario** prima avviare il **server web** di spring (la porta utilizzata sarà la 8080).
+
+Avviare quindi il server direttamente avviando il file `server.sh` da terminale *git bash* tramite il comando `sh server.sh` oppure, in alternativa, direttamente tramite il file __jar__, attraverso il comando da eseguire nella cartella *Server*:
+> __`java -jar Server.jar`__
+
+<br />
+
+Per poter avviare l'applicazione tramite **Client** è necessario aprire un browser qualunque e recarsi all'indirizzo:
+> __`localhost:8080`__
+
+<br />
+
+**NB:** E' possibile avere aperto un unico **Server** alla volta, infatti il sistema impedirà di aprirne più di uno contemporaneamente. Per questo motivo fare attenzione quando si prova a chiudere il terminale del server: usare la combinazione __CTRL+C__ invece di chiudere direttamente il terminale perchè altrimenti il processo java rimarrà ancora in esecuzione(in quel caso bisogna terminare il processo dal task manager)! 
+
+E' invece possibile connettersi tramite più **Client** in diverse pagine web contemporaneamente.
 
 
 ## **3. Diagrammi delle classi**
