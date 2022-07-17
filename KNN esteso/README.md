@@ -8,6 +8,7 @@
 [2. Guida di installazione](#2-guida-di-installazione)
 - [2.1 Installazione MYSQL](#21-installazione-mysql)
 - [2.2 Installazione applicazione](#22-installazione-applicazione)
+- [2.3 Importazione su eclipse](#23-importazione-su-eclipse)
 
 [3. Diagrammi delle classi](#3-diagrammi-delle-classi)
 
@@ -37,7 +38,7 @@ Lo script sql eseguirà le seguenti operazioni:
 
 ## 2.2 Installazione applicazione
 ---
-Requisiti: **git bash**
+Requisiti: **jdk-17**, **git bash**
 
 
 Per poter utilizzare l'applicazione è **necessario** prima avviare il **server web** di spring (la porta utilizzata sarà la 8080).
@@ -56,6 +57,18 @@ Per poter avviare l'applicazione tramite **Client** è necessario aprire un brow
 
 E' invece possibile connettersi tramite più **Client** in diverse pagine web contemporaneamente.
 
+
+## 2.3 Importazione su eclipse
+---
+Il progetto esteso funziona solamente con la **jdk-17** di Java. Se non si dispone di questa versione scaricarla da [questo link](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
+
+1) Per poter importare su eclipse il progetto, è necessario scaricare dal marketplace di eclipse l'estensione `'Buildship Gradle Integration 3.0'`. 
+
+2) Una volta fatto ciò, importare tramite Gradle con la voce `'Existing Gradle Project'` e selezionare nella voce `'Project root directory'` la cartella `'KNN esteso/knn'` e cliccare su Finish.
+
+3) L'ultima cosa da fare è indicare a Gradle il corretto percorso della jdk-17. Recarsi in `'Window -> Preferences -> Gradle'`, selezionare la Java home indicando il corretto percorso (dovrebbe trovarsi in questo percorso `'C:\Program Files\Java\jdk-17.0.0'` su Windows).
+
+Se tutto è andato a buon fine, il progetto è stato correttamente importato in Eclipse.
 
 ## **3. Diagrammi delle classi**
 

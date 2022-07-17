@@ -8,6 +8,7 @@
 [2. Guida di installazione](#2-guida-di-installazione)
 - [2.1 Installazione MYSQL](#21-installazione-mysql)
 - [2.2 Installazione applicazione](#22-installazione-applicazione)
+- [2.3 Importazione su Eclipse](#23-importazione-su-eclipse)
 
 [3. Diagrammi delle classi](#3-diagrammi-delle-classi)
 
@@ -76,6 +77,11 @@ Allo stesso modo, avviare i/il client direttamente avviando il file `client.sh` 
 **NB:** E' possibile avere aperto un unico **Server** alla volta, infatti il sistema impedirà di aprirne più di uno contemporaneamente. Per questo motivo fare attenzione quando si prova a chiudere il terminale del server: usare la combinazione __CTRL+C__ invece di chiudere direttamente il terminale perchè altrimenti il processo java rimarrà ancora in esecuzione(in quel caso bisogna terminare il processo dal task manager)! 
 
 E' invece possibile avviare più **Client** contemporaneamente.
+
+## 2.3 Importazione su eclipse
+---
+Per poter importare su eclipse, è necessario importare due progetti differenti, una volta importando la cartella __Server__ ed un'altra la cartella __Client__.
+
 
 ## **3. Diagrammi delle classi**
 
