@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Classe knn che gestisce il training set.
+ */
 @Controller
 @Qualifier("mainKNNService")
 public class KNNController {
@@ -19,10 +22,20 @@ public class KNNController {
     @Autowired
     private IKNNService ks;
 
+    /**
+     * Costruttore della classe.
+     */
     public KNNController() {
         ks = new KNNService();
     }
 
+    /**
+     * Restituisce il modello del training set.
+     * 
+     * @param post
+     * @return l'oggetto ResponseEntity che contiene il modello del training set e lo status del server
+     * @throws JsonProcessingException per gestire eventuali eccezioni nella conversione.
+     */
     @PostMapping(path = "/getModello")
     public ResponseEntity<String> getModello(@RequestBody Map<String, Object> post) throws JsonProcessingException {
 
@@ -38,6 +51,13 @@ public class KNNController {
         return new ResponseEntity<String>(jsonResult, HttpStatus.OK);
     }
 
+    /**
+     * Meotodo che esegue la predizione
+     * 
+     * @param post
+     * @return l'oggetto ResponseEntity che contiene il modello del training set e lo status del server
+     * @throws JsonProcessingException per gestire eventuali eccezioni nella conversione.
+     */
     @PostMapping(path = "/getPredizione")
     public ResponseEntity<String> getPredizione(@RequestBody Map<String, Object> post) throws JsonProcessingException {
 

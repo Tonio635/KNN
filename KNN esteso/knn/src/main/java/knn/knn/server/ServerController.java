@@ -16,7 +16,10 @@ public class ServerController {
     @Qualifier("mainServerService")
 
     private IServerService ss;
-
+    
+    /**
+     * Costruttore della classe
+     */
     public ServerController() {
         ss = new ServerService();
     }
