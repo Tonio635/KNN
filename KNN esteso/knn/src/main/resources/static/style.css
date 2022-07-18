@@ -306,9 +306,8 @@ KNN
 --------------------------*/
 
 #knn {
-    background-color: rgba(100, 149, 237, 0.90);
-    ;
-    color: white;
+    background-color: rgba(100, 80, 237, 0.90);
+    color: rgb(220, 220, 220);
 }
 
 .first-section hr {
@@ -342,7 +341,7 @@ How to use
 --------------------------*/
 
 #howtouse {
-    color: rgb(100, 100, 100);
+    color: rgb(75, 75, 75);
     background-color: rgba(255, 255, 255, 0.90);
 }
 
@@ -511,6 +510,10 @@ ul.contacts li a {
     text-decoration: none;
 }
 
+i:before {
+    margin: 50px;
+}
+
 .footer-contacts ul.contacts li a .fas{
     font-size: 40px;
     color: white;
@@ -526,7 +529,7 @@ ul.contacts li a {
 .footer-contacts ul.contacts {
     list-style: none;
     position: relative;
-    left: 45%;
+    left: 47%;
 }
 
 .footer-contacts ul.contacts li {
@@ -569,6 +572,43 @@ ul.contacts li:hover::before {
     color: rgb(100, 100, 100);
 }
 
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 330px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -165px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
 
 /*--------------------------
 404
