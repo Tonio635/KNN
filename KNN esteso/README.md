@@ -80,15 +80,15 @@ All'apertura del browser all'indirizzo `localhost:8080`, l'utente dovrà sceglie
 
 ![Menu](knn/src/main/resources/static/img/menu.png)
 
-Se si sceglie l'opzione **File**, l'applicazione chiederà il percorso **assoluto** del file da voler caricare (precisando .dat). 
+Se si sceglie l'opzione **File**, l'applicazione chiederà il percorso **assoluto** del file che si vuole caricare (precisando l'estensione). 
 
 ![File](knn/src/main/resources/static/img/file.png)
 
-Se si sceglie l'opzione **File serializzato**, l'applicazione chiederà il percorso **assoluto** del file da voler caricare (precisando .dat.dmp). 
+Se si sceglie l'opzione **File serializzato**, l'applicazione chiederà il percorso **assoluto** che si vuole caricare (precisando l'estensione). 
 
 ![File-serializzato](knn/src/main/resources/static/img/file-serializzato.png)
 
-Se si sceglie l'opzione **Database** l'applicazione chiederà il nome della tabella, quindi inserire il nome della tabella corretta (ovviamente dovrà essere acceso il db).
+Se si sceglie l'opzione **Database** l'applicazione chiederà il nome della tabella, quindi inserire il nome della tabella corretta (ovviamente dovranno essere in funzione i servizi del DBMS).
 
 ![Database](knn/src/main/resources/static/img/database.png)
 
