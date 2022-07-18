@@ -3,7 +3,7 @@
 ## Indice
 
 ---
-[1. Introduzione del progetto](#1-introduzione-del-progetto)
+[1. Differenze del progetto esteso](#1-differenze-del-progetto-esteso)
 
 [2. Guida di installazione](#2-guida-di-installazione)
 - [2.1 Installazione MYSQL](#21-installazione-mysql)
@@ -16,9 +16,13 @@
 
 ---
 
-## **1. Introduzione del progetto**
-
+## **1. Differenze del progetto esteso**
 ---
+Il progetto sviluppa una grafica client sul web implementata tramite **html**, **css** e **javascript**. E' stata adottata un'architettura **REST api** in cui il client per poter comunicare con il server effettua delle chiamate asincrone da javascript alle api di **Spring** (Java).
+
+Spring, infatti, ad ogni tentativo di chiamata dal client creerà un nuovo thread a partire dai metodi nella classe **KNNController**.
+
+E' stato aggiunto anche un thread in background che elimina ogni ora i modelli **KNN** dei client salvati sul server.
 
 ## **2. Guida di installazione**
 ## 2.1 Installazione MYSQL
