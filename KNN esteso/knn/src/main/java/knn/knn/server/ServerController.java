@@ -27,6 +27,7 @@ public class ServerController {
     /**
      * Restituisce la pagina index.html
      * 
+     * @param model modello passato
      * @return pagina index.html
      */
     @RequestMapping("/")

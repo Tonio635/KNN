@@ -32,8 +32,8 @@ public class KNNController {
     /**
      * Restituisce il modello del training set.
      * 
-     * @param post
-     * @return l'oggetto ResponseEntity che contiene il modello del training set e lo status del server
+     * @param post dati passati dal client
+     * @return l'oggetto ResponseEntity che contiene il modello del training set e lo status della chiamata
      * @throws JsonProcessingException per gestire eventuali eccezioni nella conversione.
      */
     @PostMapping(path = "/getModello")
@@ -54,8 +54,8 @@ public class KNNController {
     /**
      * Meotodo che esegue la predizione
      * 
-     * @param post
-     * @return l'oggetto ResponseEntity che contiene il modello del training set e lo status del server
+     * @param post dati passati dal client
+     * @return l'oggetto ResponseEntity che contiene il modello del training set e lo status della chiamata
      * @throws JsonProcessingException per gestire eventuali eccezioni nella conversione.
      */
     @PostMapping(path = "/getPredizione")

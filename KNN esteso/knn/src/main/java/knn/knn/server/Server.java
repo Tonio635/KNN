@@ -36,6 +36,7 @@ public class Server {
 	 * in base all'id
 	 * 
 	 * @param id del client
+	 * @return restituisce il modello KNN in base all'id
 	 */
 	public static KNN getKNN(Long id) {
 		return clientModels.get(id);
