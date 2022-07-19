@@ -38,7 +38,7 @@ Lo script sql eseguirà le seguenti operazioni:
 1. Creare l'utente **map** con password **map** (se c'era già prima lo elimina);
 2. Creare il database **map** se non già presente;
 3. Dare tutti i privilegi all'utente **map** sul database **map**;
-4. Creare la tabella **provaC** nel database **map** (se c'era già prima la elimina);
+4. Creare la tabella **provaC** e **servo** nel database **map** (se c'era già prima la elimina);
 
 ## 2.2 Installazione applicazione
 ---
