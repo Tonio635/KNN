@@ -90,7 +90,7 @@ Database:
 
 ![Database](img/db-esteso.png)
 
-Oltre a ciò bisogna considerare che tra la classe ServerOneClient e Knn è presente una associazione diretta 1 a 1.
+Oltre a ciò bisogna considerare che tra la classe Server e Knn è presente una associazione diretta 1 a 1.
 
 Tra la classe Example e TableData è presente un'aggregazione 1..* a 1.
 
