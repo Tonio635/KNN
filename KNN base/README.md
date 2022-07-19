@@ -85,7 +85,23 @@ Per poter importare su eclipse, è necessario importare due progetti differenti,
 
 ## **3. Diagrammi delle classi**
 
----
+Di seguito sono riportati gli screen relativi ai diagrammi delle classi suddivisi in 3 foto (server, database e knn).
+
+Server:
+
+![Server](img/server-base.png)
+
+Knn:
+
+![Knn](img/knn-base.png)
+
+Database:
+
+![Database](img/db-base.png)
+
+Oltre a ciò bisogna considerare che tra la classe ServerOneClient e Knn è presente una associazione diretta 1 a 1.
+
+Tra la classe Example e TableData è presente un'aggregazione 1..* a 1.
 
 ## **4. Manuale Utente**
 ---
