@@ -44,7 +44,7 @@ Nel caso in cui dovessero esserci più esempi alla stessa distanza dalla query,
 ## **2. Guida di installazione**
 ## 2.1 Installazione MYSQL
 ---
-La libreria esterna per connettersi da *java* su *mysql* utilizzata è la **mysql-connector-java-8.0.17.jar**.
+La libreria esterna per connettersi da *java* su *mysql* utilizzata è la **mysql-connector-java-8.0.29.jar**.
 
 - Autenticarsi da terminale su *mysql* con l'utente __root__;
 - Spostarsi nella directory corrente tramite comando `cd directory` (o qualunque altra directory, l'importante è che ci sia il file **setup.sql**);
