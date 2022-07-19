@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"knn.client","l":"Client"},{"p":"knn.utility","l":"Keyboard"},{"p":"knn","l":"Main"}];updateSearchResults();

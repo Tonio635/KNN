@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"knn"},{"l":"knn.client"},{"l":"knn.data"},{"l":"knn.database"},{"l":"knn.example"},{"l":"knn.mining"},{"l":"knn.server"},{"l":"knn.utility"}];updateSearchResults();
