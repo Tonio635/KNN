@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd knn
-java -jar knn.jar
+java -jar server.jar
