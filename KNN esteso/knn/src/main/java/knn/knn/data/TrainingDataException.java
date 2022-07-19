@@ -12,7 +12,7 @@ public class TrainingDataException extends Exception {
 	 * Richiama il costruttore della super-classe che permette di sollevare
 	 * un'eccezione con un messaggio passato come parametro.
 	 * 
-	 * @param msg Messaggio passato al momento del sollevamento dell'eccezione.
+	 * @param message Messaggio passato al momento del sollevamento dell'eccezione.
 	 */
     public TrainingDataException(String message) {
         super(message);
