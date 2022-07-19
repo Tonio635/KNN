@@ -76,40 +76,56 @@ Se tutto è andato a buon fine, il progetto è stato correttamente importato in 
 
 ## **3. Diagrammi delle classi**
 
----
+Di seguito sono riportati gli screen relativi ai diagrammi delle classi suddivisi in 3 foto (server, database e knn).
+
+Server:
+
+![Server](img/server-esteso.png)
+
+Knn:
+
+![Knn](img/knn-esteso.png)
+
+Database:
+
+![Database](img/db-esteso.png)
+
+Oltre a ciò bisogna considerare che tra la classe ServerOneClient e Knn è presente una associazione diretta 1 a 1.
+
+Tra la classe Example e TableData è presente un'aggregazione 1..* a 1.
 
 ## **4. Manuale Utente**
 ---
 All'apertura del browser all'indirizzo `localhost:8080`, l'utente dovrà scegliere con quale modalità caricare il training set dal menù a tendina come da figura:
 
-![Menu](knn/src/main/resources/static/img/menu.png)
+![Menu](img/menu.png)
 
 Se si sceglie l'opzione **File**, l'applicazione chiederà il percorso **assoluto** del file che si vuole caricare (precisando l'estensione). 
 
-![File](knn/src/main/resources/static/img/file.png)
+![File](img/file.png)
 
 Se si sceglie l'opzione **File serializzato**, l'applicazione chiederà il percorso **assoluto** che si vuole caricare (precisando l'estensione). 
 
-![File-serializzato](knn/src/main/resources/static/img/file-serializzato.png)
+![File-serializzato](img/file-serializzato.png)
 
 Se si sceglie l'opzione **Database** l'applicazione chiederà il nome della tabella, quindi inserire il nome della tabella corretta (ovviamente dovranno essere in funzione i servizi del DBMS).
 
-![Database](knn/src/main/resources/static/img/database.png)
+![Database](img/database.png)
 
 Una volta inserito correttamente il training set, basterà cliccare sul button **Carica Modello**.
 
-![Button](knn/src/main/resources/static/img/button.png)
+![Button](img/button.png)
 
 Una volta caricato correttamente il training set, verrà mostrata una schermata dove è visibile un grafico a bolle ove l'asse X rappresenta la distanza dalla query, l'asse Y rappresenta il target degli esempi.
 
 A fianco del grafico, l'applicazione chiederà di inserire l'esempio da predire facendo attenzione al tipo di dato (discreto o continuo) ed infine la distanza (il valore k):
 
-![Grafico](knn/src/main/resources/static/img/grafico.png)
+![Grafico](img/grafico.png)
 
 Una volta inseriti correttamente i dati e dopo aver cliccato sul button **Avvia Predizione**, il grafico si popolerà con diversi pallini dove, in base alla loro posizione, assumeranno un colore differente per mostrare i k esempi più vicini rispetto all'esempio inserito dall'utente, inoltre verrà anche mostrato in alto al grafico il risultato della predizione.
 
-![Predizione](knn/src/main/resources/static/img/predizione.png)
+![Predizione](img/predizione.png)
 
 Se si vuole continuare ad eseguire predizioni sul modello caricato, basterà rimanere sulla stessa schermata e inserire i nuovi dati.
 
-![Reinserimento](knn/src/main/resources/static/img/reinserimento.png)
+![Reinserimento](img/reinserimento.png)
