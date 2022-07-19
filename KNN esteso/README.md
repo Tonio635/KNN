@@ -76,21 +76,41 @@ Se tutto è andato a buon fine, il progetto è stato correttamente importato in 
 
 ## **3. Diagrammi delle classi**
 
-Di seguito sono riportati gli screen relativi ai diagrammi delle classi suddivisi in 3 foto (server, database e knn).
+Di seguito sono riportati gli screen relativi ai diagrammi delle classi suddivisi in package.
+
+Generale:
+
+![Generale](img/generale.png)
 
 Server:
 
-![Server](img/server-esteso.png)
+![Server](img/server.png)
 
-Knn:
+Mining:
 
-![Knn](img/knn-esteso.png)
+![Mining](img/mining.png)
+
+Data:
+
+![Data](img/data.png)
+
+Example:
+
+![Example](img/example.png)
 
 Database:
 
-![Database](img/db-esteso.png)
+![Database](img/databased.png)
 
-Oltre a ciò bisogna considerare che tra la classe Server e Knn è presente una associazione diretta 1 a 1.
+Per ragioni di leggibilità, di seguito sono specificate eventuali associazioni con le classi, qualora non si dovessero capire dagli screen.
+
+Tra la classe Server e la classe Knn è presente un'associazione direzionata 1 a 1.
+
+Tra la classe Data e la classe Knn è presente una composizione 1 a 1.
+
+Tra la classe Data e DbAccess è presente una composizione 1 a 1.
+
+Tra la classe Example e la classe Data è presente una composizione 1..* a 1.
 
 Tra la classe Example e TableData è presente un'aggregazione 1..* a 1.
 
