@@ -85,23 +85,49 @@ Per poter importare su eclipse, è necessario importare due progetti differenti,
 
 ## **3. Diagrammi delle classi**
 
-Di seguito sono riportati gli screen relativi ai diagrammi delle classi suddivisi in 3 foto (server, database e knn).
+Di seguito sono riportati gli screen relativi ai diagrammi delle classi suddivisi in package.
+
+Generale:
+
+![Generale](img/generale.png)
 
 Server:
 
-![Server](img/server-base.png)
+![Server](img/server.png)
 
-Knn:
+Mining:
 
-![Knn](img/knn-base.png)
+![Mining](img/mining.png)
+
+Data:
+
+![Data](img/data.png)
+
+Example:
+
+![Example](img/exampleE.png)
 
 Database:
 
-![Database](img/db-base.png)
+![Database](img/databaseU.png)
 
-Oltre a ciò bisogna considerare che tra la classe ServerOneClient e Knn è presente una associazione diretta 1 a 1.
+Client:
+
+![Client](img/client.png)
+
+Per ragioni di leggibilità, di seguito sono specificate eventuali associazioni con le classi, qualora non si dovessero capire dagli screen.
+
+Bisogna considerare che tra la classe ServerOneClient e Knn è presente una associazione diretta 1..* a 1.
+
+Tra la classe Data e la classe Knn è presente una composizione 1 a 1.
+
+Tra la classe Data e DbAccess è presente una composizione 1 a 1.
+
+Tra la classe Example e la classe Data è presente una composizione 1..* a 1.
 
 Tra la classe Example e TableData è presente un'aggregazione 1..* a 1.
+
+Tra la classe Client e le classi Socket,ObjectOutputStream,ObjectInputStream sono presenti composizioni 1 a 1.
 
 ## **4. Manuale Utente**
 ---
